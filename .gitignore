@@ -1,0 +1,8 @@
+*.swp
+*.swo
+*~
+*.pyc
+*.out
+*.so
+*.solution
+*.o

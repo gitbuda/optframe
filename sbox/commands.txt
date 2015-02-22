@@ -1,0 +1,3 @@
+# first you have to build dynamic library from boolean.c file
+gcc -c -fPIC boolean.c -o boolean.o
+gcc -shared -Wl,-soname,libboolean.so -o libboolean.so boolean.o
