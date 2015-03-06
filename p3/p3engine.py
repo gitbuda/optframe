@@ -117,7 +117,7 @@ def run(config):
                      (population_index, len(populations)))
             population = populations[population_index]
             old_fitness = float(solution.get_fitness())
-            log.info("fitness before p3 core: %s" % old_fitness)
+            log.info("Fitness before p3 core: %s" % old_fitness)
             mixer.mix(solution, population, evaluator)
             new_fitness = solution.get_fitness()
             if new_fitness >= old_fitness:
@@ -128,8 +128,10 @@ def run(config):
                         populations.append(P3Population(config.genotype_size,
                                                         config.values_no))
                     populations[next_population_index].add(solution)
-                    log.info("added to %d with fitness %d" %
+                    log.info("Added to %d with fitness %d" %
                              (next_population_index, new_fitness))
+
+        log.info("End of pyramid iteration\n")
 
         if len(solutions) >= config.solution_no:
             break
@@ -149,6 +151,8 @@ def run(config):
             if max_fitness < fitness:
                 max_fitness = fitness
                 best_genotype = genotype
-    log.info(str(best_genotype) + " --> " + str(max_fitness))
-    writer.write('output/' + uuid.uuid4().hex + '.solution',
-                 best_genotype, max_fitness)
+    log.info("Best fitness: " + str(max_fitness))
+    output_path = '%s/%s-%s.solution' % (config.output_dir,
+                                         max_fitness, uuid.uuid4().hex)
+    log.info("Output path: " + output_path)
+    writer.write(output_path, best_genotype, max_fitness)

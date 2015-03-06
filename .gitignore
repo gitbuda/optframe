@@ -4,5 +4,4 @@
 *.pyc
 *.out
 *.so
-*.solution
 *.o
