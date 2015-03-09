@@ -5,7 +5,7 @@ P3Config
 '''
 
 import logging
-from config import read
+from helpers.config import read
 
 from p3.genotype.bit_array import BitArrayGenotype
 from p3.genotype.permutation import PermutationGenotype
