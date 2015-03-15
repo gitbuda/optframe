@@ -19,8 +19,8 @@ log = logging.getLogger(__name__)
 def run(config):
 
     population_size = config.population_size
-    solution_size = config.problem_config.solution_size
-    values_number = config.problem_config.values_number
+    solution_size = config.solution_size
+    values_number = config.values_number
 
     log.info("start")
     log.info('Solution size: %s', solution_size)

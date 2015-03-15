@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from helpers.iniconfig import read
-
 from algorithms.ga.selection import tournament
 from algorithms.ga.termination.termination import max_iteration
 from algorithms.ga.to_next.best_to_next_operator import BestToNextOperator
@@ -34,60 +32,60 @@ class Config(object):
         self.parameters = {}
 
     def load_problem_conf(self, problem_config):
-        self.parameters['problem'] = problem_config
+        self.config = problem_config
 
-    def load_algorithm_conf(self, path):
+        if 'solution_type' in self.config:
+            self.config.weak_set('cross_operator',
+                                 '%sCrossOperator' %
+                                 self.config.solution_type)
+            self.config.weak_set('mutation_operator',
+                                 '%sMutationOperator' %
+                                 self.config.solution_type)
+            self.config.weak_set('population_operator',
+                                 '%sPopulationOperator' %
+                                 self.config.solution_type)
 
-        # read config file
-        self.settings = read(path)
+    def load_algorithm_conf(self, algorithm_config):
 
-        # prepare parameters
-        mutation_factor = float(self.settings.get(SECTION, MUTATION_FACTOR))
-        population_size = int(self.settings.get(SECTION, POPULATION_SIZE))
-        population_operator = str(self.settings.get(SECTION, POPULATION_OPERATOR))
-        iterations_number = int(self.settings.get(SECTION, ITERATIONS_NUMBER))
-        crossover_factor = float(self.settings.get(SECTION, CROSSOVER_FACTOR))
-        best_no = int(self.settings.get(SECTION, BEST_NO))
-        cross_mutation_factor = float(self.settings.get(SECTION,
-                                                        CROSS_MUTATION_FACTOR))
-        best_to_next_number = int(self.settings.get(SECTION,
-                                                    BEST_TO_NEXT_NUMBER))
-
-        population_operator = str(self.settings.get(SECTION, POPULATION_OPERATOR))
-        mutation_operator = str(self.settings.get(SECTION, MUTATION_OPERATOR))
-        cross_operator = str(self.settings.get(SECTION, CROSS_OPERATOR))
+        self.config.weak_merge(algorithm_config)
 
         # define all parameters
-        self.parameters[MUTATION_FACTOR] = mutation_factor
-        self.parameters[POPULATION_SIZE] = population_size
-        self.parameters[CROSSOVER_FACTOR] = crossover_factor
-        self.parameters[ITERATIONS_NUMBER] = iterations_number
-        self.parameters[BEST_NO] = best_no
-        self.parameters[CROSS_MUTATION_FACTOR] = cross_mutation_factor
-        self.parameters[BEST_TO_NEXT_NUMBER] = best_to_next_number
-        self.parameters[POPULATION_OPERATOR] = population_operator
+        self.parameters[MUTATION_FACTOR] = float(self.config.mutation_factor)
+        self.parameters[POPULATION_SIZE] = int(self.config.population_size)
+        self.parameters[CROSSOVER_FACTOR] = float(self.config.crossover_factor)
+        self.parameters[ITERATIONS_NUMBER] = int(self.config.iterations_number)
+        self.parameters[BEST_NO] = int(self.config.best_no)
+        self.parameters[CROSS_MUTATION_FACTOR] = \
+            float(self.config.cross_mutation_factor)
+        self.parameters[BEST_TO_NEXT_NUMBER] = \
+            int(self.config.best_to_next_number)
 
         # load all operators
         self.population_operators = {}
         self.population_operators['BitArrayPopulationOperator'] = \
-            BitArrayPopulationOperator(population_size, int(self.parameters['problem'].solution_size))
+            BitArrayPopulationOperator(self.parameters[POPULATION_SIZE],
+                                       int(self.config.solution_size))
 
         self.cross_operators = {}
         self.cross_operators['BitArrayCrossOperator'] = \
             BitArrayCrossOperator()
 
         self.mutation_operators = {}
-        self.mutation_operators['BitMutationOperator'] = \
-            BitMutationOperator(mutation_factor)
+        self.mutation_operators['BitArrayMutationOperator'] = \
+            BitMutationOperator(self.parameters[MUTATION_FACTOR])
 
         # choose all operators
         self.termination_operator = max_iteration
-        self.population_operator = self.population_operators[population_operator]
-        self.mutation_operator = self.mutation_operators[mutation_operator]
-        self.cross_operator = self.cross_operators[cross_operator]
+        self.population_operator = \
+            self.population_operators[self.config.population_operator]
+        self.mutation_operator = \
+            self.mutation_operators[self.config.mutation_operator]
+        self.cross_operator = \
+            self.cross_operators[self.config.cross_operator]
         self.selection_operator = tournament
-        self.best_operator = BestToNextOperator(best_to_next_number)
+        self.best_operator = \
+            BestToNextOperator(self.parameters[BEST_TO_NEXT_NUMBER])
 
 
 if __name__ == '__main__':
-    GAConfig()
+    pass

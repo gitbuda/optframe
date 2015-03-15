@@ -27,6 +27,10 @@ def evaluate(population, best, best_fitness, evaluate_operator, best_operator):
 def run(conf):
 
     log = logging.getLogger(__name__)
+    print ""
+    log.info("GA start")
+    print ""
+    log.info("parameters\n%s" % conf.config)
 
     # operators
     termination_operator = conf.termination_operator

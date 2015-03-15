@@ -77,8 +77,7 @@ def run(config):
                 best_genotype = genotype
 
     log.info("Best fitness: " + str(max_fitness))
-    output_path = config.problem_config.output_path
-    output_path = '%s/%s-%s.solution' % (output_path,
+    output_path = '%s/%s-%s.solution' % (config.output_dir,
                                          max_fitness, uuid.uuid4().hex)
     log.info("Output path: " + output_path)
     writer.write(output_path, best_genotype, max_fitness)

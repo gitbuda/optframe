@@ -6,13 +6,7 @@
 
 import logging
 
-from helpers.iniconfig import read
-
 log = logging.getLogger(__name__)
-
-SECTION = 'LTGA'
-POPULATION_SIZE = 'PopulationSize'
-ITERATIONS = 'Iterations'
 
 
 class Config(object):
@@ -21,12 +15,15 @@ class Config(object):
         log.info('LTGA Config')
 
     def load_problem_conf(self, problem_config):
-        self.problem_config = problem_config
+        self.config = problem_config
 
-    def load_algorithm_conf(self, path):
-        self.settings = read(path)
-        self.population_size = self.settings.getint(SECTION, POPULATION_SIZE)
-        self.iterations = self.settings.getint(SECTION, ITERATIONS)
+    def load_algorithm_conf(self, algorithm_config):
+        self.config.weak_merge(algorithm_config)
+
+        self.solution_size = int(self.config.solution_size)
+        self.values_number = int(self.config.values_number)
+        self.population_size = int(self.config.population_size)
+        self.iterations = int(self.config.population_size)
 
 
 if __name__ == '__main__':

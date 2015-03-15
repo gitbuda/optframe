@@ -4,3 +4,5 @@
 *.pyc
 *.out
 *.o
+*.test.py
+test/*

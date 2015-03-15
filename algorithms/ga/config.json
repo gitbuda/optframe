@@ -1,0 +1,12 @@
+{
+  "population_size": 10,
+  "iterations_number": 10,
+  "mutation_factor": 0.005,
+  "crossover_factor": 0.4,
+  "best_no": 1,
+  "cross_mutation_factor": 0.3,
+  "best_to_next_number": 2,
+  "population_operator": "BitArrayPopulationOperator",
+  "mutation_operator": "BitMutationOperator",
+  "cross_operator": "BitArrayCrossOperator"
+}

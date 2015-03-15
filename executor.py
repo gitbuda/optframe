@@ -9,11 +9,14 @@ import imp
 import logging
 
 from os import walk
+from os.path import join as path_join
 from helpers.loader import load_json
 from statistics.writer import write
 
 PROBLEMS_DIRNAME = 'problems'
 ALGORITHMS_DIRNAME = 'algorithms'
+CONFIG_FILE_NAME = 'config.json'
+OUTPUT_DIR_NAME = 'output'
 
 if __name__ == '__main__':
 
@@ -41,25 +44,38 @@ if __name__ == '__main__':
 
     results = {}
 
-    execution_context = load_json('config.json')
+    execution_context = load_json(CONFIG_FILE_NAME)
     for iteration in xrange(int(execution_context.runs)):
         for problem in execution_context.problems:
             for algorithm in execution_context.algorithms:
+                # evaluator configure
                 evaluator = problems[problem].evaluator.Evaluator()
-                prob_conf_path = '%s/%s/config.json' % (PROBLEMS_DIRNAME,
-                                                        problem)
-                problem_config = load_json(prob_conf_path)
-                output_path = '%s/%s/output' % (PROBLEMS_DIRNAME, problem)
+                problem_config_path = path_join(PROBLEMS_DIRNAME,
+                                                problem,
+                                                CONFIG_FILE_NAME)
+                problem_config = load_json(problem_config_path)
+                output_path = path_join(PROBLEMS_DIRNAME,
+                                        problem,
+                                        OUTPUT_DIR_NAME)
                 problem_config.output_path = output_path
                 evaluator.configure(problem_config)
+
+                # algorithm configure
                 algorithm_modul = algorithms[algorithm]
-                alg_conf = '%s/%s/config.ini' % (ALGORITHMS_DIRNAME, algorithm)
+                algorithm_config_path = path_join(ALGORITHMS_DIRNAME,
+                                                  algorithm,
+                                                  CONFIG_FILE_NAME)
                 algorithm_config = algorithm_modul.config.Config()
                 algorithm_config.evaluate_operator = evaluator
                 algorithm_config.load_problem_conf(problem_config)
+                alg_conf = load_json(algorithm_config_path)
                 algorithm_config.load_algorithm_conf(alg_conf)
+
+                # execution
                 (best, best_fitness) = \
                     algorithm_modul.engine.run(algorithm_config)
+
+                # results
                 identifier = '%s, %s' % (problem, algorithm)
                 results.setdefault(identifier, []).append(best_fitness)
 
