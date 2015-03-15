@@ -1,0 +1,7 @@
+{
+  "identifier": "Bays 29",
+  "input_file_path": "problems/tsp/data/bays29.tsp",
+  "solution_type": "Permutation",
+  "values_number": 29,
+  "solution_size": 29
+}
