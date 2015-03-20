@@ -1,3 +1,4 @@
-Optimization framework
+# Optimization framework
 
-algorithms: ga, ltga, p3, ...
+## Algorithms: 
+ga, ltga, p3, ...
