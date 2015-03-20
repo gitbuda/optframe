@@ -8,13 +8,18 @@ from algorithms.ga.config import BEST_TO_NEXT_NUMBER
 from algorithms.ga.config import CROSS_MUTATION_FACTOR
 
 
+log = logging.getLogger(__name__)
+
+
 def evaluate(population, best, best_fitness, evaluate_operator, best_operator):
 
     # evaluate all genotypes
     # evaluations is array of touples [(index, fitness)]
     evaluations = []
     for j, genotype in enumerate(population.genotypes):
-        evaluations.append((j, evaluate_operator.evaluate(genotype.genes)))
+        log.info('Genotype sum: %s' % sum(genotype.genes))
+        fitness = evaluate_operator.evaluate(genotype.genes)
+        evaluations.append((j, fitness))
 
     best_array = best_operator.to_next(evaluations)
     if best_array[0][1] > best_fitness:
@@ -26,7 +31,6 @@ def evaluate(population, best, best_fitness, evaluate_operator, best_operator):
 
 def run(conf):
 
-    log = logging.getLogger(__name__)
     print ""
     log.info("GA start")
     print ""
@@ -90,7 +94,7 @@ def run(conf):
         (evaluations, best_array, best, best_fitness) = \
             evaluate(population, best, best_fitness, evaluate_operator,
                      best_operator)
-
-        log.info('iteration = %s; cost = %s' % (i, best_fitness))
+        
+        log.info('iteration = %s; cost = %s; genotype = %s' % (i, best_fitness, best.genes))
 
     return (best, best_fitness)

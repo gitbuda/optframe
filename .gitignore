@@ -6,3 +6,5 @@
 *.o
 *.test.py
 test/*
+.idea/
+build/

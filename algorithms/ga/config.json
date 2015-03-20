@@ -1,6 +1,6 @@
 {
-  "population_size": 10,
-  "iterations_number": 10,
+  "population_size": 5,
+  "iterations_number": 1000,
   "mutation_factor": 0.005,
   "crossover_factor": 0.4,
   "best_no": 1,

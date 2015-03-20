@@ -30,7 +30,7 @@ def run(config):
         solution.set_fitness(fitness)
 
         # skip this step for now
-        solution = booster.boost(solution, evaluator)
+        # solution = booster.boost(solution, evaluator)
 
         if hashable(solution.get_genotype()) not in solutions:
             solutions.add(hashable(solution.get_genotype()))

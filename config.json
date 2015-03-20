@@ -1,5 +1,5 @@
 {
   "runs": 2,
-  "problems": ["boolean"],
+  "problems": ["tsp"],
   "algorithms": ["p3"]
 }

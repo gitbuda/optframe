@@ -31,8 +31,6 @@ class Evaluator(object):
 
     def evaluate(self, genotype):
 
-        print genotype
-
         cost = 0
         length = len(genotype)
         unique = set()
