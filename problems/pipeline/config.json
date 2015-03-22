@@ -2,5 +2,6 @@
   "solution_size": 432,
   "values_number": 2,
   "solution_type": "BitArray",
-  "output_path": "problems/pipeline/output"
+  "output_path": "problems/pipeline/output",
+  "pipeline_path": "problems/pipeline/input/sbox_real.txt"
 }

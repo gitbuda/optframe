@@ -1,12 +1,6 @@
 #include <iostream>
-#include <fstream>
-#include <string>
-#include <sstream>
-#include <vector>
-#include <map>
-#include <unordered_set>
-#include <set>
-#include <ctime>
+
+#include "utils.hpp"
 
 using namespace std;
 
@@ -141,7 +135,6 @@ public:
                 }
             }
             pipelineDescription.close();
-            cout << "Pipeline description file closed" << endl;
 
             cout << "Preprocessing..." << endl;
 
@@ -176,7 +169,6 @@ public:
 
     float evaluateIterative(vector<bool> genotype) {
         this->bistabil_ = genotype;
-        // cout << "Path size: " << this->path_.size() << endl;
         int bitSum = 0;
         float latencySum = 0;
         float maxCurrentLatencySum = 0;
@@ -208,13 +200,14 @@ public:
 
 };
 
-// clib interface
+// c interface
 extern "C" {
     static Pipeline *pipeline;
 
-    void load() {
+    void load(char *pipeline_path) {
+        string pipelinePath(pipeline_path);
         pipeline = new Pipeline();
-        pipeline->loadPipeline("problems/pipeline/input/sbox_real.txt");
+        pipeline->loadPipeline(pipelinePath);
     }
 
     float evaluate(int genotype[], int size) {
@@ -229,13 +222,13 @@ extern "C" {
     }
 }
 
-int main() {
+void evaluateSolutionFile(string &pipelinePath, string &solutionPath) {
 
     Pipeline *pipeline = new Pipeline();
-    pipeline->loadPipeline("input/sbox_real.txt");
+    pipeline->loadPipeline(pipelinePath);
 
     vector<bool> genotype;
-    ifstream genotypeFile("input/genotype1.txt");
+    ifstream genotypeFile(solutionPath);
     if (genotypeFile.is_open()) {
         string line;
         while (getline(genotypeFile, line)) {
@@ -246,9 +239,9 @@ int main() {
                 if (bit == '1') genotype.push_back(true);
             } while (iss);
         }
-        cout << "Genotype file loaded" << endl;
+        cout << "Genotype file loaded: " << solutionPath << endl;
     } else {
-        cout << "Unable to open genotype file";
+        cout << "Unable to open genotype file" << endl;
     }
 
     clock_t begin = clock();
@@ -257,6 +250,23 @@ int main() {
     clock_t end = clock();
     double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
     cout << "Evaluation time: " << elapsed_secs << endl;
+}
+
+int main(int argc, char *argv[]) {
+
+    map_ss inputArguments = readInputArguments(argc, argv);
+
+    string pipelinePath = inputArguments["-p"];
+    string solutionPath = inputArguments["-s"];
+    
+    if (pipelinePath.empty()) {
+        pipelinePath = "input/sbox_real.txt";
+    }
+    if (solutionPath.empty()) {
+        solutionPath = "input/genotype1.txt";
+    }
+    
+    evaluateSolutionFile(pipelinePath, solutionPath);
 
     return 0;
 }

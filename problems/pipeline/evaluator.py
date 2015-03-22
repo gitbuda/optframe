@@ -4,7 +4,7 @@
 Pipeline problem evaluator.
 '''
 
-from ctypes import cdll, c_int, c_float
+from ctypes import cdll, c_int, c_float, c_char_p
 import os
 
 # load boolean library from current file folder
@@ -34,7 +34,7 @@ class Evaluator(object):
         self.evaluations_number = 0
 
     def configure(self, config=''):
-        pipeline.load()
+        pipeline.load(c_char_p(config.pipeline_path))
         pipeline.evaluate.restype = c_float
 
     def evaluate(self, solution):

@@ -1,5 +1,5 @@
 {
-  "runs": 2,
-  "problems": ["tsp"],
-  "algorithms": ["p3"]
+  "runs": 1,
+  "problems": ["pipeline"],
+  "algorithms": ["ga"]
 }

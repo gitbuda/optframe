@@ -2,8 +2,10 @@ cmake_minimum_required (VERSION 2.8)
 
 project (pipeline_evaluator) 
 
-# unit test library include
-set(CMAKE_CXX_FLAGS "-Wall -g -std=c++0x -O2")
+# debug
+# set(CMAKE_CXX_FLAGS "-Wall -g -std=c++0x -O2")
+# production
+set(CMAKE_CXX_FLAGS "-Wall -std=c++0x -O2")
 
 # unit test executable
 add_executable(a.out evaluator.cpp)
