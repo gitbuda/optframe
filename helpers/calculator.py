@@ -16,6 +16,11 @@ def neg_entropy(counts, total):
             sum_all += p * math.log(p, 2)
     return sum_all
 
+
+def float_round(value, precision):
+    return 1.0 * round(value * precision) / precision
+
+
 if __name__ == '__main__':
 
     logging.basicConfig(level=logging.INFO)

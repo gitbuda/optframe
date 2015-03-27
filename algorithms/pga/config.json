@@ -1,0 +1,5 @@
+{
+  "mutation_factor": 0.005,
+  "crossover_factor": 0.4,
+  "solution_number": 200
+}

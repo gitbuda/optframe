@@ -1,5 +1,13 @@
 {
-  "runs": 1,
-  "problems": ["pipeline"],
-  "algorithms": ["ga"]
+  "runs": [
+    {
+      "identifier": "p3+deceptive_trap",
+      "run_number": 1,
+      "problem": "schwefel",
+      "algorithm": "p3",
+      "solution_number": 2000,
+      "solution_size": 80,
+      "bits_per_float": 20
+    }
+  ]
 }

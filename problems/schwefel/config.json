@@ -1,0 +1,8 @@
+{
+  "solution_size": 20,
+  "bits_per_float": 5,
+  "alpha": 418.982887,
+  "precision": 65536,
+  "minimum": -512,
+  "maximum": 512
+}

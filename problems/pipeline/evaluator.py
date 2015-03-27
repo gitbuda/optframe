@@ -7,9 +7,7 @@ Pipeline problem evaluator.
 from ctypes import cdll, c_int, c_float, c_char_p
 import os
 
-# load boolean library from current file folder
-# boolean library name is libboolean.so
-# create abs path to library
+# find c pipeline library
 folder_path = os.path.split(os.path.abspath(__file__))[0]
 pipeline_lib_path = os.path.join(folder_path, 'build/libpipeline.so')
 

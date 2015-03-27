@@ -103,6 +103,11 @@ public:
         this->validLayerSum_ = 1;
     }
 
+    void resetCost() {
+        this->layerCost_ = 0;
+        this->latencyCost_ = 0;
+    }
+
     void loadPipeline(string path) {
 
         // read file
@@ -211,6 +216,7 @@ extern "C" {
     }
 
     float evaluate(int genotype[], int size) {
+        pipeline->resetCost();
         vectorb bool_genotype;
         for (int i = 0; i < size; ++i) {
             int bit = genotype[i];
