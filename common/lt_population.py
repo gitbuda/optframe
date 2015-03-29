@@ -11,6 +11,9 @@ from common.clustering import upgma
 from helpers.calculator import neg_entropy
 
 
+log = logging.getLogger(__name__)
+
+
 class LTPopulation:
 
     def __init__(self, size, values_no):
@@ -18,13 +21,12 @@ class LTPopulation:
         self.size = size
         self.values_no = values_no
         self.solutions = []
-
         self.reset_calculations()
 
     def reset_calculations(self):
         self.occurrences = defaultdict(lambda: defaultdict(list))
-        self.pairwise_distance = [[0] * self.size] * self.size
-        self.clusters = [[]] * (2 * self.size - 1)
+        self.pairwise_distance = [[0.0 for x in range(self.size)]
+                                  for x in range(self.size)]
 
     def recalculate_for(self, solution, rebuild_tree=True):
         genotype = solution.get_genotype()
@@ -32,8 +34,7 @@ class LTPopulation:
         for i in range(len(solution.get_genotype()) - 1):
             for j in range(i + 1, len(solution.get_genotype())):
                 if not self.occurrences[i][j]:
-                    self.occurrences[i][j] = [0] * \
-                        self.values_no * self.values_no
+                    self.occurrences[i][j] = [0] * self.values_no**2
                 entry = self.occurrences[i][j]
                 index = genotype[j] * self.values_no + genotype[i]
                 entry[index] += 1
@@ -68,21 +69,51 @@ class LTPopulation:
         ratio = float(0)
         if together:
             ratio = 2 - (separate / together)
-        self.pairwise_distance[i][j] = ratio
 
-    def get_distance(self, i, j):
-        if (i > j):
-            i, j = j, i
-        return self.pairwise_distance[i][j]
+        self.pairwise_distance[i][j] = ratio
+        self.pairwise_distance[j][i] = ratio
 
     def rebuild_tree(self):
-        (clusters, _) = upgma.build_clusters(self.pairwise_distance)
-        self.clusters = clusters
+        self.clusters = upgma.build(self.pairwise_distance)
 
     def get_clusters(self):
         return self.clusters
 
+
 if __name__ == '__main__':
 
-    logging.basicConfig(level=logging.INFO)
-    log = logging.getLogger(__name__)
+    from algorithms.p3.genotype.bit_array import BitArrayGenotype
+    import numpy as np
+
+    def block_bit(size, block_size, index=-1):
+        block = [0 for i in xrange(size)]
+        if index == -1:
+            return block
+        start = block_size * index
+        for i in xrange(start, start + block_size):
+            block[i] = 1
+        return np.array(block)
+
+    # manual test
+    size = 20
+    block_size = 5
+    lt_pop = LTPopulation(size, 2)
+    solution = BitArrayGenotype(size)
+    genotype = block_bit(size, block_size, 0)
+    print genotype
+    solution.set_genotype(genotype)
+    lt_pop.add(solution)
+    # genotype = block_bit(size, block_size, 1)
+    # print genotype
+    # solution.set_genotype(genotype)
+    # lt_pop.add(solution)
+    # genotype = block_bit(size, block_size, 2)
+    # print genotype
+    # solution.set_genotype(genotype)
+    # lt_pop.add(solution)
+    # genotype = block_bit(size, block_size, 0)
+    # print genotype
+    # solution.set_genotype(genotype)
+    # lt_pop.add(solution)
+    # solution.set_genotype(block_bit(size, block_size, 1))
+    # lt_pop.add(solution)

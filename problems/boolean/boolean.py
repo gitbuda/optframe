@@ -8,7 +8,7 @@ import os
 # boolean library name is libboolean.so
 # create abs path to library
 folder_path = os.path.split(os.path.abspath(__file__))[0]
-boolan_lib_path = os.path.join(folder_path, 'libboolean.so')
+boolan_lib_path = os.path.join(folder_path, 'libbool1.so')
 
 # load library
 boolean = cdll.LoadLibrary(boolan_lib_path)

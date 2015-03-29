@@ -10,7 +10,7 @@ import sys
 class Evaluator(object):
 
     def __init__(self):
-        pass
+        self.evaluations_number = 0
 
     def configure(self, config=''):
 
@@ -30,6 +30,7 @@ class Evaluator(object):
                 self._tsp_distances.append(row)
 
     def evaluate(self, genotype):
+        self.evaluations_number += 1
 
         cost = 0
         length = len(genotype)

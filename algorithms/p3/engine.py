@@ -4,6 +4,7 @@
 import sys
 import logging
 import uuid
+import numpy as np
 
 from helpers.solution_writer import SolutionWriter
 from algorithms.p3.utils.hashable import hashable
@@ -35,8 +36,9 @@ def run(config):
 
     evaluator = config.evaluate_operator
     mixer = config.mixer
-    booster = config.booster
+    # booster = config.booster
     genotype = config.genotype
+    solution_operator = config.solution_operator
     writer = SolutionWriter()
 
     solutions = set()
@@ -45,26 +47,29 @@ def run(config):
     while True:
 
         solution = genotype(config.genotype_size)
+
+        # TODO: remove from here, define specific operator
+        if config.problem.problem == 'pipeline':
+            gen_gen = solution_operator.next()
+            solution.set_genotype(np.array(gen_gen))
+        # ------------------------------------------------
+
         fitness = evaluator.evaluate(solution.get_genotype())
         solution.set_fitness(fitness)
 
-        # print "".join(map(str, solution.get_genotype()))
-        # skip this step for now
-        solution = booster.boost(solution, evaluator)
-        # print "".join(map(str, solution.get_genotype()))
+        # solution = booster.boost(solution, evaluator)
 
         if hashable(solution.get_genotype()) not in solutions:
             solutions.add(hashable(solution.get_genotype()))
             populations[0].add(solution)
 
         for population_index in xrange(len(populations)):
-            # log.info("Population index: %s population len: %s" %
-            #          (population_index, len(populations)))
+            log.info("Population index: %s population len: %s" %
+                     (population_index, len(populations)))
             population = populations[population_index]
             old_fitness = float(solution.get_fitness())
-            # log.info("Fitness before p3 core: %s" % old_fitness)
+            log.info("Fitness before p3 core: %s" % old_fitness)
             mixer.mix(solution, population, evaluator)
-            # print "".join(map(str, solution.get_genotype()))
             new_fitness = solution.get_fitness()
             if new_fitness >= old_fitness:
                 if hashable(solution.get_genotype()) not in solutions:
@@ -74,24 +79,23 @@ def run(config):
                         populations.append(LTPopulation(config.genotype_size,
                                                         config.values_no))
                     populations[next_population_index].add(solution)
-                    # log.info("Added to %d with fitness %f" %
-                    #          (next_population_index, new_fitness))
+                    log.info("Added to %d with fitness %f" %
+                             (next_population_index, new_fitness))
             else:
                 break
 
-        (max_fitness, best_genotype) = best_so_far(populations, evaluator)
-        print max_fitness, best_genotype
+        # (max_fitness, best_genotype) = best_so_far(populations, evaluator)
+        # print max_fitness, best_genotype
 
-        # log.info("End of pyramid iteration\n")
-
+        log.info("End of pyramid iteration\n")
         if len(solutions) >= config.solution_no:
             break
 
     (max_fitness, best_genotype) = best_so_far(populations, evaluator)
 
     log.info("Best fitness: " + str(max_fitness))
-    output_path = '%s/%s-%s.solution' % (config.output_dir,
-                                         max_fitness, uuid.uuid4().hex)
+    output_path = '%s/f%s-%s.solution' % (config.output_dir,
+                                          max_fitness, uuid.uuid4().hex)
     log.info("Output path: " + output_path)
     writer.write(output_path, best_genotype, max_fitness)
 

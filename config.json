@@ -3,10 +3,12 @@
     {
       "identifier": "p3+deceptive_trap",
       "run_number": 1,
-      "problem": "schwefel",
+      "problem": "pipeline",
+      "boolean_type": 1,
       "algorithm": "p3",
-      "solution_number": 2000,
-      "solution_size": 80,
+      "solution_number": 200,
+      "trap_size": 5,
+      "solution_size": 432,
       "bits_per_float": 20
     }
   ]

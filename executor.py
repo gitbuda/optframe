@@ -36,6 +36,7 @@ if __name__ == '__main__':
     (_, problem_names, _) = walk(PROBLEMS_DIRNAME).next()
     problems = {}
     for problem_name in problem_names:
+        print problem_name
         f, filename, desc = imp.find_module(problem_name, [PROBLEMS_DIRNAME])
         modul = imp.load_module(problem_name, f, filename, desc)
         problems[problem_name] = modul
@@ -58,7 +59,7 @@ if __name__ == '__main__':
             problem = run.problem
             algorithm = run.algorithm
 
-            # evaluator configure
+            # evaluator configuration
             evaluator = problems[problem].evaluator.Evaluator()
             problem_config_path = path_join(PROBLEMS_DIRNAME,
                                             problem,
@@ -71,16 +72,21 @@ if __name__ == '__main__':
             problem_config.output_path = output_path
             evaluator.configure(problem_config)
 
-            # algorithm configure
+            # algorithm configuration
             algorithm_modul = algorithms[algorithm]
             algorithm_config_path = path_join(ALGORITHMS_DIRNAME,
                                               algorithm,
                                               CONFIG_FILE_NAME)
             algorithm_config = algorithm_modul.config.Config()
             algorithm_config.evaluate_operator = evaluator
+            # TEST FEATURE TODO: dynamic implementation --------------------
+            from problems.pipeline.solution_operator import SolutionOperator
+            algorithm_config.solution_operator = SolutionOperator()
+            # --------------------------------------------------------------
             algorithm_config.load_problem_conf(problem_config)
             alg_conf = load_json(algorithm_config_path)
             algorithm_config.load_algorithm_conf(alg_conf)
+            algorithm_config.problem = problem_config
 
             # execution
             (best, best_fitness) = \
@@ -90,7 +96,8 @@ if __name__ == '__main__':
             identifier = '%s, %s' % (problem, algorithm)
             results.setdefault(identifier, ResultDTO())
             results[identifier].fitness_container.append(best_fitness)
-            results[identifier].evaluations_container.append(evaluator.evaluations_number)
+            results[identifier].evaluations_container.append(
+                evaluator.evaluations_number)
 
     write(results)
 
