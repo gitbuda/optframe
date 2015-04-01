@@ -60,13 +60,6 @@ int support (int *tt, int n);
 //int main()
 float eval(int tt[], int nVariables, int varijanta, int *stop)
 {
-    FILE *ofp;
-    char *mode = "w";
-
-    ofp = fopen("out", mode);
-    fprintf(ofp, "%d %d %d\n", nVariables, varijanta, *stop);
-    fclose(ofp);
-
 	/*SVOJSTVA
 
 	Trenutno se gleda pet svojstava Boolean funkcija
