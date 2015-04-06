@@ -1,7 +1,7 @@
 {
   "solution_size": 20,
   "values_number": 2,
-  "trap_size": 2,
+  "trap_size": 5,
   "solution_type": "BitArray",
-  "output_path": "problems/onemax/output"
+  "output_path": "problems/deceptive_trap/output"
 }

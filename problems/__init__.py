@@ -6,6 +6,5 @@ import max_sat  # NOQA
 import one_max  # NOQA
 import pipeline  # NOQA
 import rastring  # NOQA
-import sbox  # NOQA
 import schwefel  # NOQA
 import tsp  # NOQA

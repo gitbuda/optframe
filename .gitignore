@@ -9,3 +9,4 @@ test/*
 .idea/
 build/
 genotype*.txt
+*.config.json

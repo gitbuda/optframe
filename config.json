@@ -1,15 +1,11 @@
 {
   "runs": [
     {
-      "identifier": "p3+deceptive_trap",
+      "identifier": "p3+max_sat",
       "run_number": 1,
-      "problem": "pipeline",
-      "boolean_type": 1,
+      "problem": "max_sat",
       "algorithm": "p3",
-      "solution_number": 200,
-      "trap_size": 5,
-      "solution_size": 432,
-      "bits_per_float": 20
+      "solution_number": 200
     }
   ]
 }
