@@ -1,11 +1,16 @@
 {
   "runs": [
     {
-      "identifier": "p3+max_sat",
+      "identifier": "ga+deceptive_trap",
       "run_number": 1,
-      "problem": "max_sat",
-      "algorithm": "p3",
-      "solution_number": 200
+      "problem": "deceptive_trap",
+      "algorithm": "ga",
+      "solution_number": 200,
+      "solution_size": 20,
+      "trap_size": 5,
+      "evaluations_number": 1000000,
+      "iterations_number": 1000,
+      "mutation_factor": 1
     }
   ]
 }

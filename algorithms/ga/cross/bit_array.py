@@ -11,11 +11,15 @@ import random
 class BitArrayCrossOperator(object):
 
     def __init__(self):
+        '''
+        '''
         pass
 
     def cross(self, genotype_better, genotype_worse):
         '''
         '''
+        # print "genotype better %s" % genotype_better
+        # print "genotype worse %s" % genotype_worse
 
         new_genotype = list(genotype_better)
         genotype_size = len(genotype_better)
@@ -28,6 +32,6 @@ class BitArrayCrossOperator(object):
 
             new_genotype = genotype_better[0:points[0]] + \
                 genotype_worse[points[0]:points[1]] + \
-                genotype_better[points[1]:-1]
+                genotype_better[points[1]:]
 
         return new_genotype

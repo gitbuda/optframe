@@ -97,7 +97,7 @@ if __name__ == '__main__':
             results.setdefault(identifier, ResultDTO())
             results[identifier].fitness_container.append(best_fitness)
             results[identifier].evaluations_container.append(
-                evaluator.evaluations_number)
+                evaluator.evaluation_counter.evaluations_number)
 
     write(results)
 

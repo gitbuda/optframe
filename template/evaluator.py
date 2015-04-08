@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
 '''
-Onemax problem evaluator.
+Evaluator template.
+
+optframe/problems/PROBLEM_NAME/evaluator.py
 '''
 
 from common.evaluation_counter import EvaluationCounter
@@ -24,6 +26,4 @@ class Evaluator(object):
         '''
         self.evaluation_counter.increment()
 
-        gene_sum = float(sum(solution))
-
-        return gene_sum / len(solution)
+        return 0

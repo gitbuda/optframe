@@ -4,8 +4,10 @@
 Pipeline problem evaluator.
 '''
 
-from ctypes import cdll, c_int, c_float, c_char_p
 import os
+
+from ctypes import cdll, c_int, c_float, c_char_p
+from common.evaluation_counter import EvaluationCounter
 
 # find c pipeline library
 folder_path = os.path.split(os.path.abspath(__file__))[0]
@@ -29,14 +31,23 @@ def create_c_array(py_array):
 class Evaluator(object):
 
     def __init__(self):
-        self.evaluations_number = 0
+        '''
+        '''
+        self.evaluation_counter = EvaluationCounter()
 
     def configure(self, config=''):
+        '''
+        '''
+        self.evaluation_counter.configure(config)
         pipeline.load(c_char_p(config.pipeline_path))
         pipeline.evaluate.restype = c_float
 
     def evaluate(self, solution):
-        self.evaluations_number += 1
+        '''
+        '''
+        self.evaluation_counter.increment()
+
         c_array = create_c_array(solution)
         cost = pipeline.evaluate(c_array, len(solution))
+
         return cost

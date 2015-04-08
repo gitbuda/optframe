@@ -7,10 +7,14 @@ MAX SAT problem evaluator.
 import random
 import logging
 
+from common.evaluation_counter import EvaluationCounter
+
 log = logging.getLogger(__name__)
 
 
 class Config(object):
+    '''
+    '''
     def __init__(self):
         self.solution_size = 20
         self.clause_size = 3
@@ -20,9 +24,15 @@ class Config(object):
 class Evaluator(object):
 
     def __init__(self):
-        self.evaluations_number = 0
+        '''
+        '''
+        self.evaluation_counter = EvaluationCounter()
 
     def configure(self, config=''):
+        '''
+        '''
+        self.evaluation_counter.configure(config)
+
         self.solution_size = int(config.solution_size)
         self.clause_size = int(config.clause_size)
         self.clause_number = int(config.clause_number)
@@ -40,7 +50,9 @@ class Evaluator(object):
                     break
 
     def evaluate(self, solution):
-        self.evaluations_number += 1
+        '''
+        '''
+        self.evaluation_counter.increment()
 
         fitness = 0
         for i in range(self.clause_number):

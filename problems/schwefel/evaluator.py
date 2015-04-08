@@ -8,16 +8,22 @@ http://www.cs.unm.edu/~neal.holts/dga/benchmarkFunction/schwefel.html
 import math
 from itertools import islice
 from helpers.calculator import float_round
+from common.evaluation_counter import EvaluationCounter
 from common.binary_to_float_evaluator import BinaryToFloatEvaluator
 
 
 class Evaluator(BinaryToFloatEvaluator):
 
     def __init__(self):
-        self.evaluations_number = 0
+        '''
+        '''
+        self.evaluation_counter = EvaluationCounter()
 
     def configure(self, config=''):
+        '''
+        '''
         super(Evaluator, self).configure(config)
+        self.evaluation_counter.configure(config)
 
         self.alpha = float(config.alpha)
 
@@ -28,9 +34,12 @@ class Evaluator(BinaryToFloatEvaluator):
                 self.worst = fvalue
 
     def evaluate(self, solution):
-        self.evaluations_number += 1
+        '''
+        '''
+        self.evaluation_counter.increment()
 
         total = 0
+
         it = iter(solution)
         while True:
             next_n = list(islice(it, self.bits))
@@ -38,6 +47,6 @@ class Evaluator(BinaryToFloatEvaluator):
             if not next_n:
                 break
             total += self.function[x]
-
         total /= (self.n * self.worst)
+
         return - float_round(1 - total, self.precision)

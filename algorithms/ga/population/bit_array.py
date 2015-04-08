@@ -27,10 +27,8 @@ class BitArrayPopulationOperator:
 
         for i in range(self.size):
             genotype = Genotype()
-
             genotype.genes = [random.randint(0, 1)
                               for x in xrange(self.genotype_size)]
-
             population.append(genotype)
 
         return population

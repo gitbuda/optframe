@@ -6,13 +6,20 @@ TSP problem evaluator.
 
 import sys
 
+from common.evaluation_counter import EvaluationCounter
+
 
 class Evaluator(object):
 
     def __init__(self):
-        self.evaluations_number = 0
+        '''
+        '''
+        self.evaluation_counter = EvaluationCounter()
 
     def configure(self, config=''):
+        '''
+        '''
+        self.evaluation_counter.configure(config)
 
         path = config.input_file_path
         self._tsp_distances = []
@@ -30,7 +37,9 @@ class Evaluator(object):
                 self._tsp_distances.append(row)
 
     def evaluate(self, genotype):
-        self.evaluations_number += 1
+        '''
+        '''
+        self.evaluation_counter.increment()
 
         cost = 0
         length = len(genotype)

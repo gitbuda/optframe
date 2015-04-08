@@ -1,42 +1,26 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import sys
 import logging
 import uuid
 import numpy as np
 
-from helpers.solution_writer import SolutionWriter
-from algorithms.p3.utils.hashable import hashable
+from common.best_store import BestStore
 from common.lt_population import LTPopulation
+from algorithms.p3.utils.hashable import hashable
+from helpers.solution_writer import SolutionWriter
+from common.evaluator_exception import EvaluatorException
 
 log = logging.getLogger(__name__)
 
 
-def best_so_far(populations, evaluator):
-    # something works :)
-    max_fitness = -sys.maxsize
-    sum_pop = 0
-    best_genotype = []
-    for population in populations:
-        sum_pop += len(population.solutions)
-    # log.info("solutions sum: %d" % sum_pop)
-    for i, population in enumerate(populations):
-        # log.info('Population %s: %s' % (i, len(population.solutions)))
-        for solution in population.solutions:
-            genotype = solution.get_genotype()
-            fitness = evaluator.evaluate(genotype)
-            if max_fitness < fitness:
-                max_fitness = fitness
-                best_genotype = genotype
-    return (max_fitness, best_genotype)
-
-
 def run(config):
+
+    best_store = BestStore()
 
     evaluator = config.evaluate_operator
     mixer = config.mixer
-    # booster = config.booster
+    booster = config.booster
     genotype = config.genotype
     solution_operator = config.solution_operator
     writer = SolutionWriter()
@@ -44,54 +28,59 @@ def run(config):
     solutions = set()
     populations = [LTPopulation(config.genotype_size, config.values_no)]
 
-    while True:
+    try:
 
-        solution = genotype(config.genotype_size)
+        while True:
 
-        # TODO: remove from here, define specific operator
-        if config.problem.problem == 'pipeline':
-            gen_gen = solution_operator.next()
-            solution.set_genotype(np.array(gen_gen))
-        # ------------------------------------------------
+            solution = genotype(config.genotype_size)
 
-        fitness = evaluator.evaluate(solution.get_genotype())
-        solution.set_fitness(fitness)
+            # TODO: remove from here, define specific operator
+            if config.problem.problem == 'pipeline':
+                gen_gen = solution_operator.next()
+                solution.set_genotype(np.array(gen_gen))
+            # ------------------------------------------------
 
-        # solution = booster.boost(solution, evaluator)
+            fitness = evaluator.evaluate(solution.get_genotype())
+            solution.set_fitness(fitness)
 
-        if hashable(solution.get_genotype()) not in solutions:
-            solutions.add(hashable(solution.get_genotype()))
-            populations[0].add(solution)
+            solution = booster.boost(solution, evaluator)
 
-        for population_index in xrange(len(populations)):
-            log.info("Population index: %s population len: %s" %
-                     (population_index, len(populations)))
-            population = populations[population_index]
-            old_fitness = float(solution.get_fitness())
-            log.info("Fitness before p3 core: %s" % old_fitness)
-            mixer.mix(solution, population, evaluator)
-            new_fitness = solution.get_fitness()
-            if new_fitness >= old_fitness:
-                if hashable(solution.get_genotype()) not in solutions:
-                    solutions.add(hashable(solution.get_genotype()))
-                    next_population_index = population_index + 1
-                    if next_population_index == len(populations):
-                        populations.append(LTPopulation(config.genotype_size,
-                                                        config.values_no))
-                    populations[next_population_index].add(solution)
-                    log.info("Added to %d with fitness %f" %
-                             (next_population_index, new_fitness))
-            else:
+            if hashable(solution.get_genotype()) not in solutions:
+                solutions.add(hashable(solution.get_genotype()))
+                populations[0].add(solution)
+                best_store.try_store(solution.get_fitness(), solution)
+
+            for population_index in xrange(len(populations)):
+                log.info("Population index: %s population len: %s" %
+                         (population_index, len(populations)))
+                population = populations[population_index]
+                old_fitness = float(solution.get_fitness())
+                log.info("Fitness before p3 core: %s" % old_fitness)
+                mixer.mix(solution, population, evaluator)
+                new_fitness = solution.get_fitness()
+                if new_fitness >= old_fitness:
+                    if hashable(solution.get_genotype()) not in solutions:
+                        solutions.add(hashable(solution.get_genotype()))
+                        next_population_index = population_index + 1
+                        if next_population_index == len(populations):
+                            population = LTPopulation(config.genotype_size,
+                                                      config.values_no)
+                            populations.append(population)
+                        populations[next_population_index].add(solution)
+                        log.info("Added to %d with fitness %f" %
+                                 (next_population_index, new_fitness))
+                        best_store.try_store(solution.get_fitness(), solution)
+                else:
+                    break
+
+            log.info("End of pyramid iteration\n")
+            if len(solutions) >= config.solution_no:
                 break
-
-        # (max_fitness, best_genotype) = best_so_far(populations, evaluator)
-        # print max_fitness, best_genotype
-
-        log.info("End of pyramid iteration\n")
-        if len(solutions) >= config.solution_no:
-            break
-
-    (max_fitness, best_genotype) = best_so_far(populations, evaluator)
+    except EvaluatorException:
+        pass
+    finally:
+        (max_fitness, best_genotype) = \
+            (best_store.best_fitness, best_store.best_solution.get_genotype())
 
     log.info("Best fitness: " + str(max_fitness))
     output_path = '%s/f%s-%s.solution' % (config.output_dir,

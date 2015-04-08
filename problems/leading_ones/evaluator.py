@@ -6,14 +6,20 @@ e.g.
 [1, 1, 0, 1, 1] -> 2 -> (normalized) -> 0.4
 '''
 
+from common.evaluation_counter import EvaluationCounter
+
 
 class Evaluator(object):
 
     def __init__(self):
-        self.evaluations_number = 0
+        '''
+        '''
+        self.evaluation_counter = EvaluationCounter()
 
     def configure(self, config=''):
-        pass
+        '''
+        '''
+        self.evaluation_counter.configure(config)
 
     def evaluate(self, solution):
         '''
@@ -24,7 +30,7 @@ class Evaluator(object):
         Bitstring check operation is expensive and here
         isn't a place where this should be chacked.
         '''
-        self.evaluations_number += 1
+        self.evaluation_counter.increment()
         ones = 0
         for bit in solution:
             if bit != 1:
