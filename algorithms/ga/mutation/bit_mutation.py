@@ -14,6 +14,8 @@ import random
 class BitMutationOperator(object):
 
     def __init__(self, mutation_factor):
+        '''
+        '''
         self._mutation_factor = mutation_factor
 
     @property
@@ -21,9 +23,8 @@ class BitMutationOperator(object):
         return self._mutation_factor
 
     def mutate(self, genes):
-
-        # print genes
-
+        '''
+        '''
         for i, gene in enumerate(genes):
             random_float = random.random()
             if random_float < self.mutation_factor:

@@ -3,14 +3,14 @@
     {
       "identifier": "ga+deceptive_trap",
       "run_number": 1,
-      "problem": "deceptive_trap",
+      "problem": "tsp",
       "algorithm": "ga",
-      "solution_number": 200,
-      "solution_size": 20,
-      "trap_size": 5,
-      "evaluations_number": 1000000,
-      "iterations_number": 1000,
-      "mutation_factor": 1
+      "iterations_number": 10000,
+      "mutation_factor": 0.1,
+      "crossover_factor": 0.3,
+      "best_no": 1,
+      "cross_mutation_factor": 0.3,
+      "best_to_next_number": 2
     }
   ]
 }

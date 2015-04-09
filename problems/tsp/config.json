@@ -3,5 +3,8 @@
   "input_file_path": "problems/tsp/data/bays29.tsp",
   "solution_type": "Permutation",
   "values_number": 29,
-  "solution_size": 29
+  "solution_size": 29,
+  "population_operator": "PermutationPopulationOperator",
+  "mutation_operator": "PermutationMutationOperator",
+  "cross_operator": "PermutationCrossOperator"
 }

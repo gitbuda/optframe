@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 '''
-Framework specific standard float cross operator.
+Framework specific bit array cross operator.
 '''
 
 import random

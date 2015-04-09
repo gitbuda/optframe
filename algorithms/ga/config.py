@@ -7,6 +7,9 @@ from algorithms.ga.to_next.best_to_next_operator import BestToNextOperator
 from algorithms.ga.cross.bit_array import BitArrayCrossOperator
 from algorithms.ga.mutation.bit_mutation import BitMutationOperator
 from algorithms.ga.population.bit_array import BitArrayPopulationOperator
+from algorithms.ga.cross.permutation import PermutationCrossOperator
+from algorithms.ga.mutation.permutation import PermutationMutationOperator
+from algorithms.ga.population.permutation import PermutationPopulationOperator
 
 # gaconfig.ini keys
 SECTION = 'GA'
@@ -65,14 +68,21 @@ class Config(object):
         self.population_operators['BitArrayPopulationOperator'] = \
             BitArrayPopulationOperator(self.parameters[POPULATION_SIZE],
                                        int(self.config.solution_size))
+        self.population_operators['PermutationPopulationOperator'] = \
+            PermutationPopulationOperator(self.parameters[POPULATION_SIZE],
+                                          int(self.config.solution_size))
 
         self.cross_operators = {}
         self.cross_operators['BitArrayCrossOperator'] = \
             BitArrayCrossOperator()
+        self.cross_operators['PermutationCrossOperator'] = \
+            PermutationCrossOperator()
 
         self.mutation_operators = {}
         self.mutation_operators['BitArrayMutationOperator'] = \
             BitMutationOperator(self.parameters[MUTATION_FACTOR])
+        self.mutation_operators['PermutationMutationOperator'] = \
+            PermutationMutationOperator(self.parameters[MUTATION_FACTOR])
 
         # choose all operators
         self.termination_operator = max_iteration

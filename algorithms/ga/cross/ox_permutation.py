@@ -11,9 +11,13 @@ import random
 class OXCrossOperator(object):
 
     def __init__(self):
+        '''
+        '''
         pass
 
     def cross(self, genotype_better, genotype_worse):
+        '''
+        '''
 
         # get genotype length
         length = len(genotype_better)
