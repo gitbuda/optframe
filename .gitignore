@@ -10,3 +10,5 @@ test/*
 build/
 genotype*.txt
 *.config.json
+tmp.*
+tmp/
