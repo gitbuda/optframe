@@ -10,7 +10,7 @@
     best solution so far.
 '''
 
-from common.evaluator_exception import EvaluatorException
+from common.exception.evaluator_exception import EvaluatorException
 
 
 class EvaluationCounter(object):

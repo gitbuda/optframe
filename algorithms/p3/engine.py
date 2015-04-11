@@ -9,7 +9,8 @@ from common.best_store import BestStore
 from common.lt_population import LTPopulation
 from algorithms.p3.utils.hashable import hashable
 from helpers.solution_writer import SolutionWriter
-from common.evaluator_exception import EvaluatorException
+from common.exception.evaluator_exception import EvaluatorException
+from common.exception.termination_exception import TerminationException
 
 log = logging.getLogger(__name__)
 
@@ -17,6 +18,7 @@ log = logging.getLogger(__name__)
 def run(config):
 
     best_store = BestStore()
+    best_store.configure(config.config)
 
     evaluator = config.evaluate_operator
     mixer = config.mixer
@@ -76,8 +78,8 @@ def run(config):
             log.info("End of pyramid iteration\n")
             if len(solutions) >= config.solution_no:
                 break
-    except EvaluatorException:
-        pass
+    except (EvaluatorException, TerminationException) as e:
+        log.info(e)
     finally:
         (max_fitness, best_genotype) = \
             (best_store.best_fitness, best_store.best_solution.get_genotype())

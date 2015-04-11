@@ -10,7 +10,7 @@ log = logging.getLogger(__name__)
 
 class DictWrapper(object):
 
-    def __init__(self, input_dict):
+    def __init__(self, input_dict={}):
         self._input_dict = input_dict
 
     @property
@@ -64,4 +64,4 @@ def load_json(path):
         with open(path) as f:
             return DictWrapper(json.load(f))
     else:
-        return DictWrapper({})
+        return DictWrapper()
