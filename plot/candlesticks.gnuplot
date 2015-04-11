@@ -14,12 +14,14 @@ set key below
 set title "Candlesticks"
 
 # xAxis
-set xrange [ 0 : 5 ] noreverse nowriteback
 set xlabel "xAxis"
 
 # yAxis
-set yrange [ 0 : 20 ] noreverse nowriteback
 set ylabel "yAxis"
+
+# axis range
+# set offsets <left>, <right>, <top>, <bottom>
+set offsets graph 0.2, 0.2, 0.2, 0.2
 
 # plot
 set style fill empty

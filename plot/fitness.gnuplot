@@ -16,6 +16,10 @@ set xlabel "xAxis"
 # yAxis
 set ylabel "yAxis"
 
+# axis range
+# set offsets <left>, <right>, <top>, <bottom>
+set offsets graph 0.00, 0.00, 0.05, 0.05
+
 set style line 1 lc rgb 'orange' pt 7 ps 0.75
 set style line 2 lc rgb 'red' pt 7 ps 0.75
 set style line 3 lc rgb 'green' pt 7 ps 0.75
