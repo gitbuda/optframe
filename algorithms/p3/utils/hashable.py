@@ -1,3 +1,8 @@
+'''
+From:
+http://machineawakening.blogspot.com/2011/03/making-numpy-ndarrays-hashable.html
+'''
+
 from hashlib import sha1
 
 from numpy import all, array, uint8

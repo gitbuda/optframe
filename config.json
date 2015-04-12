@@ -1,8 +1,8 @@
 {
   "runs": [
     {
-      "identifier": "p3-one_max",
-      "run_number": 10,
+      "identifier": "p3-om",
+      "run_number": 1,
       "problem": "one_max",
       "algorithm": "p3",
       "solution_size": 100,
@@ -11,14 +11,35 @@
       "best_fitness": 100
     },
     {
-      "identifier": "p3-leading_ones",
-      "run_number": 10,
+      "identifier": "p3-lo",
+      "run_number": 1,
       "problem": "leading_ones",
       "algorithm": "p3",
       "solution_size": 100,
       "population_size": 100,
       "evaluations_number": 10000,
       "best_fitness": 100
+    },
+    {
+      "identifier": "p3-dt",
+      "run_number": 10,
+      "problem": "deceptive_trap",
+      "algorithm": "p3",
+      "solution_number": 200,
+      "solution_size": 20,
+      "trap_size": 5,
+      "evaluations_number": 1000
+    },
+    {
+      "identifier": "p3-dst",
+      "run_number": 10,
+      "problem": "deceptive_step_trap",
+      "algorithm": "p3",
+      "solution_number": 200,
+      "solution_size": 21,
+      "trap_size": 7,
+      "step_size": 2,
+      "evaluations_number": 3000
     }
   ]
 }

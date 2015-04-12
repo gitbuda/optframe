@@ -1,46 +1,50 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import logging
-import uuid
-import numpy as np
+'''
+'''
 
+import logging
+import numpy as np
+import uuid
+
+from algorithms.p3.utils.hashable import hashable
 from common.best_store import BestStore
 from common.lt_population import LTPopulation
-from algorithms.p3.utils.hashable import hashable
-from helpers.solution_writer import SolutionWriter
 from common.exception.evaluator_exception import EvaluatorException
 from common.exception.termination_exception import TerminationException
+from helpers.solution_writer import SolutionWriter
 
 log = logging.getLogger(__name__)
 
 
-def run(config):
+def run(context):
 
     best_store = BestStore()
-    best_store.configure(config.config)
+    best_store.configure(context.config)
 
-    evaluator = config.evaluate_operator
-    mixer = config.mixer
-    booster = config.booster
-    genotype = config.genotype
-    solution_operator = config.solution_operator
+    evaluator = context.evaluate_operator
+    mixer = context.mixer
+    booster = context.booster
+    genotype = context.genotype
+    try:
+        solution_operator = context.solution_operator
+    except Exception:
+        solution_operator = None
     writer = SolutionWriter()
 
     solutions = set()
-    populations = [LTPopulation(config.genotype_size, config.values_no)]
+    populations = [LTPopulation(context.genotype_size, context.values_no)]
 
     try:
 
         while True:
 
-            solution = genotype(config.genotype_size)
+            solution = genotype(context.genotype_size)
 
-            # TODO: remove from here, define specific operator
-            if config.problem.problem == 'pipeline':
+            if solution_operator is not None:
                 gen_gen = solution_operator.next()
                 solution.set_genotype(np.array(gen_gen))
-            # ------------------------------------------------
 
             fitness = evaluator.evaluate(solution.get_genotype())
             solution.set_fitness(fitness)
@@ -65,8 +69,8 @@ def run(config):
                         solutions.add(hashable(solution.get_genotype()))
                         next_population_index = population_index + 1
                         if next_population_index == len(populations):
-                            population = LTPopulation(config.genotype_size,
-                                                      config.values_no)
+                            population = LTPopulation(context.genotype_size,
+                                                      context.values_no)
                             populations.append(population)
                         populations[next_population_index].add(solution)
                         log.info("Added to %d with fitness %f" %
@@ -76,7 +80,7 @@ def run(config):
                     break
 
             log.info("End of pyramid iteration\n")
-            if len(solutions) >= config.solution_no:
+            if len(solutions) >= context.solution_no:
                 break
     except (EvaluatorException, TerminationException) as e:
         log.info(e)
@@ -85,7 +89,7 @@ def run(config):
             (best_store.best_fitness, best_store.best_solution.get_genotype())
 
     log.info("Best fitness: " + str(max_fitness))
-    output_path = '%s/f%s-%s.solution' % (config.output_dir,
+    output_path = '%s/f%s-%s.solution' % (context.output_dir,
                                           max_fitness, uuid.uuid4().hex)
     log.info("Output path: " + output_path)
     writer.write(output_path, best_genotype, max_fitness)

@@ -59,6 +59,12 @@ if __name__ == '__main__':
             problem = run.problem
             algorithm = run.algorithm
 
+            try:
+                solution_operator = \
+                    problems[problem].solution_operator.SolutionOperator()
+            except Exception:
+                solution_operator = None
+
             # evaluator configuration
             evaluator = problems[problem].evaluator.Evaluator()
             problem_config_path = path_join(PROBLEMS_DIRNAME,
@@ -79,10 +85,7 @@ if __name__ == '__main__':
                                               CONFIG_FILE_NAME)
             algorithm_config = algorithm_modul.config.Config()
             algorithm_config.evaluate_operator = evaluator
-            # TEST FEATURE TODO: dynamic implementation --------------------
-            from problems.pipeline.solution_operator import SolutionOperator
-            algorithm_config.solution_operator = SolutionOperator()
-            # --------------------------------------------------------------
+            algorithm_config.solution_operator = solution_operator
             algorithm_config.load_problem_conf(problem_config)
             alg_conf = load_json(algorithm_config_path)
             algorithm_config.load_algorithm_conf(alg_conf)
@@ -93,7 +96,7 @@ if __name__ == '__main__':
                 algorithm_modul.engine.run(algorithm_config)
 
             # results
-            identifier = '%s, %s' % (problem, algorithm)
+            identifier = run.identifier
             results.setdefault(identifier, ResultDTO())
             results[identifier].fitness_container.append(best_fitness)
             results[identifier].evaluations_container.append(
