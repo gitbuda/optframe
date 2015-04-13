@@ -10,6 +10,7 @@ import logging
 
 from helpers.loader import load_json, DictWrapper
 from helpers.arguments import get_arg
+from helpers.setter import setter
 from os import walk
 from os.path import join as path_join
 from statistics.writer import write
@@ -58,11 +59,7 @@ if __name__ == '__main__':
     print config_file_name
 
     execution_context = load_json(config_file_name)
-    # TODO: wrap try catch in something smarter
-    try:
-        common = execution_context.common
-    except Exception:
-        common = DictWrapper()
+    common = setter(lambda: execution_context.common, DictWrapper())
 
     for run in execution_context.runs:
         run.weak_merge(common)
