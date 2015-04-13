@@ -8,9 +8,10 @@ optframe executor (initial script)
 import imp
 import logging
 
+from helpers.loader import load_json, DictWrapper
+from helpers.arguments import get_arg
 from os import walk
 from os.path import join as path_join
-from helpers.loader import load_json
 from statistics.writer import write
 
 PROBLEMS_DIRNAME = 'problems'
@@ -32,6 +33,8 @@ if __name__ == '__main__':
 
     log.info("Executor start")
 
+    config_file_name = get_arg('-c', CONFIG_FILE_NAME)
+
     # load all available problems
     (_, problem_names, _) = walk(PROBLEMS_DIRNAME).next()
     problems = {}
@@ -52,9 +55,17 @@ if __name__ == '__main__':
 
     results = {}
 
-    execution_context = load_json(CONFIG_FILE_NAME)
+    print config_file_name
+
+    execution_context = load_json(config_file_name)
+    # TODO: wrap try catch in something smarter
+    try:
+        common = execution_context.common
+    except Exception:
+        common = DictWrapper()
+
     for run in execution_context.runs:
-        # identifier = run.identifier
+        run.weak_merge(common)
         for problem_run in xrange(int(run.run_number)):
             problem = run.problem
             algorithm = run.algorithm

@@ -20,13 +20,19 @@ def unique_file_name(prefix):
     return file_name
 
 
+def sorted_items(results):
+    items = results.items()
+    items.sort(key=lambda x: str(x))
+    return items
+
+
 def write_fitness(results, prefix):
     file_name = unique_file_name(prefix)
     with open(file_name, 'w') as f:
         f.write("# fitness\n")
         f.write("# no min min_std mean max_std max id\n")
         i = 1
-        for key, result in results.items():
+        for key, result in sorted_items(results):
             min_fit = np.min(result.fitness_container)
             max_fit = np.max(result.fitness_container)
             mean_fit = np.mean(result.fitness_container)
@@ -45,7 +51,7 @@ def write_eval(results, prefix):
         f.write("# evaluations\n")
         f.write("# no min min_std mean max_std max id\n")
         i = 1
-        for key, result in results.items():
+        for key, result in sorted_items(results):
             min_eval = np.min(result.evaluations_container)
             max_eval = np.max(result.evaluations_container)
             mean_eval = np.mean(result.evaluations_container)
