@@ -5,13 +5,12 @@
 optframe executor (initial script)
 '''
 
-import imp
 import logging
 
 from helpers.loader import load_json, DictWrapper
 from helpers.arguments import get_arg
 from helpers.setter import setter
-from os import walk
+from helpers.load_package import load_package
 from os.path import join as path_join
 from statistics.writer import write
 
@@ -34,33 +33,16 @@ if __name__ == '__main__':
 
     log.info("Executor start")
 
+    # load modules (algorithms and problems)
+    problems = load_package(PROBLEMS_DIRNAME)
+    algorithms = load_package(ALGORITHMS_DIRNAME)
+
+    # load config
     config_file_name = get_arg('-c', CONFIG_FILE_NAME)
-
-    # load all available problems
-    (_, problem_names, _) = walk(PROBLEMS_DIRNAME).next()
-    problems = {}
-    for problem_name in problem_names:
-        print problem_name
-        f, filename, desc = imp.find_module(problem_name, [PROBLEMS_DIRNAME])
-        modul = imp.load_module(problem_name, f, filename, desc)
-        problems[problem_name] = modul
-
-    # load all available algorithms
-    (_, algorithm_names, _) = walk(ALGORITHMS_DIRNAME).next()
-    algorithms = {}
-    for algorithm_name in algorithm_names:
-        f, filename, desc = imp.find_module(algorithm_name,
-                                            [ALGORITHMS_DIRNAME])
-        modul = imp.load_module(algorithm_name, f, filename, desc)
-        algorithms[algorithm_name] = modul
-
-    results = {}
-
-    print config_file_name
-
     execution_context = load_json(config_file_name)
     common = setter(lambda: execution_context.common, DictWrapper())
 
+    results = {}
     for run in execution_context.runs:
         run.weak_merge(common)
         for problem_run in xrange(int(run.run_number)):
