@@ -17,6 +17,12 @@ class DictWrapper(object):
     def input_dict(self):
         return self._input_dict
 
+    def keys(self):
+        return self.input_dict.keys()
+
+    def __getitem__(self, key):
+        return self.__getattr__(key)
+
     def __getattr__(self, key):
         value = self.input_dict[key]
         if type(value) is dict:
