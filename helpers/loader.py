@@ -3,9 +3,6 @@
 
 import os
 import json
-import logging
-
-log = logging.getLogger(__name__)
 
 
 class DictWrapper(object):
@@ -34,7 +31,6 @@ class DictWrapper(object):
             return value
 
     def __contains__(self, key):
-        # TODO: recursive implementation
         if key in self.input_dict:
             return True
         else:
@@ -48,17 +44,14 @@ class DictWrapper(object):
         self.input_dict[name] = value
 
     def weak_merge(self, merge_dict):
-        # TODO: recursive implementation
         for key, value in merge_dict.input_dict.items():
             self.weak_set(key, value)
 
     def hard_merge(self, merge_dict):
-        # TODO: recursive implementation
         for key, value in merge_dict.input_dict.items():
             self.hard_set(key, value)
 
     def __str__(self):
-        # TODO: recursive implementation
         representation = ''
         for key, value in self.input_dict.items():
             representation += '%s: %s\n' % (key, value)
