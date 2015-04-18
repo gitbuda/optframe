@@ -33,9 +33,10 @@ def evaluate(population, best, best_fitness, evaluate_operator, best_operator):
 def run(conf):
 
     log.info("GA start")
-    log.info("parameters\n%s" % conf.config)
+    # log.info("parameters\n%s" % conf.config)
 
     best_store = BestStore()
+    best_store.configure(conf.config)
 
     # operators
     termination_operator = conf.termination_operator
@@ -100,8 +101,8 @@ def run(conf):
                          best_operator)
             best_store.try_store(best_fitness, best)
 
-            log.info('iteration = %s; cost = %s; genotype = %s' %
-                     (i, best_fitness, best.genes))
+            # log.info('iteration = %s; cost = %s; genotype = %s' %
+            #          (i, best_fitness, best.genes))
 
     except EvaluatorException:
         pass

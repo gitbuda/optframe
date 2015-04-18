@@ -4,30 +4,26 @@
 '''
 '''
 
-import uuid
 import logging
-import datetime
 import numpy as np
+
+from helpers.path import unique_path
 
 log = logging.getLogger(__name__)
 
 
-def unique_file_name(prefix):
-    file_name = 'output/%s-%s-%s' % \
-        (prefix,
-         uuid.uuid4().hex,
-         datetime.datetime.utcnow().strftime('%d-%m-%Y-%H-%M'))
-    return file_name
-
-
 def sorted_items(results):
+    '''
+    '''
     items = results.items()
     items.sort(key=lambda x: str(x))
     return items
 
 
 def write_fitness(results, prefix):
-    file_name = unique_file_name(prefix)
+    '''
+    '''
+    file_name = unique_path('output', prefix)
     with open(file_name, 'w') as f:
         f.write("# fitness\n")
         f.write("# no min min_std mean max_std max id\n")
@@ -46,7 +42,9 @@ def write_fitness(results, prefix):
 
 
 def write_eval(results, prefix):
-    file_name = unique_file_name(prefix)
+    '''
+    '''
+    file_name = unique_path('output', prefix)
     with open(file_name, 'w') as f:
         f.write("# evaluations\n")
         f.write("# no min min_std mean max_std max id\n")
@@ -65,6 +63,11 @@ def write_eval(results, prefix):
 
 
 def write(results):
+    '''
+    '''
     write_fitness(results, 'fit')
     write_eval(results, 'eval')
-    log.info("DONE")
+
+
+if __name__ == '__main__':
+    pass

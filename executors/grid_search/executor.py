@@ -5,32 +5,44 @@
 '''
 
 import logging
-import itertools
-from helpers.loader import DictWrapper
+
+from common.best_store import BestStore
+from common.initializer import problem_init, algorithm_init
+from helpers.grid_search import grid_item_container
+from helpers.path import unique_path
 
 log = logging.getLogger(__name__)
-
-
-def create_item(keys, values):
-    item = {}
-    for index, key in enumerate(keys):
-        item[key] = values[index]
-    return DictWrapper(item)
 
 
 def execute(algorithms, problems, config):
     '''
     '''
-    # create grid
-    grid = config.grid
-    grid_keys = grid.keys()
-    lists = []
-    for key in grid_keys:
-        lists.append(grid[key])
-    grid = [create_item(grid_keys, grid_element)
-            for grid_element in itertools.product(*lists)]
-
+    # init
+    grid = grid_item_container(config.grid)
     context = config.common
+    best_store = BestStore()
+
+    # execution
     for element in grid:
         context.hard_merge(element)
-        log.info(context)
+
+        # evaluator configuration
+        (problem_config, problem_operator) = problem_init(problems, context)
+
+        # algorithm configuration
+        (algorithm_config, algorithm) = algorithm_init(algorithms, context,
+                                                       problem_config,
+                                                       problem_operator)
+
+        (solution, fitness) = algorithm.engine.run(algorithm_config)
+
+        best_store.try_store(fitness, solution, element)
+
+    # prepare output
+    context.hard_merge(best_store.best_config)
+    output_path = unique_path('output', 'grid')
+
+    # write output
+    with open(output_path, 'w') as f:
+        f.write(str(context))
+        f.write('Fitness: %s\n' % str(best_store.best_fitness))
