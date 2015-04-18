@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 '''
-This operator iterates through bits and
+The operator iterates through bits and
 with probabilty of mutataion_factor inverts
 the bit value.
 '''

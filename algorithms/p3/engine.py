@@ -27,10 +27,8 @@ def run(context):
     mixer = context.mixer
     booster = context.booster
     genotype = context.genotype
-    try:
-        solution_operator = context.solution_operator
-    except Exception:
-        solution_operator = None
+    solution_operator = context.solution_operator
+
     writer = SolutionWriter()
 
     solutions = set()

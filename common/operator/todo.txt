@@ -1,0 +1,13 @@
+int_cross
+  average_cross
+  ux_cross
+
+int_mutation
+  random_from_domain
+
+float_cross
+  average_cross
+  ux_cross
+
+float_mutation
+  random_from_domain

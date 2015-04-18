@@ -8,7 +8,7 @@ Framework specific bit array cross operator.
 import random
 
 
-class BitArrayCrossOperator(object):
+class TwoPointCrossOperator(object):
 
     def __init__(self):
         '''
@@ -18,8 +18,6 @@ class BitArrayCrossOperator(object):
     def cross(self, genotype_better, genotype_worse):
         '''
         '''
-        # print "genotype better %s" % genotype_better
-        # print "genotype worse %s" % genotype_worse
 
         new_genotype = list(genotype_better)
         genotype_size = len(genotype_better)

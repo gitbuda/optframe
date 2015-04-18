@@ -7,8 +7,8 @@ Framework specific permutation cross operator.
 
 import random
 
-from algorithms.ga.cross.ox_permutation import OXCrossOperator
-from algorithms.ga.cross.pmx_permutation import PMXCrossOperator
+from common.operator.cross.ox import OXCrossOperator
+from common.operator.cross.pmx import PMXCrossOperator
 
 
 class PermutationCrossOperator(object):

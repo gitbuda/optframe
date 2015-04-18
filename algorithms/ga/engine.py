@@ -8,7 +8,6 @@ from algorithms.ga.optimization.structure.genotype import Genotype
 from algorithms.ga.config import BEST_TO_NEXT_NUMBER
 # from algorithms.ga.config import CROSS_MUTATION_FACTOR
 from common.best_store import BestStore
-from common.evaluator_exception import EvaluatorException
 
 log = logging.getLogger(__name__)
 
@@ -104,7 +103,7 @@ def run(conf):
             # log.info('iteration = %s; cost = %s; genotype = %s' %
             #          (i, best_fitness, best.genes))
 
-    except EvaluatorException:
+    except Exception:
         pass
 
     return (best, best_fitness)

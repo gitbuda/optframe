@@ -1,44 +1,75 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+'''
+Pyramid Genetic Algorithm
+'''
+
 import random
 import logging
 
+from common.best_store import BestStore
+
 log = logging.getLogger(__name__)
 
-# config.evaluate_operator
-# config.mutation_factor
-# config.crossover_factor
-# config.solution_number
 
+def run(context):
 
-def run(config):
+    evaluator = context.evaluate_operator
+    box_operator = context.box_operator
+    cross_operator = context.cross_operator
+    mutation_operator = context.mutation_operator
+    solution_number = context.solution_number
 
-    evaluator = config.evaluate_operator
+    best_store = BestStore()
+    best_store.configure(context.config)
 
-    solution = [random.randint(0, 1) for i in xrange(256)]
+    try:
+        populations = [[]]
+        solutions = set()
 
-    populations = [[0]]
+        while True:
 
-    for i in xrange(10):
-        for population_index in xrange(len(populations)):
-            random_number = random.random()
-            if random_number > 0.2:
-                next_population_index = population_index + 1
-                if next_population_index == len(populations):
-                    populations.append([])
-                    populations[next_population_index].append(next_population_index)
+            # initial solution
+            solution = box_operator.generate()
+            fitness = evaluator.evaluate(solution)
+            solution_tuple = tuple(solution)
+            if solution_tuple not in solutions:
+                solutions.add(solution_tuple)
+                populations[0].append(solution)
+                best_store.try_store(fitness, solution)
+
+            # pyramid iteration
+            for population_index in xrange(len(populations)):
+                log.info("Population index: %s population len: %s" %
+                         (population_index, len(populations)))
+                population = populations[population_index]
+                old_fitness = fitness
+                log.info("Fitness before PGA core: %s" % old_fitness)
+                better_index = random.randint(0, len(population) - 1)
+                better = population[better_index]
+                solution = cross_operator.cross(better, solution)
+                mutation_operator.mutate(solution)
+                new_fitness = evaluator.evaluate(solution)
+                if new_fitness >= old_fitness:
+                    solution_tuple = tuple(solution)
+                    if solution_tuple not in solutions:
+                        solutions.add(solution_tuple)
+                        next_population_index = population_index + 1
+                        if next_population_index == len(populations):
+                            population = []
+                            populations.append(population)
+                        populations[next_population_index].append(solution)
+                        log.info("Added to %d with fitness %f" %
+                                 (next_population_index, new_fitness))
+                        best_store.try_store(new_fitness, solution)
                 else:
-                    populations[population_index].append(population_index)
-            else:
+                    break
+
+            log.info("End of pyramid iteration\n")
+            if len(solutions) >= solution_number:
                 break
+    except Exception as e:
+        log.info(e)
 
-    sizes = map(len, populations)
-    print sizes
-
-    best_genotype = solution
-    best_fitness = evaluator.evaluate(solution)
-
-    print best_fitness
-
-    return (best_genotype, best_fitness)
+    return (best_store.best_solution, best_store.best_fitness)

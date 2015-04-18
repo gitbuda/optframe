@@ -34,8 +34,10 @@ def execute(algorithms, problems, config):
                                                        problem_config,
                                                        problem_operator)
 
+        # algorithm execution
         (solution, fitness) = algorithm.engine.run(algorithm_config)
 
+        # save result
         best_store.try_store(fitness, solution, element)
 
     # prepare output

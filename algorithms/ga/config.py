@@ -4,15 +4,14 @@
 from algorithms.ga.selection import tournament
 from algorithms.ga.termination.termination import max_iteration
 from algorithms.ga.to_next.best_to_next_operator import BestToNextOperator
-from algorithms.ga.cross.bit_array import BitArrayCrossOperator
-from algorithms.ga.mutation.bit_mutation import BitMutationOperator
 from algorithms.ga.population.bit_array import BitArrayPopulationOperator
-from algorithms.ga.cross.permutation import PermutationCrossOperator
-from algorithms.ga.mutation.permutation import PermutationMutationOperator
 from algorithms.ga.population.permutation import PermutationPopulationOperator
 
-# gaconfig.ini keys
-SECTION = 'GA'
+from common.operator.bit_cross import BitCrossOperator
+from common.operator.bit_mutation import BitMutationOperator
+from common.operator.permutation_cross import PermutationCrossOperator
+from common.operator.permutation_mutation import PermutationMutationOperator
+
 MUTATION_FACTOR = 'MutationFactor'
 POPULATION_SIZE = 'PopulationSize'
 CROSSOVER_FACTOR = 'CrossoverFactor'
@@ -55,7 +54,7 @@ class Config(object):
         # define all parameters
         self.parameters[MUTATION_FACTOR] = float(self.config.mutation_factor)
         self.parameters[POPULATION_SIZE] = int(self.config.population_size)
-        self.parameters[CROSSOVER_FACTOR] = float(self.config.crossover_factor)
+        self.parameters[CROSSOVER_FACTOR] = float(self.config.cross_factor)
         self.parameters[ITERATIONS_NUMBER] = int(self.config.iterations_number)
         self.parameters[BEST_NO] = int(self.config.best_no)
         self.parameters[CROSS_MUTATION_FACTOR] = \
@@ -65,23 +64,23 @@ class Config(object):
 
         # load all operators
         self.population_operators = {}
-        self.population_operators['BitArrayPopulationOperator'] = \
+        self.population_operators['bitPopulationOperator'] = \
             BitArrayPopulationOperator(self.parameters[POPULATION_SIZE],
                                        int(self.config.solution_size))
-        self.population_operators['PermutationPopulationOperator'] = \
+        self.population_operators['permutationPopulationOperator'] = \
             PermutationPopulationOperator(self.parameters[POPULATION_SIZE],
                                           int(self.config.solution_size))
 
         self.cross_operators = {}
-        self.cross_operators['BitArrayCrossOperator'] = \
-            BitArrayCrossOperator()
-        self.cross_operators['PermutationCrossOperator'] = \
+        self.cross_operators['bitCrossOperator'] = \
+            BitCrossOperator(self.parameters[CROSSOVER_FACTOR])
+        self.cross_operators['permutationCrossOperator'] = \
             PermutationCrossOperator()
 
         self.mutation_operators = {}
-        self.mutation_operators['BitArrayMutationOperator'] = \
+        self.mutation_operators['bitMutationOperator'] = \
             BitMutationOperator(self.parameters[MUTATION_FACTOR])
-        self.mutation_operators['PermutationMutationOperator'] = \
+        self.mutation_operators['permutationMutationOperator'] = \
             PermutationMutationOperator(self.parameters[MUTATION_FACTOR])
 
         # choose all operators

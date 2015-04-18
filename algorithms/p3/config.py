@@ -50,17 +50,17 @@ class Config(object):
         self.output_dir = self.config.output_path
 
         self.operators = {}
-        self.operators['BitArrayGenotype'] = \
+        self.operators['bitGenotype'] = \
             BitArrayGenotype
-        self.operators['PermutationGenotype'] = \
+        self.operators['permutationGenotype'] = \
             PermutationGenotype
-        self.operators['BitArrayBooster'] = \
+        self.operators['bitBooster'] = \
             BitArrayBooster()
-        self.operators['PermutationBooster'] = \
+        self.operators['permutationBooster'] = \
             PermutationBooster(4)
-        self.operators['BitArrayMix'] = \
+        self.operators['bitMix'] = \
             BitArrayMix()
-        self.operators['PermutationMix'] = \
+        self.operators['permutationMix'] = \
             PermutationMix()
 
         self.genotype = self.operators[self.genotype_type]
