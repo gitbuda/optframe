@@ -12,7 +12,6 @@ from common.genotype import Genotype
 from helpers.array_tools import swap
 from common.best_store import BestStore
 from common.lt_population import LTPopulation
-from common.evaluator_exception import EvaluatorException
 
 log = logging.getLogger(__name__)
 
@@ -73,7 +72,7 @@ def run(config):
             log.info('Population size: %s' % str(len(population.solutions)))
             log.info('Best %s' % best_store.best_fitness)
 
-    except EvaluatorException:
+    except Exception:
         pass
 
     return (best_store.best_solution.get_genotype(), best_store.best_fitness)
