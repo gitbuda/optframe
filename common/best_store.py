@@ -43,7 +43,7 @@ class BestStore(object):
             self.best_fitness = fitness
             self.best_solution = solution
             self.best_config = config
-            log.info('Best solution has now fitness: %s' % fitness)
+            log.info('Best solution has now fitness: %s' % (fitness))
 
             if self.best_fitness_constraint is not None and \
                self.best_fitness >= self.best_fitness_constraint:

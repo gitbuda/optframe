@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 '''
+Compact Genetic Algorithm
 '''
 
 import random
@@ -13,7 +14,11 @@ log = logging.getLogger(__name__)
 
 
 class Solution(object):
+    '''
+    '''
     def __init__(self, box=None, fitness=None):
+        '''
+        '''
         self.box = box
         self.fitness = None
 
@@ -30,6 +35,8 @@ def generate_candidate(vector, evaluator):
 
 
 def update_vector(vector, winner, loser, population_size):
+    '''
+    '''
     for i in xrange(len(vector)):
         if winner.box[i] != loser.box[i]:
             if winner.box[i] == 1:
@@ -41,7 +48,6 @@ def update_vector(vector, winner, loser, population_size):
 def run(context):
     '''
     '''
-    # e.g.
     solution_size = context.solution_size
     population_size = context.population_size
     iterations_number = context.iterations_number
