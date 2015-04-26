@@ -1,0 +1,12 @@
+{
+  "runs": [
+    {
+      "identifier": "p3+pipeline",
+      "run_number": 1,
+      "problem": "pipeline",
+      "algorithm": "p3",
+      "solution_number": 200,
+      "solution_size": 432
+    }
+  ]
+}

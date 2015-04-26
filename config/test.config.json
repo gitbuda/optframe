@@ -1,0 +1,14 @@
+{
+  "grid_search": {
+    "repeat": 1,
+    "common": {
+      "algorithm": "ga",
+      "problem": "deceptive_trap"
+    },
+    "grid": {
+      "population_size": [20, 30],
+      "mutation_factor": [0.20, 0.25],
+      "crossover_factor": [0.40, 0.50]
+    }
+  }
+}

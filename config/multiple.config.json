@@ -1,0 +1,30 @@
+{
+  "multiple": {
+    "common": {
+      "run_number": 20,
+      "problem": "deceptive_trap",
+      "algorithm": "p3",
+      "solution_size": 42,
+      "solution_number": 500,
+      "trap_size": 7
+    },
+    "runs": [
+      {
+        "identifier": "evals-1k",
+        "evaluations_number": 1000
+      },
+      {
+        "identifier": "evals-2k",
+        "evaluations_number": 2000
+      },
+      {
+        "identifier": "evals-3k",
+        "evaluations_number": 3000
+      },
+      {
+        "identifier": "evals-4k",
+        "evaluations_number": 4000
+      }
+    ]
+  }
+}

@@ -19,9 +19,9 @@ if __name__ == '__main__':
     log = logging.getLogger(__name__)
 
     # load modules (algorithms and problems)
-    problems = load_package(CONF.PROBLEMS_DIRNAME)
-    algorithms = load_package(CONF.ALGORITHMS_DIRNAME)
-    executors = load_package(CONF.EXECUTORS_DIRNAME)
+    problems = load_package(CONF.PROBLEMS_DIRNAME, 'Problem')
+    algorithms = load_package(CONF.ALGORITHMS_DIRNAME, 'Algorithm')
+    executors = load_package(CONF.EXECUTORS_DIRNAME, 'Executor')
 
     # load config
     config_file_name = get_arg('-c', CONF.CONFIG_FILE_NAME)

@@ -1,0 +1,15 @@
+{
+  "runs": [
+    {
+      "identifier": "p3+boolean1",
+      "run_number": 1,
+      "problem": "boolean",
+      "boolean_type": 1,
+      "algorithm": "p3",
+      "solution_number": 200,
+      "trap_size": 5,
+      "solution_size": 432,
+      "bits_per_float": 20
+    }
+  ]
+}

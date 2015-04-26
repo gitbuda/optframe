@@ -1,0 +1,18 @@
+{
+  "multiple": {
+    "common": {
+      "run_number": 1,
+      "problem": "deceptive_trap",
+      "algorithm": "cga",
+      "solution_size": 10,
+      "trap_size": 5,
+      "iterations_number": 100000,
+      "population_size": 20
+    },
+    "runs": [
+      {
+        "identifier": "cga"
+      }
+    ]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "runs": [
+    {
+      "identifier": "ltga+deceptive_trap",
+      "run_number": 1,
+      "problem": "deceptive_trap",
+      "algorithm": "ltga",
+      "solution_number": 200,
+      "solution_size": 20,
+      "trap_size": 5,
+      "evaluations_number": 1000
+    }
+  ]
+}

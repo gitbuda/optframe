@@ -12,7 +12,7 @@ from os import walk
 log = logging.getLogger(__name__)
 
 
-def load_package(path):
+def load_package(path, tag='Module'):
     '''
     '''
     package = {}
@@ -22,7 +22,7 @@ def load_package(path):
             f, filename, desc = imp.find_module(module_name, [path])
             modul = imp.load_module(module_name, f, filename, desc)
             package[module_name] = modul
-            log.info('Modul: %s loaded.', module_name)
+            log.info('%s: %s loaded.', tag, module_name)
         except Exception as e:
             log.info(e)
     return package

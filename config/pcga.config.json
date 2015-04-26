@@ -1,0 +1,17 @@
+{
+  "multiple": {
+    "common": {
+      "run_number": 1,
+      "problem": "deceptive_trap",
+      "algorithm": "pcga",
+      "solution_size": 20,
+      "trap_size": 5,
+      "evaluations_number": 1000000
+    },
+    "runs": [
+      {
+        "identifier": "pcga+dt"
+      }
+    ]
+  }
+}
