@@ -5,7 +5,6 @@
 Pyramid Genetic Algorithm
 '''
 
-import random
 import logging
 
 from common.best_store import BestStore
@@ -67,6 +66,8 @@ def run(context):
                         log.info("Added to %d with fitness %f" %
                                  (next_population_index, solution.fitness))
                         best_store.try_store(solution.fitness, solution)
+                    else:
+                        break
                 else:
                     break
 
