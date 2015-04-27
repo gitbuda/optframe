@@ -1,6 +1,6 @@
 {
   "solution_size": 20,
   "values_number": 2,
-  "solution_type": "BitArray",
+  "solution_type": "bit",
   "output_path": "problems/onemax/output"
 }

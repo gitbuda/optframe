@@ -1,0 +1,43 @@
+{
+  "multiple": {
+    "common": {
+      "run_number": 10,
+      "problem": "one_max",
+      "solution_size": 20,
+      "population_size": 20,
+      "solution_number": 500,
+      "evaluations_number": 10000,
+      "iterations_number": 50
+    },
+    "runs": [
+      {
+        "identifier": "ga-om",
+        "algorithm": "ga"
+      },
+      {
+        "identifier": "pga-om",
+        "algorithm": "pga"
+      },
+      {
+        "identifier": "ltga-om",
+        "algorithm": "ltga"
+      },
+      {
+        "identifier": "p3-om",
+        "algorithm": "p3"
+      },
+      {
+        "identifier": "cga-om",
+        "algorithm": "cga"
+      },
+      {
+        "identifier": "pcga-om",
+        "algorithm": "pcga"
+      },
+      {
+        "identifier": "boa-om",
+        "algorithm": "boa"
+      }
+    ]
+  }
+}
