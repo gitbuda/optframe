@@ -1,0 +1,19 @@
+{
+  "multiple": {
+    "common": {
+      "run_number": 1,
+      "problem": "one_max",
+      "algorithm": "pboa",
+      "solution_size": 20,
+      "trap_size": 5,
+      "iterations_number": 100000,
+      "population_size": 50,
+      "evaluations_number": 10000
+    },
+    "runs": [
+      {
+        "identifier": "pboa+om"
+      }
+    ]
+  }
+}
