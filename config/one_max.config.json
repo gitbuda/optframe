@@ -37,6 +37,11 @@
       {
         "identifier": "boa-om",
         "algorithm": "boa"
+      },
+      {
+        "identifier": "pboa-om",
+        "algorithm": "pboa",
+        "evaluations_number": 1000
       }
     ]
   }
