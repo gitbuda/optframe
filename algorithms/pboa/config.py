@@ -7,6 +7,8 @@ PBOA config
 
 import logging
 
+from helpers.setter import setter
+
 log = logging.getLogger(__name__)
 
 
@@ -23,6 +25,10 @@ class Config(object):
 
         # e.g.
         self.solution_size = int(self.config.solution_size)
+        self.population_limit = setter(lambda: self.config.population_limit,
+                                       50)
+        self.childrens_number = setter(lambda: self.config.childrens_number,
+                                       10)
 
 
 if __name__ == '__main__':

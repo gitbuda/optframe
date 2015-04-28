@@ -7,8 +7,9 @@
       "solution_size": 20,
       "trap_size": 5,
       "iterations_number": 100000,
-      "population_size": 50,
-      "evaluations_number": 10000
+      "population_limit": 50,
+      "childrens_number": 10,
+      "evaluations_number": 2000
     },
     "runs": [
       {
