@@ -4,5 +4,7 @@
   "alpha": 418.982887,
   "precision": 65536,
   "minimum": -512,
-  "maximum": 512
+  "maximum": 512,
+  "values_number": 2,
+  "solution_type": "bit"
 }

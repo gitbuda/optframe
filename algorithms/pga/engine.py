@@ -9,7 +9,7 @@ import logging
 
 from common.best_store import BestStore
 from common.solution import Solution
-from common.selection.tournament import Tournament
+from common.selection.tournament import Selection as Tournament
 
 log = logging.getLogger(__name__)
 
@@ -47,7 +47,7 @@ def run(context):
                          (population_index, len(populations)))
                 population = populations[population_index]
                 log.info("Fitness before PGA core: %s" % solution.fitness)
-                pyramid_solution = tournament.select(population)
+                pyramid_solution = tournament.select(population)[0]
                 new_solution = Solution()
                 new_solution.box = cross_operator.cross(pyramid_solution.box,
                                                         solution.box)

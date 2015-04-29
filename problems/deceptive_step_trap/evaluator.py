@@ -17,6 +17,7 @@ class Config(object):
     def __init__(self):
         self.trap_size = 7
         self.step_size = 2
+        self.evaluations_number = 100000
 
 
 class Evaluator(object):

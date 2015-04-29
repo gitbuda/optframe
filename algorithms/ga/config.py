@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from algorithms.ga.selection import tournament
+from algorithms.ga.selection.tournament import Tournament
 from algorithms.ga.termination.termination import max_iteration
 from algorithms.ga.to_next.best_to_next_operator import BestToNextOperator
 from algorithms.ga.population.bit_array import BitArrayPopulationOperator
@@ -91,7 +91,7 @@ class Config(object):
             self.mutation_operators[self.config.mutation_operator]
         self.cross_operator = \
             self.cross_operators[self.config.cross_operator]
-        self.selection_operator = tournament
+        self.selection_operator = Tournament()
         self.best_operator = \
             BestToNextOperator(self.parameters[BEST_TO_NEXT_NUMBER])
 
