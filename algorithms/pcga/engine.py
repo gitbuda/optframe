@@ -5,6 +5,8 @@
 PCGA - Pyramid Compact Genetic Algorithm
 
 Variation of CGA in which exists pyramid population structure.
+Algorithm works only with a bit string solution representation.
+Algorithm has no parameters.
 '''
 
 import random
@@ -20,19 +22,37 @@ log = logging.getLogger(__name__)
 class PCGAPopulation(object):
 
     def __init__(self, cpv):
+        '''
+        Contains PCGA population informations.
+
+        Args:
+            cpv: compact probability vector
+            size: number of cpv's updates
+        '''
         self.cpv = cpv
         self.size = 0
 
     def increment_size(self):
+        '''
+        Increment number of cpv's updates.
+        '''
         self.size += 1
 
 
 def run(context):
     '''
+    The algorithm:
+        1) generate initial solution (solution)
+        2) generate solution from pyramid level (candidate)
+        3) compare them -> winner, loser
+        4) update Compact Probability Vector (cpv) from current pyramid level
+        5) if winner is better than solution go to the next pyramid level
     '''
+    # initialize algorithm from context
     solution_size = context.solution_size
     evaluator = context.evaluate_operator
 
+    # initialize solution store from the context
     best_store = BestStore()
     best_store.configure(context.config)
 
@@ -42,6 +62,7 @@ def run(context):
         populations = [PCGAPopulation(cpv)]
 
         while True:
+            # TODO: add greedy operator
             solution = Solution([random.randint(0, 1)
                                 for x in xrange(solution_size)])
             solution.fitness = evaluator.evaluate(solution.box)

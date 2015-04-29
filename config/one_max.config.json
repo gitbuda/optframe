@@ -36,7 +36,8 @@
       },
       {
         "identifier": "boa-om",
-        "algorithm": "boa"
+        "algorithm": "boa",
+        "population_size": 50
       },
       {
         "identifier": "pboa-om",

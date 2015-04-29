@@ -5,6 +5,7 @@
 optframe (initial script)
 '''
 
+import time
 import logging
 import common.constants as CONF
 
@@ -26,6 +27,10 @@ if __name__ == '__main__':
     # load config
     config_file_name = get_arg('-c', CONF.CONFIG_FILE_NAME)
     execution_context = load_json(config_file_name)
+
+    # execution delay
+    # TODO: remove this from here
+    time.sleep(1)
 
     for executor_name in execution_context.keys():
         executor = executors[executor_name].executor

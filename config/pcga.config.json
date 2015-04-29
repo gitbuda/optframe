@@ -1,16 +1,39 @@
 {
   "multiple": {
     "common": {
-      "run_number": 1,
-      "problem": "deceptive_trap",
+      "run_number": 10,
       "algorithm": "pcga",
-      "solution_size": 20,
-      "trap_size": 5,
-      "evaluations_number": 1000000
+      "evaluations_number": 100000
     },
     "runs": [
       {
-        "identifier": "pcga+dt"
+        "identifier": "dt",
+        "problem": "deceptive_trap",
+        "solution_size": 35,
+        "trap_size": 7
+      },
+      {
+        "identifier": "dst",
+        "problem": "deceptive_step_trap",
+        "solution_size": 35
+      },
+      {
+        "identifier": "lo",
+        "problem": "leading_ones",
+        "solution_size": 30
+      },
+      {
+        "identifier": "om",
+        "problem": "one_max",
+        "solution_size": 30
+      },
+      {
+        "identifier": "ra",
+        "problem": "rastring"
+      },
+      {
+        "identifier": "sc",
+        "problem": "schwefel"
       }
     ]
   }

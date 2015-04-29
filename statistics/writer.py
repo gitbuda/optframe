@@ -35,7 +35,7 @@ def write_fitness(results, prefix):
             std = np.std(result.fitness_container)
             min_std = mean_fit - std
             max_std = mean_fit + std
-            result = '%s %s %s %s %s %s %s\n' % \
+            result = '%s %3f %3f %3f %3f %3f %s\n' % \
                 (str(i), min_fit, min_std, mean_fit, max_std, max_fit, key)
             f.write(result)
             i += 1
@@ -56,7 +56,7 @@ def write_eval(results, prefix):
             std = np.std(result.evaluations_container)
             min_std = mean_eval - std
             max_std = mean_eval + std
-            result = '%s %s %s %s %s %s %s\n' % \
+            result = '%s %3f %3f %3f %3f %3f %s\n' % \
                 (str(i), min_eval, min_std, mean_eval, max_std, max_eval, key)
             f.write(result)
             i += 1
