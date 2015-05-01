@@ -13,10 +13,19 @@ from helpers.calculator import neg_entropy
 
 log = logging.getLogger(__name__)
 
+# TODO: different type of clustering
+
 
 class LTPopulation:
 
-    def __init__(self, size, values_no):
+    def __init__(self, size, values_no=2):
+        '''
+        Args:
+            size: solution size
+            values_no: number of distinct values in,
+            e.g. if solution if bit string then values_no
+            will be 2
+        '''
 
         self.size = size
         self.values_no = values_no

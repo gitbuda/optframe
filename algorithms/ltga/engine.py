@@ -36,6 +36,7 @@ def run(config):
         population.add(solution, recalculate=False)
 
     try:
+
         evaluator = config.evaluate_operator
         for solution in population.solutions:
             fitness = evaluator.evaluate(solution.get_genotype())
@@ -65,15 +66,16 @@ def run(config):
                         and fit_off_b >= fit_a and fit_off_b >= fit_b:
                     gen_a = Genotype(off_a, fit_off_a)
                     gen_b = Genotype(off_b, fit_off_b)
-                    population.add(gen_a, recalculate=False)
-                    population.add(gen_b, recalculate=False)
+                    population.solutions[first] = gen_a
+                    population.solutions[second] = gen_b
                     best_store.try_store(fit_off_a, gen_a)
                     best_store.try_store(fit_off_b, gen_b)
             log.info('Population size: %s' % str(len(population.solutions)))
             log.info('Best %s' % best_store.best_fitness)
+            log.info(best_store.best_solution.get_genotype())
 
-    except Exception:
-        pass
+    except Exception as e:
+        log.info(e)
 
     return (best_store.best_solution.get_genotype(), best_store.best_fitness)
 
