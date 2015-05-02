@@ -5,6 +5,8 @@ Onemax problem evaluator.
 '''
 
 from common.evaluation_counter import EvaluationCounter
+from common.fitness import Fitness, MAX
+from common.constants import BIT_BOX_KEY
 
 
 class Evaluator(object):
@@ -24,6 +26,8 @@ class Evaluator(object):
         '''
         self.evaluation_counter.increment()
 
+        solution = solution.container[BIT_BOX_KEY]
+
         gene_sum = float(sum(solution))
 
-        return gene_sum / len(solution)
+        return Fitness(gene_sum / len(solution), MAX)

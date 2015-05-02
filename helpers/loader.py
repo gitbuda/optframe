@@ -8,11 +8,7 @@ import json
 class DictWrapper(object):
 
     def __init__(self, input_dict={}):
-        self._input_dict = input_dict
-
-    @property
-    def input_dict(self):
-        return self._input_dict
+        self.input_dict = input_dict
 
     def keys(self):
         return self.input_dict.keys()
@@ -29,6 +25,13 @@ class DictWrapper(object):
                     DictWrapper(item) for i, item in enumerate(value)]
         else:
             return value
+
+    # TODO: find a better way to accomplish this
+    # def __setattr__(self, name, value):
+    #     if name is 'input_dict':
+    #         self.__dict__[name] = value
+    #     else:
+    #         self.input_dict[name] = value
 
     def __contains__(self, key):
         if key in self.input_dict:
@@ -64,3 +67,8 @@ def load_json(path):
             return DictWrapper(json.load(f))
     else:
         return DictWrapper()
+
+
+if __name__ == '__main__':
+    print "DictWrapper test"
+    wrapper = DictWrapper()

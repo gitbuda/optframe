@@ -3,7 +3,5 @@
   "iterations_number": 1000,
   "mutation_factor": 0.005,
   "cross_factor": 0.4,
-  "best_no": 1,
-  "cross_mutation_factor": 0.3,
   "best_to_next_number": 2
 }

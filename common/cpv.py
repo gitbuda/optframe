@@ -9,6 +9,7 @@ import random
 import logging
 
 from common.solution import Solution
+from common.constants import BIT_BOX_KEY
 
 log = logging.getLogger(__name__)
 
@@ -22,18 +23,20 @@ class CompactProbabilityVector(object):
     def generate_candidate(self):
         '''
         '''
-        candidate = Solution([0 for x in xrange(self.size)])
+        candidate = Solution({BIT_BOX_KEY: [0 for x in xrange(self.size)]})
         for i, p in enumerate(self.vector):
             gene = 1 if random.random() < p else 0
-            candidate.box[i] = gene
+            candidate.container[BIT_BOX_KEY][i] = gene
         return candidate
 
     def update_vector(self, winner, loser, population_size):
         '''
         '''
         for i in xrange(len(self.vector)):
-            if winner.box[i] != loser.box[i]:
-                if winner.box[i] == 1:
+            winner_bit = winner.container[BIT_BOX_KEY][i]
+            loser_bit = loser.container[BIT_BOX_KEY][i]
+            if winner_bit != loser_bit:
+                if winner_bit == 1:
                     self.vector[i] += 1.0 / population_size
                 else:
                     self.vector[i] -= 1.0 / population_size

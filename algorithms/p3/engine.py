@@ -2,94 +2,97 @@
 # -*- coding: utf-8 -*-
 
 '''
+P3 algorithm.
 '''
 
 import logging
-import numpy as np
 import uuid
 
-from algorithms.p3.utils.hashable import hashable
-from common.best_store import BestStore
 from common.lt_population import LTPopulation
-from common.exception.evaluator_exception import EvaluatorException
-from common.exception.termination_exception import TerminationException
 from helpers.solution_writer import SolutionWriter
 
 log = logging.getLogger(__name__)
 
 
 def run(context):
-
-    best_store = BestStore()
-    best_store.configure(context.config)
+    '''
+    '''
 
     evaluator = context.evaluate_operator
-    mixer = context.mixer
-    booster = context.booster
-    genotype = context.genotype
+    best_store = context.best_store
     solution_operator = context.solution_operator
-
+    iteration_counter = context.iteration_counter
+    collection_operator = context.collection_operator
+    solution_structure = context.solution_structure
+    local_search = context.local_search
+    cluster_cross = context.cluster_cross
     writer = SolutionWriter()
-
-    solutions = set()
-    populations = [LTPopulation(context.genotype_size, context.values_no)]
 
     try:
 
+        solutions = set()
+        populations = [LTPopulation(solution_structure)]
+
         while True:
 
-            solution = genotype(context.genotype_size)
+            # increase iteration counter
+            iteration_counter.increase()
 
             if solution_operator is not None:
-                gen_gen = solution_operator.next()
-                solution.set_genotype(np.array(gen_gen))
+                solution = solution_operator.next()
+            else:
+                solution = collection_operator.generate(1)[0]
 
-            fitness = evaluator.evaluate(solution.get_genotype())
-            solution.set_fitness(fitness)
+            solution.fitness = evaluator.evaluate(solution)
 
-            solution = booster.boost(solution, evaluator)
+            solution = local_search.search(solution)
 
-            if hashable(solution.get_genotype()) not in solutions:
-                solutions.add(hashable(solution.get_genotype()))
+            solution_tuple = solution.create_tuple()
+            if solution_tuple not in solutions:
+                solutions.add(solution_tuple)
                 populations[0].add(solution)
-                best_store.try_store(solution.get_fitness(), solution)
+                best_store.try_store(solution)
 
             for population_index in xrange(len(populations)):
                 log.info("Population index: %s population len: %s" %
                          (population_index, len(populations)))
                 population = populations[population_index]
-                old_fitness = float(solution.get_fitness())
-                log.info("Fitness before p3 core: %s" % old_fitness)
-                mixer.mix(solution, population, evaluator)
-                new_fitness = solution.get_fitness()
+                old_fitness = solution.fitness.deep_copy()
+                log.info("Fitness before p3 core: %s" % old_fitness.value)
+                cluster_cross.cross(solution, population.solutions,
+                                    population.clusters)
+                new_fitness = solution.fitness
+
                 if new_fitness >= old_fitness:
-                    if hashable(solution.get_genotype()) not in solutions:
-                        solutions.add(hashable(solution.get_genotype()))
+                    solution_tuple = solution.create_tuple()
+                    print solution_tuple
+                    if solution_tuple not in solutions:
+                        solutions.add(solution_tuple)
                         next_population_index = population_index + 1
                         if next_population_index == len(populations):
-                            population = LTPopulation(context.genotype_size,
-                                                      context.values_no)
+                            population = LTPopulation(solution_structure)
                             populations.append(population)
                         populations[next_population_index].add(solution)
                         log.info("Added to %d with fitness %f" %
-                                 (next_population_index, new_fitness))
-                        best_store.try_store(solution.get_fitness(), solution)
+                                 (next_population_index, new_fitness.value))
+                        best_store.try_store(solution)
                 else:
                     break
 
             log.info("End of pyramid iteration\n")
-            if len(solutions) >= context.solution_no:
+            if len(solutions) >= context.solution_number:
                 break
-    except (EvaluatorException, TerminationException) as e:
+
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
         log.info(e)
-    finally:
-        (max_fitness, best_genotype) = \
-            (best_store.best_fitness, best_store.best_solution.get_genotype())
 
-    log.info("Best fitness: " + str(max_fitness))
+    best_fitness = best_store.best_solution.fitness.value
+    log.info("Best fitness: " + str(best_fitness))
     output_path = '%s/f%s-%s.solution' % (context.output_dir,
-                                          max_fitness, uuid.uuid4().hex)
+                                          best_fitness, uuid.uuid4().hex)
     log.info("Output path: " + output_path)
-    writer.write(output_path, best_genotype, max_fitness)
+    writer.write(output_path, best_store.best_solution)
 
-    return (best_genotype, max_fitness)
+    return best_store.best_solution

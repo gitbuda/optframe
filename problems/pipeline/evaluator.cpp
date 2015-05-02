@@ -224,7 +224,7 @@ extern "C" {
             if (bit == 1) bool_genotype.push_back(true);
         }
         float cost = pipeline->evaluateIterative(bool_genotype);
-        return -cost;
+        return cost;
     }
 }
 

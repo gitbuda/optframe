@@ -24,6 +24,7 @@ class BitMutationOperator(object):
     def mutate(self, genes):
         '''
         '''
+        # print "before ", genes
         for i, gene in enumerate(genes):
             random_float = random.random()
             if random_float < self.mutation_factor:
@@ -31,3 +32,4 @@ class BitMutationOperator(object):
                     genes[i] = 0
                 else:
                     genes[i] = 1
+        # print "after ", genes

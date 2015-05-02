@@ -32,13 +32,14 @@ def execute(algorithms, problems, config):
                                                            problem_operator)
 
             # execution
-            (best, best_fitness) = algorithm.engine.run(algorithm_config)
+            solution = algorithm.engine.run(algorithm_config)
+            fitness = solution.fitness.value
 
             # results
             identifier = run.identifier
             evaluator = problem_operator.evaluator
             results.setdefault(identifier, ExecutionResult())
-            results[identifier].fitness_container.append(best_fitness)
+            results[identifier].fitness_container.append(fitness)
             results[identifier].evaluations_container.append(
                 evaluator.evaluation_counter.evaluations_number)
 

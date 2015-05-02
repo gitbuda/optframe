@@ -7,6 +7,8 @@ Boolean problem evaluator.
 from boolean import boolean, create_c_array
 from ctypes import pointer, c_float, c_int
 from common.evaluation_counter import EvaluationCounter
+from common.fitness import Fitness, MAX
+from common.constants import BIT_BOX_KEY
 
 
 class Evaluator(object):
@@ -28,10 +30,10 @@ class Evaluator(object):
         '''
         self.evaluation_counter.increment()
 
-        tt = create_c_array(solution)
+        tt = create_c_array(solution.container[BIT_BOX_KEY])
         nVariables = c_int(8)
         varijanta = c_int(self.boolean_type)
         stop = c_int(0)
         sp = pointer(stop)
 
-        return boolean.eval(tt, nVariables, varijanta, sp)
+        return Fitness(boolean.eval(tt, nVariables, varijanta, sp), MAX)

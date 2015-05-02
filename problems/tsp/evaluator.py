@@ -7,6 +7,8 @@ TSP problem evaluator.
 import sys
 
 from common.evaluation_counter import EvaluationCounter
+from common.fitness import Fitness, MIN
+import common.constants as CONST
 
 
 class Evaluator(object):
@@ -36,19 +38,20 @@ class Evaluator(object):
                 row = [int(x) for x in line.rstrip().split(' ') if x]
                 self._tsp_distances.append(row)
 
-    def evaluate(self, genotype):
+    def evaluate(self, solution):
         '''
         '''
         self.evaluation_counter.increment()
 
         cost = 0
+        genotype = solution.container[CONST.PERMUTATION_BOX_KEY]
         length = len(genotype)
         unique = set()
 
         for i, item in enumerate(genotype):
 
             if item in unique:
-                return -sys.maxsize
+                return Fitness(sys.maxsize, MIN)
 
             if i + 1 == length:
                 next_item = 0
@@ -59,4 +62,4 @@ class Evaluator(object):
 
             cost += self._tsp_distances[item][next_item]
 
-        return -cost
+        return Fitness(cost, MIN)

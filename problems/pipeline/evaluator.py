@@ -8,6 +8,8 @@ import os
 
 from ctypes import cdll, c_int, c_float, c_char_p
 from common.evaluation_counter import EvaluationCounter
+from common.fitness import Fitness, MIN
+from common.constants import BIT_BOX_KEY
 
 # find c pipeline library
 folder_path = os.path.split(os.path.abspath(__file__))[0]
@@ -46,8 +48,9 @@ class Evaluator(object):
         '''
         '''
         self.evaluation_counter.increment()
+        solution = solution.container[BIT_BOX_KEY]
 
         c_array = create_c_array(solution)
         cost = pipeline.evaluate(c_array, len(solution))
 
-        return cost
+        return Fitness(cost, MIN)

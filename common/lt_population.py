@@ -2,14 +2,14 @@
 # -*- coding: utf-8 -*-
 
 '''
+Linkage Tree Population
 '''
 
 import logging
-
+import common.constants as CONST
 from collections import defaultdict
 from common.clustering import upgma
 from helpers.calculator import neg_entropy
-
 
 log = logging.getLogger(__name__)
 
@@ -18,75 +18,101 @@ log = logging.getLogger(__name__)
 
 class LTPopulation:
 
-    def __init__(self, size, values_no=2):
+    def __init__(self, solution_structure):
         '''
         Args:
-            size: solution size
-            values_no: number of distinct values in,
-            e.g. if solution if bit string then values_no
-            will be 2
+            solution_structure
         '''
 
-        self.size = size
-        self.values_no = values_no
+        self.solution_structure = solution_structure
         self.solutions = []
         self.reset_calculations()
 
+    def configure(self, config):
+        '''
+        '''
+        # TODO: clustering configuration
+        pass
+
     def reset_calculations(self):
-        self.occurrences = defaultdict(lambda: defaultdict(list))
-        self.pairwise_distance = [[0.0 for x in range(self.size)]
-                                  for x in range(self.size)]
+        '''
+        '''
+        self.occurrences = {}
+        self.pairwise_distance = {}
+        self.clusters = {}
+        for key in self.solution_structure.keys():
+            size = int(self.solution_structure[key].size)
+            self.occurrences[key] = defaultdict(lambda: defaultdict(list))
+            self.pairwise_distance[key] = [[0.0 for x in range(size)]
+                                           for x in range(size)]
 
-    def recalculate_for(self, solution, rebuild_tree=True):
-        genotype = solution.get_genotype()
-
-        for i in range(len(solution.get_genotype()) - 1):
-            for j in range(i + 1, len(solution.get_genotype())):
+    def recalculate_for(self, solution, key, values_no):
+        '''
+        '''
+        genotype = solution.container[key]
+        for i in range(len(genotype) - 1):
+            for j in range(i + 1, len(genotype)):
                 if not self.occurrences[i][j]:
-                    self.occurrences[i][j] = [0] * self.values_no**2
+                    self.occurrences[i][j] = [0] * values_no**2
                 entry = self.occurrences[i][j]
-                index = genotype[j] * self.values_no + genotype[i]
+                index = genotype[j] * values_no + genotype[i]
                 entry[index] += 1
-                self.update_entropy(i, j, entry)
+                self.update_entropy(i, j, entry, key, values_no)
+
+    def recalculate_solution(self, solution, rebuild_tree=True):
+        '''
+        '''
+        for key in self.solution_structure.keys():
+            if key is CONST.BIT_BOX_KEY:
+                self.recalculate_for(solution, key, 2, False)
+            if key is CONST.PERMUTATION_BOX_KEY:
+                values_no = int(self.solution_structure.permutation.size)
+                self.recalculate_for(solution, key, values_no, False)
 
         if rebuild_tree:
             self.rebuild_tree()
 
-    def add(self, solution, recalculate=True):
+    def add(self, solution, rebuild_tree=True):
+        '''
+        '''
         self.solutions.append(solution)
-        if recalculate:
-            self.recalculate_for(solution, recalculate)
+        self.recalculate_solution(solution, rebuild_tree)
 
     def recalculate_population(self):
+        '''
+        Reset calculations and rebuild tree.
+        Only one cluster operation.
+        '''
         self.reset_calculations()
         for solution in self.solutions:
-            self.recalculate_for(solution, False)
+            self.recalculate_solution(solution, False)
         self.rebuild_tree()
 
-    def update_entropy(self, i, j, entry):
-        total_size = self.values_no * 2
+    def update_entropy(self, i, j, entry, key, values_no):
+        '''
+        '''
+        total_size = values_no * 2
         bits = [0] * total_size
-        for k in range(self.values_no):
-            for l in range(self.values_no):
-                bits[k] += entry[k + l * self.values_no]
-        for k in range(self.values_no):
-            for l in range(self.values_no):
-                bits[self.values_no + k] += entry[k * self.values_no + l]
+        for k in range(values_no):
+            for l in range(values_no):
+                bits[k] += entry[k + l * values_no]
+        for k in range(values_no):
+            for l in range(values_no):
+                bits[values_no + k] += entry[k * values_no + l]
         total = sum(entry)
         separate = neg_entropy(bits, total)
         together = neg_entropy(entry, total)
         ratio = float(0)
         if together:
             ratio = 2 - (separate / together)
-
-        self.pairwise_distance[i][j] = ratio
-        self.pairwise_distance[j][i] = ratio
+        self.pairwise_distance[key][i][j] = ratio
+        self.pairwise_distance[key][j][i] = ratio
 
     def rebuild_tree(self):
-        self.clusters = upgma.build(self.pairwise_distance)
-
-    def get_clusters(self):
-        return self.clusters
+        '''
+        '''
+        for key in self.solution_structure.keys():
+            self.clusters[key] = upgma.build(self.pairwise_distance[key])
 
 
 if __name__ == '__main__':

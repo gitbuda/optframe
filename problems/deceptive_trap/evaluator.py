@@ -5,7 +5,8 @@ Deceptive trap problem evaluator.
 '''
 
 import logging
-
+import common.constants as CONST
+from common.fitness import Fitness, MAX
 from common.evaluation_counter import EvaluationCounter
 
 
@@ -34,21 +35,23 @@ class Evaluator(object):
         '''
         '''
         self.evaluation_counter.increment()
+        bit_array = solution.container[CONST.BIT_BOX_KEY]
+        size = len(bit_array)
 
         total = 0
 
-        for i in xrange(0, len(solution), self.trap_size):
+        for i in xrange(0, size, self.trap_size):
             partial = 0
             trap_end_i = i + self.trap_size
-            if trap_end_i > len(solution):
-                trap_end_i = len(solution)
+            if trap_end_i > size:
+                trap_end_i = size
             for index in xrange(i, trap_end_i):
-                partial += solution[index]
+                partial += bit_array[index]
             if partial < self.trap_size:
                 partial = self.trap_size - partial - 1
             total += partial
 
-        return total
+        return Fitness(1.0 * total / size, MAX)
 
 
 if __name__ == '__main__':

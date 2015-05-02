@@ -3,107 +3,66 @@
 
 import logging
 
-from algorithms.ga.optimization.structure.population import Population
-from algorithms.ga.optimization.structure.genotype import Genotype
-from algorithms.ga.config import BEST_TO_NEXT_NUMBER
-# from algorithms.ga.config import CROSS_MUTATION_FACTOR
 from common.best_store import BestStore
 
 log = logging.getLogger(__name__)
 
 
-def evaluate(population, best, best_fitness, evaluate_operator, best_operator):
-
-    # evaluate all genotypes
-    # evaluations is array of touples [(index, fitness)]
-    evaluations = []
-    for j, genotype in enumerate(population.genotypes):
-        fitness = evaluate_operator.evaluate(genotype.genes)
-        evaluations.append((j, fitness))
-
-    best_array = best_operator.to_next(evaluations)
-    if best_array[0][1] > best_fitness:
-        best = population.genotypes[best_array[0][0]]
-        best_fitness = best_array[0][1]
-
-    return (evaluations, best_array, best, best_fitness)
+def evaluate_and_sort(population, evaluator):
+    for solution in population:
+        solution.fitness = evaluator.evaluate(solution)
+    population.sort(key=lambda x: x.fitness, reverse=True)
 
 
-def run(conf):
+def run(context):
 
     log.info("GA start")
-    # log.info("parameters\n%s" % conf.config)
 
     best_store = BestStore()
-    best_store.configure(conf.config)
+    best_store.configure(context.config)
 
-    # operators
-    termination_operator = conf.termination_operator
-    evaluate_operator = conf.evaluate_operator
-    cross_operator = conf.cross_operator
-    mutation_operator = conf.mutation_operator
-    selection_operator = conf.selection_operator
-    population_operator = conf.population_operator
-    best_operator = conf.best_operator
+    # operators and parameters
+    termination_operator = context.termination_operator
+    evaluator = context.evaluate_operator
+    cross_operator = context.cross_operator
+    mutation_operator = context.mutation_operator
+    selection_operator = context.selection_operator
+    population_operator = context.population_operator
+    population_size = context.population_size
+    max_iterations = context.max_iterations
+    best_to_next_number = context.best_to_next_number
 
-    # parameters
-    population_size = conf.parameters['PopulationSize']
-    max_iterations = conf.parameters['IterationsNumber']
-    best_to_next_number = conf.parameters[BEST_TO_NEXT_NUMBER]
-    # cross_mutation_factor = conf.parameters[CROSS_MUTATION_FACTOR]
-
+    # initial population
     population = population_operator.generate()
-    best = population.genotypes[0]
-    best_fitness = evaluate_operator.evaluate(population.genotypes[0].genes)
+    evaluate_and_sort(population, evaluator)
+    best_store.try_store(population[0])
 
     try:
-        # evaluation process
+
         for i in termination_operator(max_iterations):
 
-            (evaluations, best_array, best, best_fitness) = \
-                evaluate(population, best, best_fitness, evaluate_operator,
-                         best_operator)
-            best_store.try_store(best_fitness, best)
-
-            new_population = Population()
-            for k, item in enumerate(best_array):
-                new_population.append(population.genotypes[item[0]])
+            new_population = population[0:best_to_next_number]
 
             for j in range(population_size - best_to_next_number):
 
                 # select pair
-                selected_pair = selection_operator.select(evaluations)
-                better_genes = population.genotypes[selected_pair[0][0]].genes
-                worse_genes = population.genotypes[selected_pair[1][0]].genes
+                selected_pair = selection_operator.select(population, 2)
+                better = selected_pair[0]
+                worse = selected_pair[1]
 
-                # partial
-                # if random.random() < cross_mutation_factor:
-                #    new_genes = cross_operator.cross(better_genes,
-                #                                     worse_genes)
-                #    new_genotype = Genotype(new_genes)
-                #    new_population.append(new_genotype)
-                # else:
-                #     new_genotype = Genotype(better_genes)
-                #     mutation_operator.mutate(new_genotype.genes)
-                #     new_population.append(new_genotype)
-
-                # all
-                new_genes = cross_operator.cross(better_genes, worse_genes)
-                new_genotype = Genotype(new_genes)
-                mutation_operator.mutate(new_genotype.genes)
-                new_population.append(new_genotype)
+                # crossover and mutation
+                new_solution = cross_operator.cross(better, worse)
+                mutation_operator.mutate(new_solution)
+                new_population.append(new_solution)
 
             population = new_population
 
-            (evaluations, best_array, best, best_fitness) = \
-                evaluate(population, best, best_fitness, evaluate_operator,
-                         best_operator)
-            best_store.try_store(best_fitness, best)
+            evaluate_and_sort(population, evaluator)
+            best_store.try_store(population[0])
 
-            # log.info('iteration = %s; cost = %s; genotype = %s' %
-            #          (i, best_fitness, best.genes))
+    except Exception as e:
+        # import traceback
+        # traceback.print_exc()
+        log.info(e)
 
-    except Exception:
-        pass
-
-    return (best, best_fitness)
+    return best_store.best_solution

@@ -4,14 +4,20 @@
       "run_number": 10,
       "algorithm": "ltga",
       "evaluations_number": 100000,
-      "population_size": 50
+      "population_size": 100
     },
     "runs": [
       {
         "identifier": "dt",
         "problem": "deceptive_trap",
-        "solution_size": 35,
+        "solution_structure": { "bit": { "size": 35 } },
+        "local_search": { "bit": { "name": "first_improvement" } },
+        "iteration_limit": 100,
         "trap_size": 5
+      },
+      {
+        "identifier": "tsp",
+        "problem": "tsp"
       },
       {
         "identifier": "dst",

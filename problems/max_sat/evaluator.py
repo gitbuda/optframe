@@ -8,6 +8,8 @@ import random
 import logging
 
 from common.evaluation_counter import EvaluationCounter
+from common.fitness import Fitness, MAX
+from common.constants import BIT_BOX_KEY
 
 log = logging.getLogger(__name__)
 
@@ -53,6 +55,7 @@ class Evaluator(object):
         '''
         '''
         self.evaluation_counter.increment()
+        solution = solution.container[BIT_BOX_KEY]
 
         fitness = 0
         for i in range(self.clause_number):
@@ -61,7 +64,7 @@ class Evaluator(object):
                     fitness += 1
                     break
 
-        return fitness
+        return Fitness(fitness, MAX)
 
 
 if __name__ == '__main__':

@@ -11,6 +11,7 @@ from common.solution import Solution
 from common.bayes.network import random_bitstr
 from common.bayes.network import construct_network
 from common.bayes.network import sample_from_network
+from common.constants import BIT_BOX_KEY
 
 log = logging.getLogger(__name__)
 
@@ -29,9 +30,9 @@ def run(context):
 
     try:
         while True:
-            solution = Solution(random_bitstr(solution_size))
-            solution.fitness = evaluator.evaluate(solution.box)
-            best_store.try_store(solution.fitness, solution)
+            solution = Solution({BIT_BOX_KEY: random_bitstr(solution_size)})
+            solution.fitness = evaluator.evaluate(solution)
+            best_store.try_store(solution)
             for population in populations:
                 if len(population) < population_limit:
                     population.append(solution)
@@ -46,10 +47,10 @@ def run(context):
                                             max_edges)
                 childrens = sample_from_network(population, network, 10)
                 for children in childrens:
-                    children.fitness = evaluator.evaluate(children.box)
+                    children.fitness = evaluator.evaluate(children)
                 childrens.sort(key=lambda x: x.fitness, reverse=True)
                 children = childrens[0]
-                best_store.try_store(children.fitness, children)
+                best_store.try_store(children)
                 if children.fitness >= solution.fitness:
                     solution = children
                     next_population_index = index + 1
@@ -62,8 +63,8 @@ def run(context):
                 else:
                     break
     except Exception as e:
-        # import traceback
-        # traceback.print_exc()
+        import traceback
+        traceback.print_exc()
         log.info(e)
 
     return (best_store.best_solution, best_store.best_fitness)

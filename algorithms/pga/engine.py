@@ -8,8 +8,6 @@ Pyramid Genetic Algorithm
 import logging
 
 from common.best_store import BestStore
-from common.solution import Solution
-from common.selection.tournament import Selection as Tournament
 
 log = logging.getLogger(__name__)
 
@@ -17,11 +15,11 @@ log = logging.getLogger(__name__)
 def run(context):
 
     evaluator = context.evaluate_operator
-    box_operator = context.box_operator
     cross_operator = context.cross_operator
     mutation_operator = context.mutation_operator
     solution_number = context.solution_number
-    tournament = Tournament()
+    init_solution_operator = context.init_solution_operator
+    selection_operator = context.selection_operator
 
     best_store = BestStore()
     best_store.configure(context.config)
@@ -33,28 +31,28 @@ def run(context):
         while True:
 
             # initial iteration solution
-            solution = Solution(box_operator.generate())
-            solution.fitness = evaluator.evaluate(solution.box)
-            solution_tuple = tuple(solution.box)
+            solution = init_solution_operator.generate(1)[0]
+            solution.fitness = evaluator.evaluate(solution)
+            solution_tuple = solution.create_tuple()
             if solution_tuple not in solutions:
                 solutions.add(solution_tuple)
                 populations[0].append(solution)
-                best_store.try_store(solution.fitness, solution)
+                best_store.try_store(solution)
 
             # pyramid iteration
             for population_index in xrange(len(populations)):
                 log.info("Population index: %s population len: %s" %
                          (population_index, len(populations)))
                 population = populations[population_index]
-                log.info("Fitness before PGA core: %s" % solution.fitness)
-                pyramid_solution = tournament.select(population)[0]
-                new_solution = Solution()
-                new_solution.box = cross_operator.cross(pyramid_solution.box,
-                                                        solution.box)
-                mutation_operator.mutate(new_solution.box)
-                new_solution.fitness = evaluator.evaluate(new_solution.box)
+                log.info("Fitness before PGA core: %s" %
+                         solution.fitness.value)
+                pyramid_solution = selection_operator.select(population)[0]
+                new_solution = cross_operator.cross(pyramid_solution,
+                                                    solution)
+                mutation_operator.mutate(new_solution)
+                new_solution.fitness = evaluator.evaluate(new_solution)
                 if new_solution.fitness >= solution.fitness:
-                    solution_tuple = tuple(new_solution.box)
+                    solution_tuple = new_solution.create_tuple()
                     if solution_tuple not in solutions:
                         solutions.add(solution_tuple)
                         next_population_index = population_index + 1
@@ -64,8 +62,9 @@ def run(context):
                         populations[next_population_index].append(new_solution)
                         solution = new_solution
                         log.info("Added to %d with fitness %f" %
-                                 (next_population_index, solution.fitness))
-                        best_store.try_store(solution.fitness, solution)
+                                 (next_population_index,
+                                  solution.fitness.value))
+                        best_store.try_store(solution)
                     else:
                         break
                 else:
@@ -77,6 +76,6 @@ def run(context):
     except Exception as e:
         log.info(e)
 
-    print best_store.best_solution.box, best_store.best_fitness
+    print "Best: %s" % best_store.best_solution.fitness.value
 
-    return (best_store.best_solution, best_store.best_fitness)
+    return best_store.best_solution

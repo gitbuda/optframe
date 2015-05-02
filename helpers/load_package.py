@@ -24,5 +24,7 @@ def load_package(path, tag='Module'):
             package[module_name] = modul
             log.info('%s: %s loaded.', tag, module_name)
         except Exception as e:
+            import traceback
+            traceback.print_exc()
             log.info(e)
     return package

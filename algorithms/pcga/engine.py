@@ -15,6 +15,7 @@ import logging
 from common.best_store import BestStore
 from common.solution import Solution
 from common.cpv import CompactProbabilityVector
+from common.constants import BIT_BOX_KEY
 
 log = logging.getLogger(__name__)
 
@@ -63,21 +64,21 @@ def run(context):
 
         while True:
             # TODO: add greedy operator
-            solution = Solution([random.randint(0, 1)
-                                for x in xrange(solution_size)])
-            solution.fitness = evaluator.evaluate(solution.box)
-            best_store.try_store(solution.fitness, solution)
+            solution = Solution({BIT_BOX_KEY: [random.randint(0, 1)
+                                for x in xrange(solution_size)]})
+            solution.fitness = evaluator.evaluate(solution)
+            best_store.try_store(solution)
 
             for index in xrange(len(populations)):
                 population = populations[index]
                 cpv = population.cpv
                 candidate = cpv.generate_candidate()
-                candidate.fitness = evaluator.evaluate(candidate.box)
+                candidate.fitness = evaluator.evaluate(candidate)
                 if solution.fitness > candidate.fitness:
                     winner, loser = (solution, candidate)
                 else:
                     winner, loser = (candidate, solution)
-                best_store.try_store(winner.fitness, winner)
+                best_store.try_store(winner)
                 population.increment_size()
                 cpv.update_vector(winner, loser, population.size)
                 if winner.fitness > solution.fitness:
@@ -90,10 +91,9 @@ def run(context):
                     break
 
     except Exception as e:
-        log.info(best_store.best_solution.box)
         log.info(e)
 
-    return (best_store.best_solution, best_store.best_fitness)
+    return best_store.best_solution
 
 
 if __name__ == '__main__':

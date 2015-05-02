@@ -4,21 +4,22 @@
 '''
 '''
 
-import numpy as np
 import logging
-import copy
+
+log = logging.getLogger(__name__)
 
 
 def swap(a, b, ind):
-    copy_a = copy.copy(a)
-    copy_b = copy.copy(b)
-    elements_a = np.take(a, ind)
-    np.put(copy_b, ind, elements_a)
-    elements_b = np.take(b, ind)
-    np.put(copy_a, ind, elements_b)
-    return copy_a, copy_b
+    '''
+    '''
+    for i in ind:
+        a[i], b[i] = b[i], a[i]
+
 
 if __name__ == '__main__':
 
-    logging.basicConfig(level=logging.INFO)
-    log = logging.getLogger(__name__)
+    array1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    array2 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    print array1, array2
+    swap(array1, array2, [0, 1, 5])
+    print array1, array2

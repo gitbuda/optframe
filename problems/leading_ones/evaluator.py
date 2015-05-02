@@ -7,6 +7,8 @@ e.g.
 '''
 
 from common.evaluation_counter import EvaluationCounter
+from common.fitness import Fitness, MAX
+from common.constants import BIT_BOX_KEY
 
 
 class Evaluator(object):
@@ -30,10 +32,16 @@ class Evaluator(object):
         Bitstring check operation is expensive and here
         isn't a place where this should be chacked.
         '''
+
         self.evaluation_counter.increment()
+
+        bits = solution.container[BIT_BOX_KEY]
+        # print bits
+
         ones = 0
-        for bit in solution:
+        for bit in bits:
             if bit != 1:
                 break
             ones += bit
-        return 1.0 * ones / len(solution)
+
+        return Fitness(1.0 * ones / len(bits), MAX)

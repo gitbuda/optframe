@@ -1,0 +1,14 @@
+{
+  "multiple": {
+    "common": {
+      "run_number": 10,
+      "problem": "tsp"
+    },
+    "runs": [
+      {
+        "identifier": "tsp-ga",
+        "algorithm": "ga"
+      }
+    ]
+  }
+}

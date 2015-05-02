@@ -8,6 +8,8 @@ import os
 import random
 import logging
 import lxml.etree as etree
+from common.solution import Solution
+import common.constants as CONST
 
 log = logging.getLogger(__name__)
 
@@ -38,7 +40,10 @@ class SolutionOperator(object):
 
     def next(self):
         index = random.randint(0, len(self.deme) - 1)
-        return self.deme[index].genotype
+        genotype = self.deme[index].genotype
+        container = {}
+        container[CONST.BIT_BOX_KEY] = genotype
+        return Solution(container)
 
 
 if __name__ == '__main__':

@@ -5,66 +5,53 @@ P3Config
 '''
 
 import logging
+from common.best_store import BestStore
+from common.iteration_counter import IterationCounter
+from common.operator.collection.operator import Operator as CollectionOperator
+from common.operator.local_search.operator import Operator as LocalSearch
+from common.operator.cluster_cross.operator import Operator as ClusterCross
 
-from algorithms.p3.genotype.bit_array import BitArrayGenotype
-from algorithms.p3.genotype.permutation import PermutationGenotype
-from algorithms.p3.booster.bit_array import BitArrayBooster
-from algorithms.p3.booster.permutation import PermutationBooster
-from algorithms.p3.mix.bit_array import BitArrayMix
-from algorithms.p3.mix.permutation import PermutationMix
+log = logging.getLogger(__name__)
 
 
 class Config(object):
 
     def __init__(self):
-        self.log = logging.getLogger(__name__)
-        self.parameters = {}
+        '''
+        '''
+        pass
 
     def load_problem_conf(self, problem_config):
+        '''
+        '''
         self.config = problem_config
 
     def load_algorithm_conf(self, algorithm_config):
+        '''
+        '''
         self.config.weak_merge(algorithm_config)
+
         print self.config
 
-        self.genotype_size = int(self.config.solution_size)
-        self.log.info('Genotype size: %s' % self.genotype_size)
-
-        self.solution_no = int(self.config.solution_number)
-        self.log.info('Solution number: %s' % self.solution_no)
-
-        self.values_no = int(self.config.values_number)
-        self.log.info('Values number: %s' % self.values_no)
-
-        solution_type = self.config.solution_type
-
-        self.genotype_type = '%sGenotype' % solution_type
-        self.log.info('Genotype type: %s' % self.genotype_type)
-
-        self.booster_name = '%sBooster' % solution_type
-        self.log.info('Booster name: %s' % self.booster_name)
-
-        self.mixer_name = '%sMix' % solution_type
-        self.log.info('Mixer name: %s' % self.mixer_name)
-
+        # parameters
+        self.solution_number = int(self.config.solution_number)
+        self.solution_structure = self.config.solution_structure
         self.output_dir = self.config.output_path
 
-        self.operators = {}
-        self.operators['bitGenotype'] = \
-            BitArrayGenotype
-        self.operators['permutationGenotype'] = \
-            PermutationGenotype
-        self.operators['bitBooster'] = \
-            BitArrayBooster()
-        self.operators['permutationBooster'] = \
-            PermutationBooster(4)
-        self.operators['bitMix'] = \
-            BitArrayMix()
-        self.operators['permutationMix'] = \
-            PermutationMix()
+        # operators
+        self.best_store = BestStore()
+        self.best_store.configure(self.config)
 
-        self.genotype = self.operators[self.genotype_type]
-        self.booster = self.operators[self.booster_name]
-        self.mixer = self.operators[self.mixer_name]
+        self.iteration_counter = IterationCounter()
+        self.iteration_counter.configure(self.config)
 
-        self.log.info('Configuration loaded.\n')
+        self.collection_operator = CollectionOperator()
+        self.collection_operator.configure(self.config)
+
+        self.local_search = LocalSearch()
+        self.local_search.configure(self)
+
+        self.cluster_cross = ClusterCross()
+        self.cluster_cross.configure(self)
+
+        log.info('P3 configuration loaded.')

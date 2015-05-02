@@ -9,6 +9,7 @@ import random
 import logging
 
 from common.solution import Solution
+from common.constants import BIT_BOX_KEY
 
 log = logging.getLogger(__name__)
 fact = math.factorial
@@ -88,7 +89,7 @@ def compute_count_for_edges(population, indexes):
     for solution in population:
         index = 0
         for i, v in enumerate(reversed(indexes)):
-            index += (solution.box[v] * (2 ** i))
+            index += (solution.container[BIT_BOX_KEY][v] * (2 ** i))
         counts[index] += 1
     return counts
 
@@ -156,7 +157,8 @@ def topological_ordering(graph):
 def margin_probability(i, population):
     '''
     '''
-    prob = 1.0 * sum(map(lambda x: x.box[i], population)) / len(population)
+    prob = 1.0 * sum(map(lambda x: x.container[BIT_BOX_KEY][i], population)) /\
+        len(population)
     return prob
 
 
@@ -188,7 +190,7 @@ def sample(graph, population):
     for node in graph:
         prob = calculate_probability(node, bitstr, population)
         bitstr[node.index] = 1 if random.random() < prob else 0
-    return Solution(bitstr, None)
+    return Solution({BIT_BOX_KEY: bitstr}, None)
 
 
 def sample_from_network(population, graph, children_number):

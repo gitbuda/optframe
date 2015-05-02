@@ -1,38 +1,54 @@
 {
   "multiple": {
     "common": {
-      "run_number": 10,
+      "run_number": 5,
       "algorithm": "p3",
-      "evaluations_number": 100000
+      "local_search": { "bit": { "name": "first_improvement" } },
+      "fitness_limit": { "value": 1, "category": "max" },
+      "evaluations_number": 10000
     },
     "runs": [
       {
         "identifier": "dt",
         "problem": "deceptive_trap",
-        "solution_size": 35,
-        "trap_size": 7
+        "solution_structure": { "bit": { "size": 20 } },
+        "trap_size": 5
+      },
+      {
+        "identifier": "tsp",
+        "problem": "tsp",
+        "solution_structure": { "permutation": { "size": 29 } },
+        "fitness_limit": { "value": 1000, "category": "min" },
+        "local_search": { "permutation": { "name": "block_full" } }
       },
       {
         "identifier": "dst",
         "problem": "deceptive_step_trap",
+        "solution_structure": { "bit": { "size": 20 } },
         "solution_size": 35
       },
       {
         "identifier": "lo",
         "problem": "leading_ones",
+        "solution_structure": { "bit": { "size": 20 } },
         "solution_size": 30
       },
       {
         "identifier": "om",
         "problem": "one_max",
+        "solution_structure": { "bit": { "size": 20 } },
         "solution_size": 30
       },
       {
         "identifier": "ra",
+        "solution_structure": { "bit": { "size": 20 } },
+        "fitness_limit": { "value": 0, "category": "min" },
         "problem": "rastring"
       },
       {
         "identifier": "sc",
+        "solution_structure": { "bit": { "size": 20 } },
+        "fitness_limit": { "value": 0, "category": "min" },
         "problem": "schwefel"
       }
     ]

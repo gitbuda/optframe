@@ -12,9 +12,9 @@ class SolutionWriter(object):
     def __init__(self):
         pass
 
-    def write(self, path, genes, fitness):
+    def write(self, path, solution):
         data = {}
-        data['fitness'] = fitness
-        data['genes'] = list(genes)
+        data['fitness'] = solution.fitness.value
+        data['container'] = list(solution.container)
         with open(path, 'w') as f:
             json.dump(data, f)

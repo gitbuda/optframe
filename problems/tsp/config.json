@@ -4,7 +4,5 @@
   "solution_type": "Permutation",
   "values_number": 29,
   "solution_size": 29,
-  "population_operator": "PermutationPopulationOperator",
-  "mutation_operator": "PermutationMutationOperator",
-  "cross_operator": "PermutationCrossOperator"
+  "solution_structure": { "permutation": { "size": 29 } }
 }

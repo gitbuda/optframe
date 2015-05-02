@@ -5,8 +5,9 @@ Deceptive step trap problem evaluator.
 '''
 
 import logging
-
 from common.evaluation_counter import EvaluationCounter
+from common.fitness import Fitness, MAX
+from common.constants import BIT_BOX_KEY
 
 log = logging.getLogger(__name__)
 
@@ -40,21 +41,24 @@ class Evaluator(object):
         '''
         '''
         self.evaluation_counter.increment()
+        solution = solution.container[BIT_BOX_KEY]
+        length = len(solution)
 
         total = 0
 
-        for i in xrange(0, len(solution), self.trap_size):
+        for i in xrange(0, length, self.trap_size):
             partial = 0
             trap_end_i = i + self.trap_size
-            if trap_end_i > len(solution):
-                trap_end_i = len(solution)
+            if trap_end_i > length:
+                trap_end_i = length
             for index in xrange(i, trap_end_i):
                 partial += solution[index]
             if partial < self.trap_size:
                 partial = self.trap_size - partial - 1
             total += (self.offset + partial) / self.step_size
 
-        return total
+        value = (float(total) * self.trap_size) / (length * self.trap_max)
+        return Fitness(value, MAX)
 
 
 if __name__ == '__main__':

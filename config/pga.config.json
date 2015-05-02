@@ -3,9 +3,17 @@
     "common": {
       "run_number": 10,
       "algorithm": "pga",
-      "evaluations_number": 100000
+      "evaluations_number": 1000
     },
     "runs": [
+      {
+        "identifier": "lo",
+        "problem": "leading_ones"
+      },
+      {
+        "identifier": "tsp",
+        "problem": "tsp"
+      },
       {
         "identifier": "dt",
         "problem": "deceptive_trap",
@@ -16,11 +24,6 @@
         "identifier": "dst",
         "problem": "deceptive_step_trap",
         "solution_size": 35
-      },
-      {
-        "identifier": "lo",
-        "problem": "leading_ones",
-        "solution_size": 30
       },
       {
         "identifier": "om",

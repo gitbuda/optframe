@@ -28,16 +28,16 @@ def run(context):
         cpv = CompactProbabilityVector(solution_size)
         for iteration in xrange(iterations_number):
             c1 = cpv.generate_candidate()
-            c1.fitness = evaluator.evaluate(c1.box)
+            c1.fitness = evaluator.evaluate(c1)
             c2 = cpv.generate_candidate()
-            c2.fitness = evaluator.evaluate(c2.box)
+            c2.fitness = evaluator.evaluate(c2)
             winner, loser = (c1, c2) if c1.fitness > c2.fitness else (c2, c1)
-            best_store.try_store(winner.fitness, winner)
+            best_store.try_store(winner)
             cpv.update_vector(winner, loser, population_size)
     except Exception:
         pass
 
-    return (best_store.best_solution, best_store.best_fitness)
+    return best_store.best_solution
 
 
 if __name__ == '__main__':

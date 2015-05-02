@@ -6,12 +6,12 @@ http://www.cs.unm.edu/~neal.holts/dga/benchmarkFunction/rastrigin.html
 '''
 
 import math
-
 from itertools import islice
 from helpers.calculator import float_round
 from common.evaluation_counter import EvaluationCounter
 from common.binary_to_float_evaluator import BinaryToFloatEvaluator
-
+from common.fitness import Fitness, MIN
+from common.constants import BIT_BOX_KEY
 
 class Evaluator(BinaryToFloatEvaluator):
 
@@ -36,6 +36,7 @@ class Evaluator(BinaryToFloatEvaluator):
         '''
         '''
         self.evaluation_counter.increment()
+        solution = solution.container[BIT_BOX_KEY]
 
         total = 0
         it = iter(solution)
@@ -47,4 +48,4 @@ class Evaluator(BinaryToFloatEvaluator):
             total += self.function[x]
 
         total /= (self.n * self.worst)
-        return - float_round(1 - total, self.precision)
+        return Fitness(float_round(1 - total, self.precision), MIN)
