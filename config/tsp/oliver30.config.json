@@ -1,0 +1,34 @@
+{
+  "multiple": {
+    "common": {
+      "problem": "tsp",
+      "input_file_path": "problems/tsp/data/oliver30.tsp",
+      "run_number": 10,
+      "solution_structure": { "permutation": { "size": 30 } },
+      "local_search": { "permutation": { "name": "block_full" } },
+      "block_size": 3,
+      "evaluations_number": 100000,
+      "solution_number": 1000,
+      "fitness_limit": { "value": 400, "category": "min" }
+    },
+    "runs": [
+      {
+        "identifier": "bays29-p3",
+        "algorithm": "p3"
+      },
+      {
+        "identifier": "bays29-ga",
+        "algorithm": "ga"
+      },
+      {
+        "identifier": "bays29-pga",
+        "algorithm": "pga"
+      },
+      {
+        "identifier": "bays29-ltga",
+        "algorithm": "ltga",
+        "evaluations_number": 300
+      }
+    ]
+  }
+}

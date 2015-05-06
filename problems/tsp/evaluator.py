@@ -35,7 +35,7 @@ class Evaluator(object):
                     break
             for weight_index in xrange(dimension):
                 line = lines.next()
-                row = [int(x) for x in line.rstrip().split(' ') if x]
+                row = [float(x) for x in line.rstrip().split(' ') if x]
                 self._tsp_distances.append(row)
 
     def evaluate(self, solution):

@@ -9,8 +9,6 @@ import logging
 import uuid
 
 from common.lt_population import LTPopulation
-from helpers.solution_writer import SolutionWriter
-from common.constants import PERMUTATION_BOX_KEY
 
 log = logging.getLogger(__name__)
 
@@ -27,7 +25,6 @@ def run(context):
     solution_structure = context.solution_structure
     local_search = context.local_search
     cluster_cross = context.cluster_cross
-    writer = SolutionWriter()
 
     try:
 
@@ -93,6 +90,6 @@ def run(context):
     output_path = '%s/f%s-%s.solution' % (context.output_dir,
                                           best_fitness, uuid.uuid4().hex)
     log.info("Output path: " + output_path)
-    writer.write(output_path, best_store.best_solution)
+    best_store.best_solution.persist(output_path)
 
     return best_store.best_solution
