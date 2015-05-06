@@ -15,6 +15,7 @@ class SolutionWriter(object):
     def write(self, path, solution):
         data = {}
         data['fitness'] = solution.fitness.value
-        data['container'] = list(solution.container)
+        for key, box in solution.container.items():
+            data[key] = box
         with open(path, 'w') as f:
             json.dump(data, f)

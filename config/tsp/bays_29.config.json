@@ -3,11 +3,11 @@
     "common": {
       "problem": "tsp",
       "input_file_path": "problems/tsp/data/bays29.tsp",
-      "run_number": 1,
+      "run_number": 10,
       "solution_structure": { "permutation": { "size": 29 } },
       "local_search": { "permutation": { "name": "block_full" } },
       "block_size": 3,
-      "evaluations_number": 10000,
+      "evaluations_number": 1000000,
       "fitness_limit": { "value": 1000, "category": "min" }
     },
     "runs": [

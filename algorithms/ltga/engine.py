@@ -3,12 +3,16 @@
 
 '''
 Linkage Tree Genetic Algorithm.
+For now algorithm supports only bit and permutation
+box.
 '''
 
 import random
 import logging
 from helpers.array_tools import swap
+from helpers.array_tools import permutation_swap
 from common.lt_population import LTPopulation
+from common.constants import BIT_BOX_KEY, PERMUTATION_BOX_KEY
 
 log = logging.getLogger(__name__)
 
@@ -24,7 +28,11 @@ def structure_swap(solution1, solution2, cluster, key):
     copy_2 = solution2.deep_copy()
     a = copy_1.container[key]
     b = copy_2.container[key]
-    swap(a, b, cluster)
+
+    if key == BIT_BOX_KEY:
+        swap(a, b, cluster)
+    elif key == PERMUTATION_BOX_KEY:
+        permutation_swap(a, b, cluster)
 
     return copy_1, copy_2
 
