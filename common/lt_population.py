@@ -52,9 +52,9 @@ class LTPopulation:
         genotype = solution.container[key]
         for i in range(len(genotype) - 1):
             for j in range(i + 1, len(genotype)):
-                if not self.occurrences[i][j]:
-                    self.occurrences[i][j] = [0] * values_no**2
-                entry = self.occurrences[i][j]
+                if not self.occurrences[key][i][j]:
+                    self.occurrences[key][i][j] = [0] * values_no**2
+                entry = self.occurrences[key][i][j]
                 index = genotype[j] * values_no + genotype[i]
                 entry[index] += 1
                 self.update_entropy(i, j, entry, key, values_no)
@@ -63,11 +63,11 @@ class LTPopulation:
         '''
         '''
         for key in self.solution_structure.keys():
-            if key is CONST.BIT_BOX_KEY:
-                self.recalculate_for(solution, key, 2, False)
-            if key is CONST.PERMUTATION_BOX_KEY:
+            if key == CONST.BIT_BOX_KEY:
+                self.recalculate_for(solution, key, 2)
+            if key == CONST.PERMUTATION_BOX_KEY:
                 values_no = int(self.solution_structure.permutation.size)
-                self.recalculate_for(solution, key, values_no, False)
+                self.recalculate_for(solution, key, values_no)
 
         if rebuild_tree:
             self.rebuild_tree()

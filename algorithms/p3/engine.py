@@ -10,6 +10,7 @@ import uuid
 
 from common.lt_population import LTPopulation
 from helpers.solution_writer import SolutionWriter
+from common.constants import PERMUTATION_BOX_KEY
 
 log = logging.getLogger(__name__)
 
@@ -54,18 +55,17 @@ def run(context):
                 best_store.try_store(solution)
 
             for population_index in xrange(len(populations)):
-                log.info("Population index: %s population len: %s" %
-                         (population_index, len(populations)))
+                # log.info("Population index: %s population len: %s" %
+                #          (population_index, len(populations)))
                 population = populations[population_index]
                 old_fitness = solution.fitness.deep_copy()
-                log.info("Fitness before p3 core: %s" % old_fitness.value)
+                # log.info("Fitness before p3 core: %s" % old_fitness.value)
                 cluster_cross.cross(solution, population.solutions,
                                     population.clusters)
                 new_fitness = solution.fitness
 
                 if new_fitness >= old_fitness:
                     solution_tuple = solution.create_tuple()
-                    print solution_tuple
                     if solution_tuple not in solutions:
                         solutions.add(solution_tuple)
                         next_population_index = population_index + 1
@@ -73,13 +73,13 @@ def run(context):
                             population = LTPopulation(solution_structure)
                             populations.append(population)
                         populations[next_population_index].add(solution)
-                        log.info("Added to %d with fitness %f" %
-                                 (next_population_index, new_fitness.value))
+                        # log.info("Added to %d with fitness %f" %
+                        #          (next_population_index, new_fitness.value))
                         best_store.try_store(solution)
                 else:
                     break
 
-            log.info("End of pyramid iteration\n")
+            # log.info("End of pyramid iteration\n")
             if len(solutions) >= context.solution_number:
                 break
 

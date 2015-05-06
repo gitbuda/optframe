@@ -4,9 +4,9 @@
 '''
 '''
 
-import logging
 import random
-from common.constants import PERMUTATION_BOX_KEY
+import logging
+from common.selection.tournament import Selection
 
 log = logging.getLogger(__name__)
 
@@ -22,41 +22,48 @@ class Operator(object):
         '''
         '''
         self.evaluator = evaluator
+        self.selection = Selection()
 
-    def cross(self, solution, donors, clusters):
+    def cross(self, box, solution, donors, clusters):
         '''
         Mix permutation solution with the population.
         '''
-
-        solutions = donors
-        solutions_no = len(solutions)
-        genotype_len = len(solution.container[PERMUTATION_BOX_KEY])
+        genotype_len = len(solution.container[box])
 
         for cluster in clusters:
-            index = random.randint(0, solutions_no - 1)
-            existing_solution = solutions[index]
+            index = random.randint(0, len(donors) - 1)
+            existing_solution = donors[index]
+            # existing_solution = self.selection.select(donors)[0]
             input_solution_copy = solution.deep_copy()
 
             used_genes = set()
-            solution_dnk = solution.container[PERMUTATION_BOX_KEY]
-            src_dnk = existing_solution.container[PERMUTATION_BOX_KEY]
-            dst_dnk = input_solution_copy.container[PERMUTATION_BOX_KEY]
+            used_indices = set()
+            solution_dnk = solution.container[box]
+            src_dnk = existing_solution.container[box]
+            dst_dnk = input_solution_copy.container[box]
 
             for gene in cluster:
                 dst_dnk[gene] = src_dnk[gene]
                 used_genes.add(src_dnk[gene])
+                used_indices.add(gene)
 
+            dst_index = 0
             for i in range(genotype_len):
                 if solution_dnk[i] in used_genes:
                     continue
-                dst_dnk[i] = solution_dnk[i]
+                while dst_index in used_indices:
+                    dst_index += 1
+                if dst_index == genotype_len:
+                    break
+                dst_dnk[dst_index] = solution_dnk[i]
+                dst_index += 1
                 used_genes.add(solution_dnk[i])
 
-            new_fitness = self.evaluator.evaluate(input_solution_copy)
             old_fitness = solution.fitness
+            new_fitness = self.evaluator.evaluate(input_solution_copy)
 
             if new_fitness >= old_fitness:
-                solution.container[PERMUTATION_BOX_KEY] = dst_dnk
+                solution.container[box] = dst_dnk
                 solution.fitness = new_fitness
 
         return solution

@@ -5,7 +5,7 @@ PGAConfig
 '''
 
 import logging
-
+from helpers.setter import setter
 from common.selection.tournament import Selection
 from common.operator.collection.operator import Operator as PopulationOperator
 from common.operator.cross_operator import CrossOperator
@@ -28,8 +28,8 @@ class Config(object):
 
         self.mutation_factor = float(self.config.mutation_factor)
         self.cross_factor = float(self.config.cross_factor)
-        self.solution_number = int(self.config.solution_number)
-        self.solution_size = int(self.config.solution_size)
+        self.solution_number = setter(
+            lambda: int(self.config.solution_number), 200)
 
         self.init_solution_operator = PopulationOperator()
         self.init_solution_operator.configure(self.config)

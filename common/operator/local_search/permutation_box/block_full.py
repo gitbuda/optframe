@@ -24,7 +24,7 @@ class LocalSearch(object):
         '''
         self.evaluator = context.evaluate_operator
         self.block_size = setter(
-            lambda: int(context.config.permutation.block_size), 2)
+            lambda: int(context.config.block_size), 2)
 
     def search(self, solution):
         '''
@@ -57,6 +57,7 @@ class LocalSearch(object):
                 if tmp_fitness > best_fitness:
                     best_fitness = tmp_fitness
                     solution.fitness = tmp_fitness
+                    genotype = new_solution
                 else:
                     solution.container[PERMUTATION_BOX_KEY] = genotype
 
