@@ -62,11 +62,24 @@ def write_eval(results, prefix):
             i += 1
 
 
+def write_fitboxplot(results, prefix):
+    '''
+    '''
+    file_name = unique_path('output', prefix)
+    with open(file_name, 'w') as f:
+        f.write('# fitness\n')
+        f.write('# result algorithm\n')
+        for key, result in results.items():
+            for value in result.fitness_container:
+                f.write('%s %s\n' % (key, str(value)))
+
+
 def write(results):
     '''
     '''
     write_fitness(results, 'fit')
     write_eval(results, 'eval')
+    write_fitboxplot(results, 'fitness_boxplot')
 
 
 if __name__ == '__main__':
