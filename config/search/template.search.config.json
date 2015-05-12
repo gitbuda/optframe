@@ -1,0 +1,14 @@
+{
+  "light_search": {
+    "repeat": 5,
+    "common": {
+      "algorithm": "cga",
+      "problem": "deceptive_trap"
+    },
+    "grid": {
+      "population_size": [20, 30],
+      "mutation_factor": [0.20, 0.25],
+      "crossover_factor": [0.40, 0.50]
+    }
+  }
+}

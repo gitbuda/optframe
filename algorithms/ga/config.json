@@ -1,7 +1,7 @@
 {
+  "iterations_number": 10000,
   "population_size": 20,
-  "iterations_number": 1000,
   "mutation_factor": 0.005,
-  "cross_factor": 0.4,
-  "best_to_next_number": 2
+  "cross_factor": 0.3,
+  "best_to_next_number": 1
 }

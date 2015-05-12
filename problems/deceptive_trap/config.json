@@ -1,7 +1,5 @@
 {
-  "solution_size": 20,
+  "solution_structure": { "bit": { "size": 30 } },
   "trap_size": 5,
-  "solution_type": "bit",
-  "values_number": 2,
   "output_path": "problems/deceptive_trap/output"
 }
