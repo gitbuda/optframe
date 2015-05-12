@@ -70,7 +70,7 @@ def execute(algorithms, problems, config):
 
     # prepare output
     output_path = unique_path('output', 'search-%s-%s' %
-                              (config.algorithm, config.problem))
+                              (context.algorithm, context.problem))
 
     # write output
     with open(output_path, 'w') as f:
