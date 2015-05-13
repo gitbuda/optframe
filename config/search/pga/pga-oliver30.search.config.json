@@ -1,0 +1,20 @@
+{
+  "light_search": {
+    "repeat": 10,
+    "common": {
+      "identifier": "oliver30",
+      "algorithm": "ga",
+      "problem": "tsp",
+      "input_file_path": "problems/tsp/data/oliver30.tsp",
+      "solution_structure": { "permutation": { "size": 30 } },
+      "local_search": { "permutation": { "name": "block_full" } },
+      "fitness_limit": { "value": 300, "category": "min" }
+    },
+    "grid": {
+      "population_size": [10, 15, 20, 25, 35, 45, 50],
+      "mutation_factor": [0.05, 0.10, 0.15, 0.20, 0.25, 0.35, 0.4],
+      "cross_factor": [0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70],
+      "block_size": [2, 3, 4, 5]
+    }
+  }
+}

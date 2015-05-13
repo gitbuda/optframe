@@ -1,0 +1,17 @@
+{
+  "light_search": {
+    "repeat": 10,
+    "common": {
+      "identifier": "bays29",
+      "algorithm": "ltga",
+      "problem": "tsp",
+      "input_file_path": "problems/tsp/data/bays29.tsp",
+      "solution_structure": { "permutation": { "size": 29 } },
+      "local_search": { "permutation": { "name": "block_full" } },
+      "fitness_limit": { "value": 1000, "category": "min" }
+    },
+    "grid": {
+      "collection_size": [10, 20, 30, 40, 50]
+    }
+  }
+}

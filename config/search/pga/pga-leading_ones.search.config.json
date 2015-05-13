@@ -1,11 +1,13 @@
 {
   "light_search": {
-    "repeat": 5,
+    "repeat": 10,
     "common": {
-      "algorithm": "",
+      "algorithm": "pga",
       "problem": "leading_ones"
     },
     "grid": {
+      "mutation_factor": [0.05, 0.10, 0.15, 0.20, 0.25, 0.35, 0.4],
+      "cross_factor": [0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70]
     }
   }
 }

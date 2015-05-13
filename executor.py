@@ -12,12 +12,19 @@ import common.constants as CONF
 from helpers.arguments import get_arg
 from helpers.loader import load_json
 from helpers.load_package import load_package
+from helpers.path import unique_path
 
 
 if __name__ == '__main__':
 
+    # logger setup
     logging.basicConfig(level=logging.INFO)
-    log = logging.getLogger(__name__)
+    handler = logging.FileHandler(unique_path('output', 'log'))
+    handler.setLevel(logging.INFO)
+    formatter = logging.Formatter('%(asctime)s  %(message)s')
+    handler.setFormatter(formatter)
+    # add the handler to the root logger
+    logging.getLogger('').addHandler(handler)
 
     # load modules (algorithms and problems)
     problems = load_package(CONF.PROBLEMS_DIRNAME, 'Problem')
