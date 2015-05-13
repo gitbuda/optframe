@@ -1,9 +1,8 @@
 {
-  "solution_size": 20,
-  "bits_per_float": 5,
+  "solution_structure": { "bit": { "size": 100 } },
+  "solution_size": 100,
+  "bits_per_float": 20,
   "precision": 65536,
   "minimum": -5.12,
-  "maximum": 5.12,
-  "values_number": 2,
-  "solution_type": "bit"
+  "maximum": 5.12
 }

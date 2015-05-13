@@ -1,4 +1,4 @@
 {
-  "population_size": 20,
-  "iterations": 100
+  "collection_size": 20,
+  "iteration_limit": 100
 }

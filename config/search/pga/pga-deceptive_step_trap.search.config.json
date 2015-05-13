@@ -1,0 +1,11 @@
+{
+  "light_search": {
+    "repeat": 10,
+    "common": {
+      "algorithm": "pga",
+      "problem": "deceptive_step_trap"
+    },
+    "grid": {
+    }
+  }
+}

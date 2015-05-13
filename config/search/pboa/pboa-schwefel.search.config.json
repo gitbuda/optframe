@@ -1,0 +1,12 @@
+{
+  "light_search": {
+    "repeat": 10,
+    "common": {
+      "algorithm": "pboa",
+      "problem": "schwefel"
+    },
+    "grid": {
+      "population_limit": [20, 30, 40, 50]
+    }
+  }
+}

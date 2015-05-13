@@ -1,0 +1,11 @@
+{
+  "light_search": {
+    "repeat": 5,
+    "common": {
+      "algorithm": "",
+      "problem": "leading_ones"
+    },
+    "grid": {
+    }
+  }
+}

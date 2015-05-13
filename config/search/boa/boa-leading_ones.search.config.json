@@ -1,0 +1,12 @@
+{
+  "light_search": {
+    "repeat": 10,
+    "common": {
+      "algorithm": "boa",
+      "problem": "leading_ones"
+    },
+    "grid": {
+      "population_size": [10, 15, 20, 25, 35, 45, 50]
+    }
+  }
+}

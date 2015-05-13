@@ -60,6 +60,10 @@ class DictWrapper(object):
             representation += '%s: %s\n' % (key, value)
         return representation
 
+    def store(self, path):
+        with open(path, 'wb') as fp:
+            json.dump(self.input_dict, fp)
+
 
 def load_json(path):
     if os.path.isfile(path):

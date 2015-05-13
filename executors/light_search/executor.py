@@ -10,6 +10,7 @@ from helpers.path import unique_path
 from common.initializer import problem_init, algorithm_init
 from helpers.loader import DictWrapper
 from common.fitness import Fitness
+from helpers.setter import setter
 
 log = logging.getLogger(__name__)
 
@@ -69,9 +70,9 @@ def execute(algorithms, problems, config):
     print best_parameters
 
     # prepare output
+    identifier = setter(lambda: context.identifier, context.problem)
     output_path = unique_path('output', 'search-%s-%s' %
-                              (context.algorithm, context.problem))
+                              (context.algorithm, identifier))
 
     # write output
-    with open(output_path, 'w') as f:
-        f.write(str(best_parameters))
+    DictWrapper(best_parameters).store(output_path)

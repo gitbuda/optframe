@@ -1,6 +1,5 @@
 {
-  "solution_size": 20,
-  "values_number": 2,
-  "solution_type": "bit",
+  "solution_structure": { "bit": { "size": 30 } },
+  "solution_size": 30,
   "output_path": "problems/onemax/output"
 }

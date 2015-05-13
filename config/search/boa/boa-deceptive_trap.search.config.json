@@ -1,12 +1,12 @@
 {
   "light_search": {
-    "repeat": 5,
+    "repeat": 10,
     "common": {
-      "algorithm": "cga",
+      "algorithm": "boa",
       "problem": "deceptive_trap"
     },
     "grid": {
-      "population_size": [10, 20, 40, 80, 160]
+      "population_size": [10, 15, 20, 25, 35, 45, 50]
     }
   }
 }

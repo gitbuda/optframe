@@ -1,9 +1,9 @@
 {
   "light_search": {
-    "repeat": 5,
+    "repeat": 10,
     "common": {
       "algorithm": "ga",
-      "problem": "deceptive_trap"
+      "problem": "rastring"
     },
     "grid": {
       "population_size": [10, 15, 20, 25, 35, 45, 50],
