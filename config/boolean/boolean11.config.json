@@ -4,7 +4,7 @@
       "run_number": 5,
       "problem": "boolean",
       "boolean_type": 11,
-      "evaluations_number": 1000,
+      "evaluations_number": 10000000,
       "solution_number": 10000000,
       "iterations_number": 10000000
     },
