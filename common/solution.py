@@ -13,7 +13,7 @@ Elements:
         container['float'] = [0.4, 0.32, ...]
         container['int'] = [1, 2, 2, 4, ...]
 
-    fitness: solution quality, instance of Fitness class
+    fitness: solution quality, instance of the Fitness class
 '''
 
 import copy
@@ -36,7 +36,7 @@ class Solution(object):
 
     def create_tuple(self):
         '''
-        All box (elements of container) concatenated
+        All boxes (elements of container) concatenated
         together in a large toupe object so it can be
         added to a set.
         '''
@@ -66,7 +66,7 @@ class Solution(object):
 
     def persist(self, destination):
         '''
-        Save solution somewhere, for now only
+        Persist solution, for now only
         on the local file system.
         '''
         with open(destination, 'w') as f:

@@ -3,10 +3,11 @@
     "repeat": 10,
     "common": {
       "algorithm": "pboa",
-      "problem": "leading_ones"
+      "problem": "leading_ones",
+      "evaluations_number": 1000
     },
     "grid": {
-      "population_limit": [20, 30, 40, 50]
+      "population_limit": [5, 10, 20, 40]
     }
   }
 }

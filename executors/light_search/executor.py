@@ -5,7 +5,7 @@
 '''
 
 import logging
-
+import numpy as np
 from helpers.path import unique_path
 from common.initializer import problem_init, algorithm_init
 from helpers.loader import DictWrapper
@@ -56,12 +56,13 @@ def execute(algorithms, problems, config):
                 # algorithm execution
                 solution = algorithm.engine.run(algorithm_config)
                 tmp_best.append(solution.fitness)
-            mean = 1.0 * sum(map(lambda x: x.value, tmp_best)) / size
+            median = np.median(map(lambda x: x.value, tmp_best))
             print "-------------------"
-            print mean
+            print map(lambda x: x.value, tmp_best)
+            print median
             print conf_instance
             print "-------------------"
-            fitness = Fitness(mean, tmp_best[0].category)
+            fitness = Fitness(median, tmp_best[0].category)
             if best is None or best < fitness:
                 best = fitness
                 best_param = param

@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 '''
+Pyramid BOA engine.
 '''
 
 import logging
@@ -23,6 +24,9 @@ def run(context):
     evaluator = context.evaluate_operator
     solution_size = context.solution_size
     population_limit = context.population_limit
+    iteration_counter = context.iteration_counter
+
+    log.info(str(context.config))
 
     best_store = BestStore()
     best_store.configure(context.config)
@@ -30,6 +34,10 @@ def run(context):
 
     try:
         while True:
+
+            # increase iteration counter
+            iteration_counter.increase()
+
             solution = Solution({BIT_BOX_KEY: random_bitstr(solution_size)})
             solution.fitness = evaluator.evaluate(solution)
             best_store.try_store(solution)
@@ -67,7 +75,7 @@ def run(context):
         traceback.print_exc()
         log.info(e)
 
-    return (best_store.best_solution, best_store.best_fitness)
+    return best_store.best_solution
 
 
 if __name__ == '__main__':
