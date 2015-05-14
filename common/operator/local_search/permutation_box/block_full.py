@@ -24,7 +24,7 @@ class LocalSearch(object):
         '''
         self.evaluator = context.evaluate_operator
         self.block_size = setter(
-            lambda: int(context.config.block_size), 2)
+            lambda: int(context.config.block_size), 3)
 
     def search(self, solution):
         '''

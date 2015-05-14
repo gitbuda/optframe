@@ -9,6 +9,7 @@ import logging
 from common.best_store import BestStore
 from common.iteration_counter import IterationCounter
 from common.operator.collection.operator import Operator as CollectionOperator
+from common.operator.local_search.operator import Operator as LocalSearch
 
 log = logging.getLogger(__name__)
 
@@ -43,6 +44,9 @@ class Config(object):
 
         self.collection_operator = CollectionOperator()
         self.collection_operator.configure(self.config)
+
+        self.local_search = LocalSearch()
+        self.local_search.configure(self)
 
         log.info('LTGA context setup end.')
 

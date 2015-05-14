@@ -48,12 +48,15 @@ def run(context):
     best_store = context.best_store
     iteration_counter = context.iteration_counter
     collection_operator = context.collection_operator
+    local_search = context.local_search
 
     try:
         # generate initial population
         population = LTPopulation(solution_structure)
         collection = collection_operator.generate()
         for solution in collection:
+            solution.fitness = evaluator.evaluate(solution)
+            solution = local_search.search(solution)
             population.add(solution, False)
         population_size = len(population.solutions)
 

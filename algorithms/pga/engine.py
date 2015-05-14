@@ -20,6 +20,7 @@ def run(context):
     solution_number = context.solution_number
     init_solution_operator = context.init_solution_operator
     selection_operator = context.selection_operator
+    local_search = context.local_search
 
     best_store = BestStore()
     best_store.configure(context.config)
@@ -33,6 +34,8 @@ def run(context):
             # initial iteration solution
             solution = init_solution_operator.generate(1)[0]
             solution.fitness = evaluator.evaluate(solution)
+            solution = local_search.search(solution)
+
             solution_tuple = solution.create_tuple()
             if solution_tuple not in solutions:
                 solutions.add(solution_tuple)

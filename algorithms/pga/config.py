@@ -10,6 +10,7 @@ from common.selection.tournament import Selection
 from common.operator.collection.operator import Operator as PopulationOperator
 from common.operator.cross_operator import CrossOperator
 from common.operator.mutation_operator import MutationOperator
+from common.operator.local_search.operator import Operator as LocalSearch
 
 log = logging.getLogger(__name__)
 
@@ -39,6 +40,9 @@ class Config(object):
 
         self.cross_operator = CrossOperator()
         self.cross_operator.configure(self.config)
+
+        self.local_search = LocalSearch()
+        self.local_search.configure(self)
 
         self.selection_operator = Selection()
 

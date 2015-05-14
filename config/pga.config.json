@@ -3,7 +3,7 @@
     "common": {
       "run_number": 10,
       "algorithm": "pga",
-      "evaluations_number": 1000
+      "evaluations_number": 10000
     },
     "runs": [
       {
