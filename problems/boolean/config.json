@@ -1,6 +1,5 @@
 {
+  "solution_structure": { "bit": { "size": 256 } },
   "solution_size": 256,
-  "values_number": 2,
-  "solution_type": "bit",
   "output_path": "problems/boolean/output"
 }
