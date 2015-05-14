@@ -12,7 +12,7 @@ from common.constants import PERMUTATION_BOX_KEY
 from .bit_box.binary_tournament import LocalSearch as BinaryTournament
 from .bit_box.first_improvement import LocalSearch as FirstImprovement
 from .permutation_box.block_full import LocalSearch as BlockFull
-from .permutation_box.bubble import BubbleSearch as BubbleSearch
+from .permutation_box.bubble import LocalSearch as BubbleSearch
 
 log = logging.getLogger(__name__)
 
