@@ -2,16 +2,18 @@
   "multiple": {
     "common": {
       "run_number": 1,
-      "problem": "one_max",
-      "algorithm": "boa",
-      "solution_size": 20,
-      "trap_size": 5,
-      "iterations_number": 100000,
-      "population_size": 50
+      "problem": "leading_ones",
+      "solution_structure": { "bit": { "size": 100 } },
+      "solution_size": 100,
+      "solution_number": 1000000,
+      "evaluations_number": 100,
+      "iterations_number": 1000000
     },
     "runs": [
       {
-        "identifier": "boa+om"
+        "identifier": "boa+lo",
+        "algorithm": "boa",
+        "population_size": 50
       }
     ]
   }
