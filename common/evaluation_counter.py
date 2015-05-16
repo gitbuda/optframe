@@ -40,6 +40,8 @@ class EvaluationCounter(object):
         because the execution of algorithm has to stop.
         '''
         self.evaluations_number += 1
+        if self.evaluations_number % 10000 == 0:
+            print "evaluation: %s" % self.evaluations_number
 
         if self.max_evaluations_number is not None and \
            self.evaluations_number > self.max_evaluations_number:

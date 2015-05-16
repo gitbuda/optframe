@@ -1,5 +1,6 @@
 {
   "solution_structure": { "bit": { "size": 30 } },
   "solution_size": 30,
+  "fitness_limit": { "value": 1.0, "category": "max" },
   "output_path": "problems/leading_ones/output"
 }

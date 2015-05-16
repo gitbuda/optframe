@@ -2,31 +2,36 @@
 # -*- coding: utf-8 -*-
 
 '''
-Pyramid Genetic Algorithm
+Pyramid Genetic Algorithm is variation of genetic algorithm
+in which population size is unlimited. Solutions are stored
+inside pyramid structure.
+
+TODO: finis this.
 '''
 
 import logging
-
-from common.best_store import BestStore
 
 log = logging.getLogger(__name__)
 
 
 def run(context):
+    '''
+    Run PGA
+    '''
 
+    # setup
     evaluator = context.evaluate_operator
     cross_operator = context.cross_operator
     mutation_operator = context.mutation_operator
-    solution_number = context.solution_number
     init_solution_operator = context.init_solution_operator
     selection_operator = context.selection_operator
     local_search = context.local_search
-
-    best_store = BestStore()
-    best_store.configure(context.config)
+    best_store = context.best_store
+    iteration_counter = context.iteration_counter
 
     try:
-        populations = [[]]
+        populations = list()
+        populations.append(list())
         solutions = set()
 
         while True:
@@ -41,41 +46,35 @@ def run(context):
                 solutions.add(solution_tuple)
                 populations[0].append(solution)
                 best_store.try_store(solution)
+            else:
+                continue
 
             # pyramid iteration
-            for population_index in xrange(len(populations)):
-                log.info("Population index: %s population len: %s" %
-                         (population_index, len(populations)))
-                population = populations[population_index]
-                log.info("Fitness before PGA core: %s" %
-                         solution.fitness.value)
-                pyramid_solution = selection_operator.select(population)[0]
-                new_solution = cross_operator.cross(pyramid_solution,
-                                                    solution)
+            for pop_index in xrange(len(populations)):
+
+                population = populations[pop_index]
+
+                # select, cross, mutate and evaluate
+                p_solution = selection_operator.select(population)[0]
+                new_solution = cross_operator.cross(p_solution, solution)
                 mutation_operator.mutate(new_solution)
                 new_solution.fitness = evaluator.evaluate(new_solution)
-                if new_solution.fitness >= solution.fitness:
-                    solution_tuple = new_solution.create_tuple()
+
+                # add solution to a pyramid population
+                solution_tuple = new_solution.create_tuple()
+                if new_solution.fitness > p_solution.fitness:
                     if solution_tuple not in solutions:
                         solutions.add(solution_tuple)
-                        next_population_index = population_index + 1
-                        if next_population_index == len(populations):
-                            population = []
+                        next_index = pop_index + 1
+                        if next_index == len(populations):
+                            population = list()
                             populations.append(population)
-                        populations[next_population_index].append(new_solution)
+                        populations[next_index].append(new_solution)
                         solution = new_solution
-                        log.info("Added to %d with fitness %f" %
-                                 (next_population_index,
-                                  solution.fitness.value))
                         best_store.try_store(solution)
-                    else:
-                        break
-                else:
-                    break
 
-            log.info("End of pyramid iteration\n")
-            if len(solutions) >= solution_number:
-                break
+            iteration_counter.increase(best_store.best_solution)
+
     except Exception as e:
         log.info(e)
 

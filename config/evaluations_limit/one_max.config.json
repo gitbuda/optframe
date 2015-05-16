@@ -6,7 +6,7 @@
       "solution_structure": { "bit": { "size": 100 } },
       "solution_size": 100,
       "solution_number": 1000000,
-      "evaluations_number": 100000,
+      "evaluations_number": 10000,
       "iterations_number": 1000000
     },
     "runs": [

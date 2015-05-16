@@ -32,7 +32,7 @@ class Operator(object):
             self.local_search = context.config.local_search
         except Exception:
             default = {
-                'bit': {'name': 'binary_tournament'},
+                'bit': {'name': 'first_improvement'},
                 'permutation': {'name': 'block_full'}
             }
             self.local_search = DictWrapper(default)

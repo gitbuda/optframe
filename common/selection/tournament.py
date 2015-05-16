@@ -17,8 +17,6 @@ class Selection(object):
 
     def __init__(self, k=3):
         '''
-        Tournament size initializator.
-
         Args:
             k: tournament size
         '''
@@ -26,7 +24,7 @@ class Selection(object):
 
     def select(self, population, n=1):
         '''
-        Select n solutions from population.
+        Select n solutions from the population
 
         Args:
             population: selection pool
@@ -55,6 +53,6 @@ if __name__ == '__main__':
     population = [Solution(100, 100), Solution(200, 200), Solution(300, 300),
                   Solution(50, 50)]
     t = Selection()
-    solution = t.select(population)
+    solution = t.select(population)[0]
     print solution.fitness
     print solution.box

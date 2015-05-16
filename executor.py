@@ -18,9 +18,9 @@ from helpers.path import unique_path
 if __name__ == '__main__':
 
     # logger setup
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(level=logging.DEBUG)
     handler = logging.FileHandler(unique_path('output', 'log'))
-    handler.setLevel(logging.INFO)
+    handler.setLevel(logging.DEBUG)
     formatter = logging.Formatter('%(asctime)s  %(message)s')
     handler.setFormatter(formatter)
     # add the handler to the root logger

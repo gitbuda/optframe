@@ -3,12 +3,13 @@
     "common": {
       "run_number": 10,
       "algorithm": "pga",
-      "evaluations_number": 10000
+      "evaluations_number": 1000000
     },
     "runs": [
       {
         "identifier": "lo",
-        "problem": "leading_ones"
+        "problem": "leading_ones",
+        "mutation_factor": 0.001
       },
       {
         "identifier": "tsp",
