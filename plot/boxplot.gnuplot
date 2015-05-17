@@ -16,7 +16,7 @@ set xtics border in scale 0,0 nomirror norotate  autojustify
 set xtics  norangelimit
 set xtics   ()
 set ytics border in scale 1,0.5 nomirror norotate  autojustify
-set title "TSP boxplot" 
+set title "Bays 29" 
 set ylabel "Cost" 
 set style boxplot candles range 1.50 outliers pt 3 separation 1 labels auto sorted
 x = 0.0

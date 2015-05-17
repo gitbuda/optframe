@@ -1,0 +1,47 @@
+{
+  "multiple": {
+    "common": {
+      "run_number": 10,
+      "problem": "schwefel",
+      "solution_structure": { "bit": { "size": 100 } },
+      "solution_size": 100,
+      "bits_per_float": 20,
+      "solution_number": 1000000,
+      "evaluations_number": 10000,
+      "iterations_number": 1000000
+    },
+    "runs": [
+      {
+        "identifier": "ga-sc",
+        "algorithm": "ga",
+        "population_size": 20,
+        "cross_factor": 0.40,
+        "mutation_factor": 0.05
+      },
+      {
+        "identifier": "pga-sc",
+        "algorithm": "pga",
+        "cross_factor": 0.20,
+        "mutation_factor": 0.15
+      },
+      {
+        "identifier": "ltga-sc",
+        "algorithm": "ltga",
+        "collection_size": 40
+      },
+      {
+        "identifier": "p3-sc",
+        "algorithm": "p3"
+      },
+      {
+        "identifier": "cga-sc",
+        "algorithm": "cga",
+        "population_size": 1280
+      },
+      {
+        "identifier": "pcga-sc",
+        "algorithm": "pcga"
+      }
+    ]
+  }
+}

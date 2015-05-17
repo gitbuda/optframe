@@ -1,0 +1,47 @@
+{
+  "multiple": {
+    "common": {
+      "run_number": 10,
+      "problem": "deceptive_trap",
+      "solution_structure": { "bit": { "size": 100 } },
+      "solution_size": 100,
+      "trap_size": 5,
+      "solution_number": 1000000,
+      "evaluations_number": 10000,
+      "iterations_number": 1000000
+    },
+    "runs": [
+      {
+        "identifier": "ga-dt",
+        "algorithm": "ga",
+        "population_size": 20,
+        "cross_factor": 0.2,
+        "mutation_factor": 0.05
+      },
+      {
+        "identifier": "pga-dt",
+        "algorithm": "pga",
+        "cross_factor": 0.10,
+        "mutation_factor": 0.05
+      },
+      {
+        "identifier": "ltga-dt",
+        "algorithm": "ltga",
+        "collection_size": 20
+      },
+      {
+        "identifier": "p3-dt",
+        "algorithm": "p3"
+      },
+      {
+        "identifier": "cga-dt",
+        "algorithm": "cga",
+        "population_size": 5
+      },
+      {
+        "identifier": "pcga-dt",
+        "algorithm": "pcga"
+      }
+    ]
+  }
+}

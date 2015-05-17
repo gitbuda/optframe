@@ -1,0 +1,47 @@
+{
+  "multiple": {
+    "common": {
+      "run_number": 10,
+      "problem": "rastring",
+      "solution_structure": { "bit": { "size": 100 } },
+      "solution_size": 100,
+      "bits_per_float": 20,
+      "solution_number": 1000000,
+      "evaluations_number": 10000,
+      "iterations_number": 1000000
+    },
+    "runs": [
+      {
+        "identifier": "ga-ra",
+        "algorithm": "ga",
+        "population_size": 25,
+        "cross_factor": 0.70,
+        "mutation_factor": 0.05
+      },
+      {
+        "identifier": "pga-ra",
+        "algorithm": "pga",
+        "cross_factor": 0.50,
+        "mutation_factor": 0.05
+      },
+      {
+        "identifier": "ltga-ra",
+        "algorithm": "ltga",
+        "collection_size": 40
+      },
+      {
+        "identifier": "p3-ra",
+        "algorithm": "p3"
+      },
+      {
+        "identifier": "cga-ra",
+        "algorithm": "cga",
+        "population_size": 160
+      },
+      {
+        "identifier": "pcga-ra",
+        "algorithm": "pcga"
+      }
+    ]
+  }
+}

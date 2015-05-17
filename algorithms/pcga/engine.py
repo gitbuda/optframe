@@ -12,7 +12,6 @@ Algorithm has no parameters.
 import random
 import logging
 
-from common.best_store import BestStore
 from common.solution import Solution
 from common.cpv import CompactProbabilityVector
 from common.constants import BIT_BOX_KEY
@@ -52,15 +51,17 @@ def run(context):
     # initialize algorithm from context
     solution_size = context.solution_size
     evaluator = context.evaluate_operator
-
-    # initialize solution store from the context
-    best_store = BestStore()
-    best_store.configure(context.config)
+    best_store = context.best_store
 
     try:
         # algorithm
         cpv = CompactProbabilityVector(solution_size)
-        populations = [PCGAPopulation(cpv)]
+        zero_population = PCGAPopulation(cpv)
+        # 4 because then update value is 1 / 4, it seems
+        # for me like a good value, TODO: check is this
+        # ok value and if neccessary create a better one
+        zero_population.size = 4
+        populations = [zero_population]
 
         while True:
             # TODO: add greedy operator
@@ -79,21 +80,28 @@ def run(context):
                 else:
                     winner, loser = (candidate, solution)
                 best_store.try_store(winner)
-                population.increment_size()
                 cpv.update_vector(winner, loser, population.size)
                 if winner.fitness > solution.fitness:
                     next_population_index = index + 1
                     if next_population_index == len(populations):
                         new_cpv = CompactProbabilityVector(solution_size)
-                        populations.append(PCGAPopulation(new_cpv))
+                        new_population = PCGAPopulation(new_cpv)
+                        # the population size grows expenentialy
+                        # also it seems to me like good TODO: check this
+                        new_population.size = population.size * 2
+                        populations.append(new_population)
                     solution = winner
-                else:
-                    break
 
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         log.info(e)
 
-    return best_store.best_solution
+    solution = best_store.best_solution
+
+    log.info("PCGA: %s" % solution.fitness.value)
+
+    return solution
 
 
 if __name__ == '__main__':

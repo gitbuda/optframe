@@ -58,6 +58,7 @@ def run(context):
             solution.fitness = evaluator.evaluate(solution)
             solution = local_search.search(solution)
             population.add(solution, False)
+            best_store.try_store(solution)
         population_size = len(population.solutions)
 
         while True:

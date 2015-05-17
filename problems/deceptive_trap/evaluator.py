@@ -8,6 +8,7 @@ import logging
 import common.constants as CONST
 from common.fitness import Fitness, MAX
 from common.evaluation_counter import EvaluationCounter
+from common.solution import Solution
 
 
 class Config(object):
@@ -15,7 +16,8 @@ class Config(object):
     Only for local test.
     '''
     def __init__(self):
-        self.trap_size = 3
+        self.trap_size = 5
+        self.evaluations_number = 100
 
 
 class Evaluator(object):
@@ -61,4 +63,6 @@ if __name__ == '__main__':
     evaluator = Evaluator()
     config = Config()
     evaluator.configure(config)
-    print evaluator.evaluate([1, 1, 1, 1, 1, 1, 1, 1, 1])
+    fit = evaluator.evaluate(Solution({"bit": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}))
+
+    print fit.value

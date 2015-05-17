@@ -7,25 +7,25 @@
       "solution_structure": { "permutation": { "size": 30 } },
       "local_search": { "permutation": { "name": "block_full" } },
       "block_size": 3,
-      "evaluations_number": 1000000,
-      "solution_number": 1000,
+      "evaluations_number": 10000,
+      "solution_number": 1000000,
       "fitness_limit": { "value": 400, "category": "min" }
     },
     "runs": [
       {
-        "identifier": "bays29-p3",
+        "identifier": "p3-oliver30",
         "algorithm": "p3"
       },
       {
-        "identifier": "bays29-ga",
+        "identifier": "ga-oliver30",
         "algorithm": "ga"
       },
       {
-        "identifier": "bays29-pga",
+        "identifier": "pga-oliver30",
         "algorithm": "pga"
       },
       {
-        "identifier": "bays29-ltga",
+        "identifier": "ltga-oliver30",
         "algorithm": "ltga",
         "evaluations_number": 300
       }

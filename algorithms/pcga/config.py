@@ -6,6 +6,7 @@ PCGA config
 '''
 
 import logging
+from common.best_store import BestStore
 
 log = logging.getLogger(__name__)
 
@@ -37,10 +38,14 @@ class Config(object):
         # items has higher priority than algorithm configuration\
         # items
         self.config.weak_merge(algorithm_config)
-        
+
         # PCGA algorithm only has to know solutution size in order
         # to generate new solutions.
         self.solution_size = int(self.config.solution_size)
+
+        # initialize solution store from the context
+        self.best_store = BestStore()
+        self.best_store.configure(self.config)
 
 
 if __name__ == '__main__':
