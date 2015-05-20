@@ -58,7 +58,7 @@ class DictWrapper(object):
         representation = ''
         for key, value in self.input_dict.items():
             representation += '%s: %s\n' % (key, value)
-        return representation
+        return representation[:-1]
 
     def store(self, path):
         with open(path, 'wb') as fp:

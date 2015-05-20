@@ -1,0 +1,18 @@
+{
+  "multiple": {
+    "common": {
+      "run_number": 5,
+      "algorithm": "ga"
+    },
+    "runs": [
+      {
+        "identifier": "dt",
+        "problem": "deceptive_trap",
+        "solution_structure": { "bit": { "size": 20 } },
+        "trap_size": 5,
+        "evaluations_number": 1000000,
+        "time_limit": 5
+      }
+    ]
+  }
+}
