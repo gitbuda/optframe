@@ -3,7 +3,8 @@
     "common": {
       "run_number": 10,
       "algorithm": "pcga",
-      "evaluations_number": 100000
+      "evaluations_number": 100000,
+      "time_limit": 2
     },
     "runs": [
       {

@@ -54,7 +54,8 @@ class Limit():
         '''
         signal.alarm(0)
         signal.signal(signal.SIGALRM, self.empty_timeout)
-        log.info(evalue)
+        if evalue is not None:
+            log.info(evalue)
         # if all((etype, evalue, etraceback)):
         #     raise etype, evalue, etraceback
         # import traceback
@@ -77,7 +78,6 @@ class Limit():
 if __name__ == '__main__':
 
     context = Context()
-   
     try:
         with Limit(context):
             i = 0

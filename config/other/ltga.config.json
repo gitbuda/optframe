@@ -1,10 +1,11 @@
 {
   "multiple": {
     "common": {
-      "run_number": 10,
+      "run_number": 1,
       "algorithm": "ltga",
       "evaluations_number": 100000,
-      "population_size": 100
+      "population_size": 100,
+      "time_limit": 5
     },
     "runs": [
       {

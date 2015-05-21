@@ -9,6 +9,7 @@ box.
 
 import random
 import logging
+from common.limit import Limit
 from helpers.array_tools import swap
 from helpers.array_tools import permutation_swap
 from common.lt_population import LTPopulation
@@ -50,7 +51,8 @@ def run(context):
     collection_operator = context.collection_operator
     local_search = context.local_search
 
-    try:
+    with Limit(context.config):
+
         # generate initial population
         population = LTPopulation(solution_structure)
         collection = collection_operator.generate()
@@ -94,13 +96,4 @@ def run(context):
                         best_store.try_store(off_a)
                         best_store.try_store(off_b)
 
-    except Exception as e:
-        import traceback
-        traceback.print_exc()
-        log.info(e)
-
     return best_store.best_solution
-
-
-if __name__ == '__main__':
-    pass

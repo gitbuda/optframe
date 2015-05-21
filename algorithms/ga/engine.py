@@ -19,14 +19,12 @@ def run(context):
     log.info("GA start")
 
     # operators and parameters
-    termination_operator = context.termination_operator
     evaluator = context.evaluate_operator
     cross_operator = context.cross_operator
     mutation_operator = context.mutation_operator
     selection_operator = context.selection_operator
     population_operator = context.population_operator
     population_size = context.population_size
-    max_iterations = context.max_iterations
     best_to_next_number = context.best_to_next_number
     iteration_counter = context.iteration_counter
     best_store = context.best_store

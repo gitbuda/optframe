@@ -5,9 +5,9 @@
 P3 algorithm.
 '''
 
-import logging
 import uuid
-
+import logging
+from common.limit import Limit
 from common.lt_population import LTPopulation
 
 log = logging.getLogger(__name__)
@@ -26,7 +26,7 @@ def run(context):
     local_search = context.local_search
     cluster_cross = context.cluster_cross
 
-    try:
+    with Limit(context.config):
 
         solutions = set()
         populations = [LTPopulation(solution_structure)]
@@ -79,11 +79,6 @@ def run(context):
             # log.info("End of pyramid iteration\n")
             if len(solutions) >= context.solution_number:
                 break
-
-    except Exception as e:
-        import traceback
-        traceback.print_exc()
-        log.info(e)
 
     best_fitness = best_store.best_solution.fitness.value
     log.info("Best fitness: " + str(best_fitness))

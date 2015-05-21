@@ -11,7 +11,7 @@ Algorithm has no parameters.
 
 import random
 import logging
-
+from common.limit import Limit
 from common.solution import Solution
 from common.cpv import CompactProbabilityVector
 from common.constants import BIT_BOX_KEY
@@ -53,7 +53,8 @@ def run(context):
     evaluator = context.evaluate_operator
     best_store = context.best_store
 
-    try:
+    with Limit(context.config):
+
         # algorithm
         cpv = CompactProbabilityVector(solution_size)
         zero_population = PCGAPopulation(cpv)
@@ -92,17 +93,8 @@ def run(context):
                         populations.append(new_population)
                     solution = winner
 
-    except Exception as e:
-        import traceback
-        traceback.print_exc()
-        log.info(e)
-
     solution = best_store.best_solution
 
     log.info("PCGA: %s" % solution.fitness.value)
 
     return solution
-
-
-if __name__ == '__main__':
-    pass

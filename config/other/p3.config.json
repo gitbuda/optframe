@@ -5,7 +5,8 @@
       "algorithm": "p3",
       "local_search": { "bit": { "name": "first_improvement" } },
       "fitness_limit": { "value": 1, "category": "max" },
-      "evaluations_number": 10000
+      "evaluations_number": 10000,
+      "time_limit": 5
     },
     "runs": [
       {

@@ -7,8 +7,9 @@
       "solution_size": 100,
       "bits_per_float": 20,
       "solution_number": 1000000,
-      "evaluations_number": 10000,
-      "iterations_number": 1000000
+      "evaluations_number": 1000000,
+      "iterations_number": 1000000,
+      "time_limit": 10
     },
     "runs": [
       {

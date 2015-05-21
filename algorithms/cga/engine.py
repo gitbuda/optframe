@@ -6,7 +6,7 @@ Compact Genetic Algorithm
 '''
 
 import logging
-
+from common.limit import Limit
 from common.best_store import BestStore
 from common.cpv import CompactProbabilityVector
 
@@ -24,8 +24,10 @@ def run(context):
     best_store = BestStore()
     best_store.configure(context.config)
 
-    try:
+    with Limit(context.config):
+
         cpv = CompactProbabilityVector(solution_size)
+
         for iteration in xrange(iterations_number):
             c1 = cpv.generate_candidate()
             c1.fitness = evaluator.evaluate(c1)
@@ -34,8 +36,6 @@ def run(context):
             winner, loser = (c1, c2) if c1.fitness > c2.fitness else (c2, c1)
             best_store.try_store(winner)
             cpv.update_vector(winner, loser, population_size)
-    except Exception:
-        pass
 
     return best_store.best_solution
 

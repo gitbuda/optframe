@@ -10,6 +10,7 @@ TODO: finis this.
 '''
 
 import logging
+from common.limit import Limit
 
 log = logging.getLogger(__name__)
 
@@ -29,7 +30,8 @@ def run(context):
     best_store = context.best_store
     iteration_counter = context.iteration_counter
 
-    try:
+    with Limit(context.config):
+
         populations = list()
         populations.append(list())
         solutions = set()
@@ -74,9 +76,6 @@ def run(context):
                         best_store.try_store(solution)
 
             iteration_counter.increase(best_store.best_solution)
-
-    except Exception as e:
-        log.info(e)
 
     print "Best: %s" % best_store.best_solution.fitness.value
 

@@ -6,8 +6,9 @@
       "algorithm": "cga",
       "solution_size": 10,
       "trap_size": 5,
-      "iterations_number": 100000,
-      "population_size": 20
+      "iterations_number": 10000000,
+      "population_size": 20,
+      "time_limit": 2
     },
     "runs": [
       {
