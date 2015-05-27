@@ -1,0 +1,8 @@
+{
+  "title": "Example",
+  "xname": "X Axis",
+  "yname": "Y Axis",
+  "xlabels": [0.1, 0.2],
+  "ylabels": [0.4, 0.5],
+  "data": "[[0.2, 0.3], [0.5, 0.9]]"
+}
