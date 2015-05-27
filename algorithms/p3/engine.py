@@ -3,6 +3,9 @@
 
 '''
 P3 algorithm.
+
+Python implementation of:
+https://github.com/brianwgoldman/Parameter-less_Population_Pyramid
 '''
 
 import uuid
@@ -15,8 +18,11 @@ log = logging.getLogger(__name__)
 
 def run(context):
     '''
+    The algorithm execution method.
     '''
+    log.info("P3 start")
 
+    # operators and parameters
     evaluator = context.evaluate_operator
     best_store = context.best_store
     solution_operator = context.solution_operator
@@ -33,30 +39,35 @@ def run(context):
 
         while True:
 
-            # increase iteration counter
-            iteration_counter.increase()
-
+            # take the initial solution from solution_operator
+            # or from collection_operator, the solution operator is
+            # problem specific, on the other hand collection operator
+            # is generic and it will return a random solution,
+            # collection operator returns a list of solutions
+            # and the algorithm takes only one solution
             if solution_operator is not None:
                 solution = solution_operator.next()
             else:
                 solution = collection_operator.generate(1)[0]
 
+            # evaluate the solution
             solution.fitness = evaluator.evaluate(solution)
 
+            # apply local search
             solution = local_search.search(solution)
 
+            # add solution into the population (into the
+            # first level of the pyramid)
             solution_tuple = solution.create_tuple()
             if solution_tuple not in solutions:
                 solutions.add(solution_tuple)
                 populations[0].add(solution)
                 best_store.try_store(solution)
 
+            # one pyramid loop
             for population_index in xrange(len(populations)):
-                # log.info("Population index: %s population len: %s" %
-                #          (population_index, len(populations)))
                 population = populations[population_index]
                 old_fitness = solution.fitness.deep_copy()
-                # log.info("Fitness before p3 core: %s" % old_fitness.value)
                 cluster_cross.cross(solution, population.solutions,
                                     population.clusters)
                 new_fitness = solution.fitness
@@ -70,21 +81,22 @@ def run(context):
                             population = LTPopulation(solution_structure)
                             populations.append(population)
                         populations[next_population_index].add(solution)
-                        # log.info("Added to %d with fitness %f" %
-                        #          (next_population_index, new_fitness.value))
                         best_store.try_store(solution)
                 else:
                     break
 
-            # log.info("End of pyramid iteration\n")
+            # stop the algorithm if solution number limit is
+            # reached
             if len(solutions) >= context.solution_number:
                 break
 
+            # increase iteration counter
+            iteration_counter.increase()
+
+    # store the best solution
     best_fitness = best_store.best_solution.fitness.value
-    log.info("Best fitness: " + str(best_fitness))
     output_path = '%s/f%s-%s.solution' % (context.output_dir,
                                           best_fitness, uuid.uuid4().hex)
-    log.info("Output path: " + output_path)
     best_store.best_solution.persist(output_path)
 
     return best_store.best_solution

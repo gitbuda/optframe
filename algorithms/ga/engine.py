@@ -1,21 +1,37 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import logging
+'''
+Genetic Algorithm
+'''
 
+import logging
 from common.limit import Limit
 
 log = logging.getLogger(__name__)
 
 
 def evaluate_and_sort(population, evaluator):
+    '''
+    Evaluate and sort whole population.
+
+    Args:
+        population: genetic algorithm population
+        evaluator:  a problem evaluator
+    '''
+    # evaluate all solutions in the population
     for solution in population:
         solution.fitness = evaluator.evaluate(solution)
+
+    # sort the population by fitness value because
+    # the algorithm will take the best N solutions and
+    # put them into the new population
     population.sort(key=lambda x: x.fitness, reverse=True)
 
 
 def run(context):
-
+    '''
+    The algorithm execution method.
+    '''
     log.info("GA start")
 
     # operators and parameters
@@ -34,10 +50,15 @@ def run(context):
     evaluate_and_sort(population, evaluator)
     best_store.try_store(population[0])
 
+    # the algorithm has execution limits, when any of
+    # these limit is reached the Limit object will
+    # stop execution of the algorithm
     with Limit(context.config):
 
         while True:
 
+            # take the best N solutions and put them into the
+            # new population
             new_population = population[0:best_to_next_number]
 
             for j in xrange(population_size - best_to_next_number):
@@ -53,10 +74,15 @@ def run(context):
                 new_population.append(new_solution)
 
             population = new_population
-
             evaluate_and_sort(population, evaluator)
+
+            # if the best solution from the population
+            # is better then the one that is already stored
+            # store the new best solution
             best_store.try_store(population[0])
 
             iteration_counter.increase(best_store.best_solution)
+
+    log.info("GA end")
 
     return best_store.best_solution
