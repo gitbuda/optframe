@@ -10,10 +10,12 @@ the script plots graph written in python
 from helpers.arguments import get_arg
 from heatmap import plot_from_file as heatmap
 from radar import plot_from_file as radar
+from linelogy import plot_from_file as linelogy
 
 graphs = {}
 graphs['heatmap'] = heatmap
 graphs['radar'] = radar
+graphs['linelogy'] = linelogy
 
 if __name__ == '__main__':
 

@@ -1,0 +1,141 @@
+{
+  "multiple": {
+    "common": {
+      "common_identifier": "evaluation lines dt",
+      "run_number": 20,
+      "problem": "deceptive_trap",
+      "trap_size": 5,
+      "solution_number": 1000000000,
+      "evaluations_number": 1000000,
+      "iterations_number": 1000000000
+    },
+    "runs": [
+      {
+        "identifier": "ga-5",
+        "algorithm": "ga",
+        "solution_structure": { "bit": { "size": 5 } },
+        "solution_size": 5,
+        "population_size": 20,
+        "cross_factor": 0.2,
+        "mutation_factor": 0.05
+      },
+      {
+        "identifier": "ga-10",
+        "algorithm": "ga",
+        "solution_structure": { "bit": { "size": 10 } },
+        "solution_size": 10,
+        "population_size": 20,
+        "cross_factor": 0.2,
+        "mutation_factor": 0.05
+      },
+      {
+        "identifier": "ga-20",
+        "algorithm": "ga",
+        "solution_structure": { "bit": { "size": 20 } },
+        "solution_size": 20,
+        "population_size": 20,
+        "cross_factor": 0.2,
+        "mutation_factor": 0.05
+      },
+      {
+        "identifier": "ga-40",
+        "algorithm": "ga",
+        "solution_structure": { "bit": { "size": 40 } },
+        "solution_size": 40,
+        "population_size": 20,
+        "cross_factor": 0.2,
+        "mutation_factor": 0.05
+      },
+      {
+        "identifier": "ga-80",
+        "algorithm": "ga",
+        "solution_structure": { "bit": { "size": 80 } },
+        "solution_size": 80,
+        "population_size": 20,
+        "cross_factor": 0.2,
+        "mutation_factor": 0.05
+      },
+      {
+        "identifier": "ga-160",
+        "algorithm": "ga",
+        "solution_structure": { "bit": { "size": 160 } },
+        "solution_size": 160,
+        "population_size": 20,
+        "cross_factor": 0.2,
+        "mutation_factor": 0.05
+      },
+      {
+        "identifier": "p3-5",
+        "algorithm": "p3",
+        "solution_structure": { "bit": { "size": 5 } },
+        "solution_size": 5
+      },
+      {
+        "identifier": "p3-10",
+        "algorithm": "p3",
+        "solution_structure": { "bit": { "size": 10 } },
+        "solution_size": 10
+      },
+      {
+        "identifier": "p3-20",
+        "algorithm": "p3",
+        "solution_structure": { "bit": { "size": 20 } },
+        "solution_size": 20
+      },
+      {
+        "identifier": "p3-40",
+        "algorithm": "p3",
+        "solution_structure": { "bit": { "size": 40 } },
+        "solution_size": 40
+      },
+      {
+        "identifier": "p3-80",
+        "algorithm": "p3",
+        "solution_structure": { "bit": { "size": 80 } },
+        "solution_size": 80
+      },
+      {
+        "identifier": "p3-160",
+        "algorithm": "p3",
+        "solution_structure": { "bit": { "size": 160 } },
+        "solution_size": 160
+      },
+      {
+        "identifier": "cga-5",
+        "algorithm": "cga",
+        "solution_structure": { "bit": { "size": 5 } },
+        "solution_size": 5
+      },
+      {
+        "identifier": "cga-10",
+        "algorithm": "cga",
+        "solution_structure": { "bit": { "size": 10 } },
+        "solution_size": 10
+      },
+      {
+        "identifier": "cga-20",
+        "algorithm": "cga",
+        "solution_structure": { "bit": { "size": 20 } },
+        "solution_size": 20
+      },
+      {
+        "identifier": "cga-40",
+        "algorithm": "cga",
+        "solution_structure": { "bit": { "size": 40 } },
+        "solution_size": 40
+      },
+      {
+        "identifier": "cga-80",
+        "algorithm": "cga",
+        "solution_structure": { "bit": { "size": 80 } },
+        "solution_size": 80
+      },
+      {
+        "identifier": "cga-160",
+        "algorithm": "cga",
+        "solution_structure": { "bit": { "size": 160 } },
+        "solution_size": 160
+      }
+    ]
+  }
+}

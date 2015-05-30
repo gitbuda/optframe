@@ -5,6 +5,7 @@
 '''
 
 from common.execution_result import ExecutionResult
+from common.execution_container import ExecutionContainter
 from common.initializer import problem_init, algorithm_init
 from helpers.loader import DictWrapper
 from helpers.setter import setter
@@ -16,7 +17,9 @@ def execute(algorithms, problems, config):
     '''
     # init
     common = setter(lambda: config.common, DictWrapper())
-    results = {}
+    container = ExecutionContainter()
+    container.common_identifier = setter(
+        lambda: common.common_identifier, None)
 
     # execution
     for run in config.runs:
@@ -36,12 +39,15 @@ def execute(algorithms, problems, config):
             fitness = solution.fitness.value
 
             # results
+            solution_size = setter(
+                lambda: algorithm_config.config.solution_size, 0)
             identifier = run.identifier
             evaluator = problem_operator.evaluator
-            results.setdefault(identifier, ExecutionResult())
-            results[identifier].fitness_container.append(fitness)
-            results[identifier].evaluations_container.append(
+            container.results.setdefault(identifier, ExecutionResult())
+            container.results[identifier].fitness_container.append(fitness)
+            container.results[identifier].evaluations_container.append(
                 evaluator.evaluation_counter.evaluations_number)
+            container.problem_variants.add(solution_size)
 
     # write results
-    write(results)
+    write(container)

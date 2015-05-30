@@ -45,15 +45,15 @@ def run(context):
     iteration_counter = context.iteration_counter
     best_store = context.best_store
 
-    # initial population
-    population = population_operator.generate()
-    evaluate_and_sort(population, evaluator)
-    best_store.try_store(population[0])
-
     # the algorithm has execution limits, when any of
     # these limit is reached the Limit object will
     # stop execution of the algorithm
     with Limit(context.config):
+
+        # initial population
+        population = population_operator.generate()
+        evaluate_and_sort(population, evaluator)
+        best_store.try_store(population[0])
 
         while True:
 

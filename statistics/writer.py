@@ -2,26 +2,34 @@
 # -*- coding: utf-8 -*-
 
 '''
+Write an execution results.
 '''
 
 import logging
 import numpy as np
 
 from helpers.path import unique_path
+from helpers.loader import DictWrapper
 
 log = logging.getLogger(__name__)
 
 
 def sorted_items(results):
     '''
+    Sort items from the results dictionary and put
+    them sorted in a list.
+
+    Args:
+        results: input dictionary
     '''
     items = results.items()
     items.sort(key=lambda x: str(x))
     return items
 
 
-def write_fitness(results, prefix):
+def write_fitness(results, prefix, identifier=''):
     '''
+    Write fitness.
     '''
     file_name = unique_path('output', prefix)
     with open(file_name, 'w') as f:
@@ -41,8 +49,9 @@ def write_fitness(results, prefix):
             i += 1
 
 
-def write_eval(results, prefix):
+def write_eval(results, prefix, identifier=''):
     '''
+    Write min, mean - std,  mean, mean + std, max
     '''
     file_name = unique_path('output', prefix)
     with open(file_name, 'w') as f:
@@ -62,8 +71,9 @@ def write_eval(results, prefix):
             i += 1
 
 
-def write_fitboxplot(results, prefix):
+def write_fitboxplot(results, prefix, identifier=''):
     '''
+    Write boxplot data.
     '''
     file_name = unique_path('output', prefix)
     with open(file_name, 'w') as f:
@@ -74,12 +84,36 @@ def write_fitboxplot(results, prefix):
                 f.write('%s %s\n' % (key, str(value)))
 
 
-def write(results):
+def write_linelogy(container, prefix):
     '''
+    Write line plot with logarighimic y-axis scale data.
     '''
-    write_fitness(results, 'fit')
-    write_eval(results, 'eval')
-    write_fitboxplot(results, 'fitness_boxplot')
+    file_name = unique_path('output', prefix)
+    output = DictWrapper({})
+    output.hard_set('title', container.common_identifier)
+    output.hard_set('xname', 'Problem size')
+    output.hard_set('yname', 'Evaluations number')
+    xvalues = sorted(list(container.problem_variants))
+    yvalues = {}
+    for identifier, result in container.results.iteritems():
+        algorithm = identifier.split('-')[0]
+        yvalues.setdefault(algorithm, [])
+        median = np.median(result.evaluations_container)
+        print identifier, median
+        yvalues[algorithm].append(median)
+    output.hard_set('data', {'yvalues': yvalues, 'xvalues': xvalues})
+    output.store(file_name)
+
+
+def write(container):
+    '''
+    Write all
+    '''
+    write_fitness(container.results, 'fit', container.common_identifier)
+    write_eval(container.results, 'eval', container.common_identifier)
+    write_fitboxplot(container.results, 'fitness_boxplot',
+                     container.common_identifier)
+    write_linelogy(container, 'linelogy')
 
 
 if __name__ == '__main__':
