@@ -2,11 +2,11 @@
   "multiple": {
     "common": {
       "common_identifier": "evaluation lines dt",
-      "run_number": 20,
+      "run_number": 10,
       "problem": "deceptive_trap",
       "trap_size": 5,
       "solution_number": 1000000000,
-      "evaluations_number": 1000000,
+      "evaluations_number": 10000000,
       "iterations_number": 1000000000
     },
     "runs": [
@@ -65,6 +65,54 @@
         "mutation_factor": 0.05
       },
       {
+        "identifier": "pga-5",
+        "algorithm": "pga",
+        "solution_structure": { "bit": { "size": 5 } },
+        "solution_size": 5,
+        "cross_factor": 0.10,
+        "mutation_factor": 0.05
+      },
+      {
+        "identifier": "pga-10",
+        "algorithm": "pga",
+        "solution_structure": { "bit": { "size": 10 } },
+        "solution_size": 10,
+        "cross_factor": 0.10,
+        "mutation_factor": 0.05
+      },
+      {
+        "identifier": "pga-20",
+        "algorithm": "pga",
+        "solution_structure": { "bit": { "size": 20 } },
+        "solution_size": 20,
+        "cross_factor": 0.10,
+        "mutation_factor": 0.05
+      },
+      {
+        "identifier": "pga-40",
+        "algorithm": "pga",
+        "solution_structure": { "bit": { "size": 40 } },
+        "solution_size": 40,
+        "cross_factor": 0.2,
+        "mutation_factor": 0.05
+      },
+      {
+        "identifier": "pga-80",
+        "algorithm": "pga",
+        "solution_structure": { "bit": { "size": 80 } },
+        "solution_size": 80,
+        "cross_factor": 0.10,
+        "mutation_factor": 0.05
+      },
+      {
+        "identifier": "pga-160",
+        "algorithm": "pga",
+        "solution_structure": { "bit": { "size": 160 } },
+        "solution_size": 160,
+        "cross_factor": 0.10,
+        "mutation_factor": 0.05
+      },
+      {
         "identifier": "p3-5",
         "algorithm": "p3",
         "solution_structure": { "bit": { "size": 5 } },
@@ -104,35 +152,77 @@
         "identifier": "cga-5",
         "algorithm": "cga",
         "solution_structure": { "bit": { "size": 5 } },
+        "population_size": 5,
         "solution_size": 5
       },
       {
         "identifier": "cga-10",
         "algorithm": "cga",
         "solution_structure": { "bit": { "size": 10 } },
+        "population_size": 5,
         "solution_size": 10
       },
       {
         "identifier": "cga-20",
         "algorithm": "cga",
         "solution_structure": { "bit": { "size": 20 } },
+        "population_size": 5,
         "solution_size": 20
       },
       {
         "identifier": "cga-40",
         "algorithm": "cga",
         "solution_structure": { "bit": { "size": 40 } },
+        "population_size": 5,
         "solution_size": 40
       },
       {
         "identifier": "cga-80",
         "algorithm": "cga",
         "solution_structure": { "bit": { "size": 80 } },
+        "population_size": 5,
         "solution_size": 80
       },
       {
         "identifier": "cga-160",
         "algorithm": "cga",
+        "solution_structure": { "bit": { "size": 160 } },
+        "population_size": 5,
+        "solution_size": 160
+      },
+      {
+        "identifier": "pcga-5",
+        "algorithm": "pcga",
+        "solution_structure": { "bit": { "size": 5 } },
+        "solution_size": 5
+      },
+      {
+        "identifier": "pcga-10",
+        "algorithm": "pcga",
+        "solution_structure": { "bit": { "size": 10 } },
+        "solution_size": 10
+      },
+      {
+        "identifier": "pcga-20",
+        "algorithm": "pcga",
+        "solution_structure": { "bit": { "size": 20 } },
+        "solution_size": 20
+      },
+      {
+        "identifier": "pcga-40",
+        "algorithm": "pcga",
+        "solution_structure": { "bit": { "size": 40 } },
+        "solution_size": 40
+      },
+      {
+        "identifier": "pcga-80",
+        "algorithm": "pcga",
+        "solution_structure": { "bit": { "size": 80 } },
+        "solution_size": 80
+      },
+      {
+        "identifier": "pcga-160",
+        "algorithm": "pcga",
         "solution_structure": { "bit": { "size": 160 } },
         "solution_size": 160
       }

@@ -14,4 +14,5 @@ class ExecutionContainter(object):
         '''
         self.common_identifier = None
         self.results = {}
+        self.order = []
         self.problem_variants = set()

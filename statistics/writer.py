@@ -95,7 +95,8 @@ def write_linelogy(container, prefix):
     output.hard_set('yname', 'Evaluations number')
     xvalues = sorted(list(container.problem_variants))
     yvalues = {}
-    for identifier, result in container.results.iteritems():
+    for identifier in container.order:
+        result = container.results[identifier]
         algorithm = identifier.split('-')[0]
         yvalues.setdefault(algorithm, [])
         median = np.median(result.evaluations_container)

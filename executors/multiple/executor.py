@@ -21,9 +21,10 @@ def execute(algorithms, problems, config):
     container.common_identifier = setter(
         lambda: common.common_identifier, None)
 
-    # execution
+    # whole execution
     for run in config.runs:
         run.weak_merge(common)
+        container.order.append(run.identifier)
         for problem_run in xrange(int(run.run_number)):
 
             # evaluator configuration
