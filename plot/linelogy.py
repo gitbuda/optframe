@@ -19,6 +19,8 @@ def draw(plot, output_path=None):
     '''
     lw = 2
     pyplot.rc('font', family=plot.font_family)
+    pyplot.xlabel(plot.xname)
+    pyplot.ylabel(plot.yname)
 
     # draw lines
     x = plot.data.xvalues

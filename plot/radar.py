@@ -12,8 +12,6 @@ import json
 import pylab as pl
 import numpy as np
 from plot import Plot
-from helpers.setter import setter
-from helpers.loader import load_json
 
 
 class Radar(object):
@@ -83,7 +81,8 @@ def draw(plot, output_path=None):
     radar = Radar(fig, titles, labels)
     radar.plot([1, 3, 2, 5, 4], "-", lw=3, color="b", alpha=0.6, label="first")
     radar.plot([2, 2, 3, 3, 2], "-", lw=3, color="r", alpha=0.6, label="secon")
-    radar.plot([3, 4, 3, 4, 2], "-", lw=3, color="#006633", alpha=0.6, label="third")
+    radar.plot([3, 4, 3, 4, 2], "-", lw=3, color="#006633", alpha=0.6,
+               label="third")
     radar.plot([3, 2, 3, 4, 2], "-", lw=3, color="y", alpha=0.6, label="fourt")
     radar.plot([3, 5, 3, 4, 2], "-", lw=3, color="m", alpha=0.6, label="fifth")
     lgd = radar.ax.legend(loc='center right', bbox_to_anchor=(1.3, 0.9))
@@ -106,15 +105,12 @@ def plot_from_file(input_path, output_path=None):
                      None than graph will be shown inside a window
     '''
     # load data from file
-    plot_file = load_json(input_path)
-    plot = Plot()
-    plot.data = np.array(json.loads(plot_file.data))
-    plot.yname = plot_file.yname
-    plot.xname = plot_file.xname
-    plot.ylabels = list(plot_file.ylabels)
-    plot.xlabels = list(plot_file.xlabels)
-    plot.font_size = setter(lambda: plot_file.font_size, 12)
-    plot.font_family = setter(lambda: plot_file.font_family, 'serif')
+    plot, input_file = Plot().configure_file(input_path)
+    plot.data = np.array(json.loads(input_file.data))
+    plot.yname = input_file.yname
+    plot.xname = input_file.xname
+    plot.ylabels = list(input_file.ylabels)
+    plot.xlabels = list(input_file.xlabels)
 
     # draw plot
     draw(plot, output_path)
