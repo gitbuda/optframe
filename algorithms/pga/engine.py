@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 '''
@@ -19,7 +18,6 @@ def run(context):
     '''
     Run PGA
     '''
-
     # setup
     evaluator = context.evaluate_operator
     cross_operator = context.cross_operator

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 '''
-Linkage Tree Genetic Algorithm Context
+Linkage Tree Genetic Algorithm Config
 '''
 
 import logging
@@ -14,23 +14,23 @@ from common.operator.local_search.operator import Operator as LocalSearch
 log = logging.getLogger(__name__)
 
 
-# TODO: rename in Context
 class Config(object):
 
     def __init__(self):
-        '''
-        '''
-        log.info('LTGA context setup start...')
+
+        log.info('LTGA Config Init')
 
     def load_problem_conf(self, problem_config):
-        '''
-        '''
+
+        log.info('LTGA Config Start')
+
         self.config = problem_config
 
     def load_algorithm_conf(self, algorithm_config):
-        '''
-        '''
+
         self.config.weak_merge(algorithm_config)
+
+        print self.config
 
         # parameters
         self.solution_structure = self.config.solution_structure
@@ -48,8 +48,4 @@ class Config(object):
         self.local_search = LocalSearch()
         self.local_search.configure(self)
 
-        log.info('LTGA context setup end.')
-
-
-if __name__ == '__main__':
-    pass
+        log.info('LTGA Config End')

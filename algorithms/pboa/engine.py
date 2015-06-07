@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 '''
@@ -19,6 +18,7 @@ log = logging.getLogger(__name__)
 
 def run(context):
     '''
+    PBOA main function.
     '''
     # e.g.
     evaluator = context.evaluate_operator
@@ -71,12 +71,8 @@ def run(context):
                 else:
                     break
     except Exception as e:
-        import traceback
-        traceback.print_exc()
+        # import traceback
+        # traceback.print_exc()
         log.info(e)
 
     return best_store.best_solution
-
-
-if __name__ == '__main__':
-    pass

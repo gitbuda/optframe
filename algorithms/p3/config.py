@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 '''
-P3Config
+P3 Config
 '''
 
 import logging
@@ -17,18 +17,17 @@ log = logging.getLogger(__name__)
 class Config(object):
 
     def __init__(self):
-        '''
-        '''
-        pass
+
+        log.info('P3 Config Init')
 
     def load_problem_conf(self, problem_config):
-        '''
-        '''
+
+        log.info('P3 Config Start')
+
         self.config = problem_config
 
     def load_algorithm_conf(self, algorithm_config):
-        '''
-        '''
+
         self.config.weak_merge(algorithm_config)
 
         print self.config
@@ -54,4 +53,4 @@ class Config(object):
         self.cluster_cross = ClusterCross()
         self.cluster_cross.configure(self)
 
-        log.info('P3 configuration loaded.')
+        log.info('P3 Config End')

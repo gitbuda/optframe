@@ -100,7 +100,6 @@ def write_linelogy(container, prefix):
         algorithm = identifier.split('-')[0]
         yvalues.setdefault(algorithm, [])
         median = np.median(result.evaluations_container)
-        print identifier, median
         yvalues[algorithm].append(median)
     output.hard_set('data', {'yvalues': yvalues, 'xvalues': xvalues})
     output.store(file_name)

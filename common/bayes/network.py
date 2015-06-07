@@ -149,8 +149,6 @@ def topological_ordering(graph):
             if node.count <= 0:
                 stack.append(node)
         ordered.append(current)
-    # generate_directed(graph, "// ordered: %s\n" %
-    #                   str(map(lambda x: x.index, ordered)))
     return ordered
 
 

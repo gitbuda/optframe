@@ -1,6 +1,10 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+'''
+Genetic Algorithm Config
+'''
+
+import logging
 from common.best_store import BestStore
 from common.selection.tournament import Selection
 from common.operator.collection.operator import Operator as PopulationOperator
@@ -8,26 +12,26 @@ from common.operator.cross_operator import CrossOperator
 from common.operator.mutation_operator import MutationOperator
 from common.iteration_counter import IterationCounter
 
-from algorithms.ga.termination.termination import max_iteration
+log = logging.getLogger(__name__)
 
 
 class Config(object):
-    '''
-        TODO: read all from conf file
-    '''
+
     def __init__(self):
-        self.parameters = {}
+
+        log.info('GA Init')
 
     def load_problem_conf(self, problem_config):
+
+        log.info('GA Config Start')
+
         self.config = problem_config
 
     def load_algorithm_conf(self, algorithm_config):
 
         self.config.weak_merge(algorithm_config)
-    
-        print "\n---- GA Config ----"
+
         print self.config
-        print "------------------"
 
         # define all parameters
         self.population_size = int(self.config.population_size)
@@ -37,8 +41,6 @@ class Config(object):
         # load all operators
         self.population_operator = PopulationOperator()
         self.population_operator.configure(self.config)
-
-        self.termination_operator = max_iteration
 
         self.mutation_operator = MutationOperator()
         self.mutation_operator.configure(self.config)
@@ -54,6 +56,4 @@ class Config(object):
         self.iteration_counter = IterationCounter()
         self.iteration_counter.configure(self.config)
 
-
-if __name__ == '__main__':
-    pass
+        log.info('GA Config End')

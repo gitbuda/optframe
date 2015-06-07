@@ -47,6 +47,12 @@ Default config file is config.json.
 * numpy
 * scipy
 
+## TODO:
+
+* rename helpers.loader
+* change places of config files
+* rename Config to Context
+
 ### Master thesis work
 
 Marko Budiselić, Faculty of electrical engineering and computing, University of Zagreb, Croatia 2015

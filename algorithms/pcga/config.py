@@ -1,8 +1,7 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 '''
-PCGA config
+PCGA Config
 '''
 
 import logging
@@ -14,9 +13,8 @@ log = logging.getLogger(__name__)
 class Config(object):
 
     def __init__(self):
-        '''
-        '''
-        log.info('PCGA config')
+
+        log.info('PCGA Config Init')
 
     def load_problem_conf(self, problem_config):
         '''
@@ -27,6 +25,8 @@ class Config(object):
             problem_config: configuration items, some kind of
             key value store
         '''
+        log.info('PCGA Config Start')
+
         self.config = problem_config
 
     def load_algorithm_conf(self, algorithm_config):
@@ -39,6 +39,8 @@ class Config(object):
         # items
         self.config.weak_merge(algorithm_config)
 
+        print self.config
+
         # PCGA algorithm only has to know solutution size in order
         # to generate new solutions.
         self.solution_size = int(self.config.solution_size)
@@ -47,6 +49,4 @@ class Config(object):
         self.best_store = BestStore()
         self.best_store.configure(self.config)
 
-
-if __name__ == '__main__':
-    pass
+        log.info('PCGA Config End')

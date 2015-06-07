@@ -6,6 +6,7 @@
       "algorithm": "cga",
       "solution_size": 10,
       "trap_size": 5,
+      "evaluations_number": 10000,
       "iterations_number": 10000000,
       "population_size": 20,
       "time_limit": 2

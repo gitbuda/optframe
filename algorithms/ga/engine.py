@@ -30,7 +30,7 @@ def evaluate_and_sort(population, evaluator):
 
 def run(context):
     '''
-    The algorithm execution method.
+    The algorithm execution function.
     '''
     log.info("GA start")
 

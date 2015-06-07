@@ -1,7 +1,7 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 '''
+Bayesian Optimization Algorithm
 '''
 
 import logging
@@ -18,7 +18,9 @@ log = logging.getLogger(__name__)
 
 def run(context):
     '''
+    BOA main function.
     '''
+    # load parameters
     evaluator = context.evaluate_operator
     solution_size = context.solution_size
     iterations_number = context.iterations_number
@@ -56,12 +58,8 @@ def run(context):
             best_store.try_store(first)
 
     except Exception as e:
-        import traceback
-        traceback.print_exc()
+        # import traceback
+        # traceback.print_exc()
         log.info(e)
 
     return best_store.best_solution
-
-
-if __name__ == '__main__':
-    pass

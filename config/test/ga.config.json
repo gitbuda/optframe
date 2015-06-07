@@ -1,7 +1,7 @@
 {
   "multiple": {
     "common": {
-      "run_number": 5,
+      "run_number": 1,
       "algorithm": "ga"
     },
     "runs": [

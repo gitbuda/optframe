@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 '''
@@ -15,6 +14,7 @@ log = logging.getLogger(__name__)
 
 def run(context):
     '''
+    CGA main function.
     '''
     solution_size = context.solution_size
     population_size = context.population_size
@@ -38,7 +38,3 @@ def run(context):
             cpv.update_vector(winner, loser, population_size)
 
     return best_store.best_solution
-
-
-if __name__ == '__main__':
-    pass

@@ -3,11 +3,11 @@
     "common": {
       "run_number": 1,
       "problem": "leading_ones",
-      "solution_structure": { "bit": { "size": 100 } },
-      "solution_size": 100,
-      "solution_number": 1000000,
-      "evaluations_number": 100,
-      "iterations_number": 1000000
+      "solution_structure": { "bit": { "size": 20 } },
+      "solution_size": 20,
+      "solution_number": 1000,
+      "evaluations_number": 1000,
+      "iterations_number": 1000
     },
     "runs": [
       {
