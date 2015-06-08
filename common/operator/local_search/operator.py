@@ -6,9 +6,9 @@ Solution local search operator
 '''
 
 import logging
-from helpers.loader import DictWrapper
 from common.constants import BIT_BOX_KEY
 from common.constants import PERMUTATION_BOX_KEY
+from helpers.dict_wrapper import DictWrapper
 from .bit_box.binary_tournament import LocalSearch as BinaryTournament
 from .bit_box.first_improvement import LocalSearch as FirstImprovement
 from .permutation_box.block_full import LocalSearch as BlockFull

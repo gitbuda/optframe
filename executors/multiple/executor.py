@@ -7,7 +7,7 @@
 from common.execution_result import ExecutionResult
 from common.execution_container import ExecutionContainter
 from common.initializer import problem_init, algorithm_init
-from helpers.loader import DictWrapper
+from helpers.dict_wrapper import DictWrapper
 from helpers.setter import setter
 from statistics.writer import write
 

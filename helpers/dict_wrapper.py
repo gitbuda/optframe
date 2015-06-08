@@ -1,6 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+'''
+Standard dictionary wrapper.
+
+The main reason of existance of this class
+is the possibility to access to the elements
+of some dictionary via dot notation.
+'''
+
 import os
 import json
 
@@ -25,13 +33,6 @@ class DictWrapper(object):
                     DictWrapper(item) for i, item in enumerate(value)]
         else:
             return value
-
-    # TODO: find a better way to accomplish this
-    # def __setattr__(self, name, value):
-    #     if name is 'input_dict':
-    #         self.__dict__[name] = value
-    #     else:
-    #         self.input_dict[name] = value
 
     def __contains__(self, key):
         if key in self.input_dict:
@@ -61,8 +62,8 @@ class DictWrapper(object):
         return representation[:-1]
 
     def store(self, path):
-        with open(path, 'wb') as fp:
-            json.dump(self.input_dict, fp)
+        with open(path, 'wb') as f:
+            json.dump(self.input_dict, f)
 
 
 def load_json(path):
@@ -70,9 +71,9 @@ def load_json(path):
         with open(path) as f:
             return DictWrapper(json.load(f))
     else:
-        return DictWrapper()
+        return DictWrapper({})
 
 
 if __name__ == '__main__':
-    print "DictWrapper test"
     wrapper = DictWrapper()
+    print wrapper

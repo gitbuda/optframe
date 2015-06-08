@@ -7,7 +7,7 @@
 import logging
 import itertools
 
-from helpers.loader import DictWrapper
+from helpers.dict_wrapper import DictWrapper
 
 log = logging.getLogger(__name__)
 

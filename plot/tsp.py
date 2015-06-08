@@ -4,7 +4,7 @@
 
 import sys
 import matplotlib.pyplot as plt
-from helpers.loader import load_json
+from helpers.dict_wrapper import load_json
 from itertools import dropwhile
 
 data_file = sys.argv[1]

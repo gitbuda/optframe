@@ -8,7 +8,7 @@ import logging
 import numpy as np
 from helpers.path import unique_path
 from common.initializer import problem_init, algorithm_init
-from helpers.loader import DictWrapper
+from helpers.dict_wrapper import DictWrapper
 from common.fitness import Fitness
 from helpers.setter import setter
 

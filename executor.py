@@ -10,7 +10,7 @@ import logging
 import common.constants as CONF
 
 from helpers.arguments import get_arg
-from helpers.loader import load_json
+from helpers.dict_wrapper import load_json
 from helpers.load_package import load_package
 from helpers.path import unique_path
 

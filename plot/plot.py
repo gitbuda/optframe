@@ -5,7 +5,7 @@ Plot informations container.
 '''
 
 from helpers.setter import setter
-from helpers.loader import load_json
+from helpers.dict_wrapper import load_json
 
 
 class Plot(object):

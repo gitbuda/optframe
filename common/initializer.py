@@ -7,9 +7,9 @@
 import logging
 import common.constants as CONF
 
-from os.path import join as path_join
-from helpers.loader import load_json
 from helpers.setter import setter
+from os.path import join as path_join
+from helpers.dict_wrapper import load_json
 
 log = logging.getLogger(__name__)
 

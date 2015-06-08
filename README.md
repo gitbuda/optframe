@@ -49,7 +49,6 @@ Default config file is config.json.
 
 ## TODO:
 
-* rename helpers.loader
 * change places of config files
 * rename Config to Context
 
