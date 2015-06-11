@@ -56,11 +56,13 @@ class Solution(object):
         '''
         string = ''
         string += '{\n'
-        string += '  "fitness": %s,\n' % self.fitness.value
+        if self.fitness is not None:
+            string += '  "fitness": %s,\n' % self.fitness.value
         for key, value in self.container.items():
             string += '  "%s": %s,\n' % (key, value)
-        string = string[:-2]
-        string += '\n}\n'
+        if len(self.container.items()) > 0:
+            string = string[:-2]
+        string += '\n}'
         return string
 
     def persist(self, destination):
