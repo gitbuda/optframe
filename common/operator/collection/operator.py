@@ -34,8 +34,18 @@ class PermutationOperator(object):
         random.shuffle(box)
         return box
 
+
+class IntOperator(object):
+
+    def configure(self, config):
+        self.size = int(config.size)
+        self.min = int(config.min)
+        self.max = int(config.max)
+
+    def generate(self):
+        return [random.randint(self.min, self.max) for x in xrange(self.size)]
+
 # TODO: FloatOperator
-# TODO: IntOperator
 
 
 class Operator(object):
@@ -54,6 +64,7 @@ class Operator(object):
 
         self.operators = {}
 
+        # TODO: remove CP of code
         try:
             bit_operator = BitOperator()
             bit_operator.configure(self.solution_structure.bit)
@@ -67,6 +78,13 @@ class Operator(object):
             self.operators[CONST.PERMUTATION_BOX_KEY] = perm_operator
         except Exception:
             log.info("no permutation box")
+
+        try:
+            int_operator = IntOperator()
+            int_operator.configure(self.solution_structure.int)
+            self.operators[CONST.INT_BOX_KEY] = int_operator
+        except Exception:
+            log.info("no int box")
 
     def generate(self, size=None):
         '''

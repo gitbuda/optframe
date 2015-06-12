@@ -7,16 +7,17 @@
 import sys
 from hmo_loader import read_hmo_file
 from common.solution import Solution
+from common.fitness import Fitness, MIN
 
 
 class Evaluator(object):
 
-    def __init__(self, path):
-        self.hmo_problem = read_hmo_file(path)
-        self.hmo_problem.calculate_distances()
+    def __init__(self):
+        pass
 
     def configure(self, config):
-        pass
+        self.hmo_problem = read_hmo_file(config.path)
+        self.hmo_problem.calculate_distances()
 
     def evaluate(self, solution):
         '''
@@ -26,7 +27,7 @@ class Evaluator(object):
         customers_indices = solution.container['permutation']
 
         if warehouses_indices[0] == 0:
-            return sys.maxint
+            return Fitness(sys.maxint, MIN)
 
         cost = 0
 
@@ -73,7 +74,7 @@ class Evaluator(object):
                 customer_desire = self.hmo_problem.customer_desires[index]
                 warehouses_constraints[warehouse_index] -= customer_desire
             if customers_sum > self.hmo_problem.vehicle_capacity:
-                return -sys.maxint
+                return Fitness(sys.maxint, MIN)
 
             for i in range(sub_perm_len):
                 if i + 1 == sub_perm_len:
@@ -85,7 +86,7 @@ class Evaluator(object):
         for warehouse_index in used_warehouses:
             cost += self.hmo_problem.warehouse_prices[warehouse_index]
 
-        return cost
+        return Fitness(cost, MIN)
 
 if __name__ == '__main__':
 

@@ -11,7 +11,8 @@
         "permutation": {
           "size": 100
         }
-      }
+      },
+      "path": "problems/cvrp/input.txt"
     },
     "algorithms": [
       {

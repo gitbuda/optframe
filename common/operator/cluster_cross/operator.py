@@ -35,6 +35,8 @@ class Operator(object):
         perm_cross.configure(self.evaluator)
         self.operators[CONST.PERMUTATION_BOX_KEY] = perm_cross
 
+        self.operators[CONST.INT_BOX_KEY] = array_cross
+
     def cross(self, solution, donors, clusters):
         '''
         '''

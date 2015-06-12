@@ -1,3 +1,3 @@
-import hmo_loader
-import hmo_output
-import hmo_evaluate
+import hmo_loader  # NOQA
+import hmo_output  # NOQA
+import evaluator  # NOQA
