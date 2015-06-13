@@ -84,3 +84,18 @@ class Fitness(object):
             return self.value > fitness.value
         else:
             return self.value < fitness.value
+
+    def __str__(self):
+        '''
+        String representation.
+        '''
+        if self.category == MIN:
+            category_name = MIN_NAME
+        else:
+            category_name = MAX_NAME
+        string = ''
+        string += '{ '
+        string += '\"category\": %s, ' % category_name
+        string += '\"value\": %s' % str(self.value)
+        string += ' }'
+        return string

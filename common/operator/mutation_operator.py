@@ -6,8 +6,8 @@
 
 import logging
 import common.constants as CONST
-
 from common.operator.bit_mutation import BitMutationOperator
+from common.operator.int_mutation import IntMutationOperator
 from common.operator.permutation_mutation import PermutationMutationOperator
 
 log = logging.getLogger(__name__)
@@ -22,10 +22,15 @@ class MutationOperator(object):
         '''
         '''
         self.operators = {}
-        self.operators[CONST.BIT_BOX_KEY] = \
-            BitMutationOperator(float(config.mutation_factor))
-        self.operators[CONST.PERMUTATION_BOX_KEY] = \
-            PermutationMutationOperator(float(config.mutation_factor))
+
+        factor = float(config.mutation_factor)
+        bit_mutation = BitMutationOperator(factor)
+        perm_mutation = PermutationMutationOperator(factor)
+        int_mutation = IntMutationOperator().configure(config)
+
+        self.operators[CONST.BIT_BOX_KEY] = bit_mutation
+        self.operators[CONST.PERMUTATION_BOX_KEY] = perm_mutation
+        self.operators[CONST.INT_BOX_KEY] = int_mutation
 
     def mutate(self, solution):
         '''

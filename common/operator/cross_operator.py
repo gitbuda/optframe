@@ -23,9 +23,11 @@ class CrossOperator(object):
         '''
         '''
         self.operators = {}
-        self.operators[CONST.BIT_BOX_KEY] = \
-            BitCrossOperator(float(config.cross_factor))
+        bit_cross = BitCrossOperator(float(config.cross_factor))
+        self.operators[CONST.BIT_BOX_KEY] = bit_cross
         self.operators[CONST.PERMUTATION_BOX_KEY] = PermutationCrossOperator()
+        # TODO: replace with IntCrossOperator
+        self.operators[CONST.INT_BOX_KEY] = bit_cross
 
     def cross(self, better, worse):
         '''

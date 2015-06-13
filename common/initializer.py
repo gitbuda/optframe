@@ -32,6 +32,8 @@ def problem_init(problems, config):
 
     solution_operator = setter(
         lambda: problems[problem].solution_operator.SolutionOperator(), None)
+    if solution_operator is not None:
+        solution_operator.configure(config)
 
     evaluator = problems[problem].evaluator.Evaluator()
     problem_config_path = path_join(CONF.PROBLEMS_DIRNAME, problem,

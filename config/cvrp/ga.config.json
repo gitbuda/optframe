@@ -6,7 +6,7 @@
         "int": { 
           "size": 100,
           "min": 0,
-          "max": 4
+          "max": 5
         },
         "permutation": {
           "size": 100
@@ -16,8 +16,9 @@
     },
     "algorithms": [
       {
-        "algorithm": "p3",
-        "evaluations_number": 10000
+        "algorithm": "ga",
+        "evaluations_number": 10000,
+        "warehouses": [2, 4, 5]
       }
     ]
   }

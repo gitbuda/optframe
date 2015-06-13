@@ -1,15 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-'''
-'''
-
-import os
 import random
 import logging
 import lxml.etree as etree
-from common.solution import Solution
 import common.constants as CONST
+from helpers.path import abs_path
+from common.solution import Solution
 
 log = logging.getLogger(__name__)
 
@@ -34,9 +31,11 @@ def deme_reader(path='deme.txt'):
 class SolutionOperator(object):
 
     def __init__(self):
-        folder_path = os.path.split(os.path.abspath(__file__))[0]
-        deme_path = os.path.join(folder_path, 'deme.txt')
+        deme_path = abs_path(__file__, 'deme.txt')
         self.deme = deme_reader(deme_path)
+
+    def configure(self, config):
+        pass
 
     def next(self):
         index = random.randint(0, len(self.deme) - 1)
@@ -48,9 +47,9 @@ class SolutionOperator(object):
 
 if __name__ == '__main__':
 
-    folder_path = os.path.split(os.path.abspath(__file__))[0]
-    deme_path = os.path.join(folder_path, 'deme.txt')
+    print 'Pipeline solution operator manual test'
 
+    deme_path = abs_path(__file__, 'deme.txt')
     deme = deme_reader(deme_path)
 
     for individual in deme:

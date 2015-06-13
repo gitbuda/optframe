@@ -2,12 +2,14 @@
 # -*- coding: utf-8 -*-
 
 '''
+Capacited Vehicle Routing Problem Evaluator
 '''
 
 import sys
 from hmo_loader import read_hmo_file
 from common.solution import Solution
 from common.fitness import Fitness, MIN
+from helpers.dict_wrapper import DictWrapper
 
 
 class Evaluator(object):
@@ -17,7 +19,7 @@ class Evaluator(object):
 
     def configure(self, config):
         self.hmo_problem = read_hmo_file(config.path)
-        self.hmo_problem.calculate_distances()
+        return self
 
     def evaluate(self, solution):
         '''
@@ -54,7 +56,7 @@ class Evaluator(object):
         used_warehouses = set()
         for groupe in groupes:
             cost += self.hmo_problem.vehicle_price
-            warehouse_index = groupe[0]
+            warehouse_index = groupe[0] - 1
             used_warehouses.add(warehouse_index)
             start = groupe[1]
             count = groupe[2]
@@ -90,7 +92,12 @@ class Evaluator(object):
 
 if __name__ == '__main__':
 
-    print 'CVRP evaluation module'
-    solution = Solution({'int': [4, 0, 0, 0, 3, 0, 4, 0, 0, 0, 3, 0, 0, 0, 0, 4, 0, 0, 0, 1, 0, 0, 3, 0, 0, 0, 4, 4, 0, 0, 0, 4, 0, 0, 0, 3, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 1, 0, 0, 0, 3, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 3, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 3, 0, 0, 0, 4, 0, 0, 0, 1, 1, 0, 0, 0, 0, 4, 4, 0, 0, 0, 4], 'permutation': [92, 25, 15, 69, 47, 78, 79, 34, 63, 66, 53, 76, 4, 36, 65, 98, 61, 5, 82, 46, 84, 90, 83, 39, 94, 30, 12, 22, 64, 81, 14, 73, 18, 93, 95, 62, 77, 88, 8, 86, 87, 74, 60, 17, 32, 20, 70, 23, 49, 42, 67, 58, 71, 31, 48, 35, 56, 27, 85, 96, 40, 0, 13, 52, 97, 9, 72, 19, 45, 57, 28, 51, 3, 7, 11, 26, 75, 38, 50, 1, 29, 54, 68, 33, 44, 99, 41, 21, 16, 43, 80, 91, 89, 6, 59, 55, 2, 37, 10, 24]})
-    evaluator = Evaluator('input.txt')
-    print evaluator.evaluate(solution)
+    print 'CVRP evaluator manual test'
+
+    solution = Solution({'int': [5, 0, 0, 0, 4, 0, 5, 0, 0, 0, 4, 0, 0, 0, 0, 5, 0, 0, 0, 2, 0, 0, 4, 0, 0, 0, 5, 5, 0, 0, 0, 5, 0, 0, 0, 4, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 2, 0, 0, 0, 4, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 4, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 4, 0, 0, 0, 5, 0, 0, 0, 2, 2, 0, 0, 0, 0, 5, 5, 0, 0, 0, 5], 'permutation': [92, 25, 15, 69, 47, 78, 79, 34, 63, 66, 53, 76, 4, 36, 65, 98, 61, 5, 82, 46, 84, 90, 83, 39, 94, 30, 12, 22, 64, 81, 14, 73, 18, 93, 95, 62, 77, 88, 8, 86, 87, 74, 60, 17, 32, 20, 70, 23, 49, 42, 67, 58, 71, 31, 48, 35, 56, 27, 85, 96, 40, 0, 13, 52, 97, 9, 72, 19, 45, 57, 28, 51, 3, 7, 11, 26, 75, 38, 50, 1, 29, 54, 68, 33, 44, 99, 41, 21, 16, 43, 80, 91, 89, 6, 59, 55, 2, 37, 10, 24]})
+    evaluator = Evaluator()
+    evaluator.configure(DictWrapper({'path': 'input.txt'}))
+    fitness = evaluator.evaluate(solution)
+    solution.fitness = fitness
+    print solution
+    solution.persist('output/341771.txt')

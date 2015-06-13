@@ -1,4 +1,5 @@
 import boolean  # NOQA
+import cvrp  # NOQA
 import deceptive_step_trap  # NOQA
 import deceptive_trap  # NOQA
 import leading_ones  # NOQA

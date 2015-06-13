@@ -64,10 +64,13 @@ class LTPopulation:
         '''
         for key in self.solution_structure.keys():
             if key == CONST.BIT_BOX_KEY:
-                self.recalculate_for(solution, key, 2)
+                values_no = 2
             if key == CONST.PERMUTATION_BOX_KEY:
                 values_no = int(self.solution_structure.permutation.size)
-                self.recalculate_for(solution, key, values_no)
+            if key == CONST.INT_BOX_KEY:
+                values_no = int(self.solution_structure.int.max) - \
+                    int(self.solution_structure.int.min) + 1
+            self.recalculate_for(solution, key, values_no)
 
         if rebuild_tree:
             self.rebuild_tree()

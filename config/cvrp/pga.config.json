@@ -1,0 +1,25 @@
+{
+  "chain": {
+    "common": {
+      "problem": "cvrp",
+      "solution_structure": { 
+        "int": { 
+          "size": 100,
+          "min": 0,
+          "max": 5
+        },
+        "permutation": {
+          "size": 100
+        }
+      },
+      "path": "problems/cvrp/input.txt"
+    },
+    "algorithms": [
+      {
+        "algorithm": "pga",
+        "evaluations_number": 10000,
+        "warehouses": [2, 4, 5]
+      }
+    ]
+  }
+}
