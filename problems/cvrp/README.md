@@ -3,6 +3,6 @@
 ## Input file visualization
 ![cvrp input visualization](input.png)
 
-## NOTE:
+## Note
 Thanks to Florian Stamenkovic. He is the author of the HMO_vizualizacija.jar.
 
