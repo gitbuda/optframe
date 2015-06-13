@@ -32,6 +32,7 @@ Default config file is config.json.
 ## Problems:
 
 * Boolean
+* Capacited Vehicle Routing Problem
 * Deceptive Trap
 * Deceptive Step Trap
 * Leading Ones
