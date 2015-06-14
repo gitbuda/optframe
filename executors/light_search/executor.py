@@ -22,6 +22,7 @@ def execute(algorithms, problems, config):
     context = config.common
 
     # execution
+    heatmap = []
     for param_name in config.grid.keys():
         best = None
         best_param = None
@@ -62,6 +63,7 @@ def execute(algorithms, problems, config):
             print median
             print conf_instance
             print "-------------------"
+            heatmap.append((conf_instance, median))
             fitness = Fitness(median, tmp_best[0].category)
             if best is None or best < fitness:
                 best = fitness
@@ -70,8 +72,20 @@ def execute(algorithms, problems, config):
 
     print best_parameters
 
-    # prepare output
+    # write heatmap
     identifier = setter(lambda: context.identifier, context.problem)
+    output_path = unique_path('output', 'heatmap-%s-%s' %
+                              (context.algorithm, identifier))
+    with open(output_path, 'w') as f:
+        # TODO: add header
+        for config, median in heatmap:
+            for param in sorted(config.keys()):
+                f.write('%s, ' % str(config[param]))
+            f.write('%s\n' % str(median))
+
+    print 'heatmap', heatmap
+
+    # prepare output
     output_path = unique_path('output', 'search-%s-%s' %
                               (context.algorithm, identifier))
 

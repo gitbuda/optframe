@@ -37,6 +37,7 @@ class Config(object):
         self.population_size = int(self.config.population_size)
         self.max_iterations = int(self.config.iterations_number)
         self.best_to_next_number = int(self.config.best_to_next_number)
+        self.output_dir = self.config.output_path
 
         # load all operators
         self.population_operator = PopulationOperator()

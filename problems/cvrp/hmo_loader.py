@@ -163,13 +163,14 @@ if __name__ == '__main__':
 
     print hmo_problem.warehouses_no
     print hmo_problem.customers_no
-    print hmo_problem.warehouses_coords
-    print hmo_problem.customers_coords
-    print hmo_problem.vehicle_capacity
-    print hmo_problem.warehouse_capacities
-    print hmo_problem.customer_desires
-    print hmo_problem.warehouse_prices
-    print hmo_problem.vehicle_price
+    print hmo_problem.warehouses_coords  #
+    print hmo_problem.customers_coords  #
+    print 'vehicle capacity', hmo_problem.vehicle_capacity  #
+    print hmo_problem.warehouse_capacities  #
+    print hmo_problem.customer_desires  #
+    print hmo_problem.warehouse_prices  #
+    print hmo_problem.vehicle_price  #
     hmo_problem.calculate_distances()
     print hmo_problem.ccdistances[51][50]
     print hmo_problem.ccdistances[50][51]
+    print hmo_problem.wcdistances[4][23]

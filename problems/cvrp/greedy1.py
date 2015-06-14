@@ -8,7 +8,7 @@ from problems.cvrp.hmo_loader import read_hmo_file
 
 def give_warehouse(clusters, customer, hmo_problem, curr_wcap):
     for i, w in enumerate(clusters[customer][2]):
-        w_index = w[0] - 1
+        w_index = w[0]
         if curr_wcap[w_index] - hmo_problem.customer_desires[customer] < 0:
             continue
         return w_index
@@ -26,7 +26,7 @@ class Greedy(object):
     def run(self):
 
         hmo_problem = self.hmo_problem
-        warehouses = self.warehouses
+        warehouses = map(lambda x: x - 1, self.warehouses)
 
         CLUSTERS_NO = hmo_problem.customers_no
         NEIGHBOORS_NO = hmo_problem.customers_no

@@ -17,7 +17,7 @@
     "algorithms": [
       {
         "algorithm": "ga",
-        "evaluations_number": 10000,
+        "evaluations_number": 100000,
         "warehouses": [2, 4, 5]
       }
     ]

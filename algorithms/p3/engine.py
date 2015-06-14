@@ -7,10 +7,10 @@ Python implementation of:
 https://github.com/brianwgoldman/Parameter-less_Population_Pyramid
 '''
 
-import uuid
 import logging
 from common.limit import Limit
 from common.lt_population import LTPopulation
+from common.solution_writer import write
 
 log = logging.getLogger(__name__)
 
@@ -53,7 +53,8 @@ def run(context):
             solution.fitness = evaluator.evaluate(solution)
 
             # apply local search
-            solution = local_search.search(solution)
+            if solution_operator is None:
+                solution = local_search.search(solution)
 
             # add solution into the population (into the
             # first level of the pyramid)
@@ -65,12 +66,12 @@ def run(context):
 
             # one pyramid loop
             for population_index in xrange(len(populations)):
+                print 'iter %s' % str(population_index)
                 population = populations[population_index]
                 old_fitness = solution.fitness.deep_copy()
                 cluster_cross.cross(solution, population.solutions,
                                     population.clusters)
                 new_fitness = solution.fitness
-
                 if new_fitness >= old_fitness:
                     solution_tuple = solution.create_tuple()
                     if solution_tuple not in solutions:
@@ -93,9 +94,6 @@ def run(context):
             iteration_counter.increase()
 
     # store the best solution
-    best_fitness = best_store.best_solution.fitness.value
-    output_path = '%s/f%s-%s.solution' % (context.output_dir,
-                                          best_fitness, uuid.uuid4().hex)
-    best_store.best_solution.persist(output_path)
+    write(best_store.best_solution, context.output_dir)
 
     return best_store.best_solution

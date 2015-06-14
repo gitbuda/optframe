@@ -31,6 +31,7 @@ class Config(object):
     def load_algorithm_conf(self, algorithm_config):
 
         self.config.weak_merge(algorithm_config)
+        self.output_dir = self.config.output_path
 
         print self.config
 

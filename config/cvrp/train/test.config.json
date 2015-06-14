@@ -1,0 +1,28 @@
+{
+  "light_search": {
+    "repeat": 2,
+    "common": {
+      "algorithm": "ga",
+      "problem": "cvrp",
+      "time_limit": 5,
+      "evaluations_number": 1000000,
+      "solution_structure": { 
+        "int": { 
+          "size": 100,
+          "min": 0,
+          "max": 5
+        },
+        "permutation": {
+          "size": 100
+        }
+      },
+      "path": "problems/cvrp/input.txt",
+      "warehouses": [2, 4, 5]
+    },
+    "grid": {
+      "population_size": [5, 10],
+      "mutation_factor": [0.0001, 0.0002],
+      "cross_factor": [0.001, 0.002]
+    }
+  }
+}

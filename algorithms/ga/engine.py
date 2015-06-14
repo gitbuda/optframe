@@ -6,6 +6,7 @@ Genetic Algorithm
 
 import logging
 from common.limit import Limit
+from common.solution_writer import write
 
 log = logging.getLogger(__name__)
 
@@ -40,6 +41,7 @@ def run(context):
     mutation_operator = context.mutation_operator
     selection_operator = context.selection_operator
     population_operator = context.population_operator
+    solution_operator = context.solution_operator
     population_size = context.population_size
     best_to_next_number = context.best_to_next_number
     iteration_counter = context.iteration_counter
@@ -51,7 +53,11 @@ def run(context):
     with Limit(context.config):
 
         # initial population
-        population = population_operator.generate()
+        if solution_operator:
+            population = [solution_operator.next()
+                          for x in range(population_size)]
+        else:
+            population = population_operator.generate()
         evaluate_and_sort(population, evaluator)
         best_store.try_store(population[0])
 
@@ -67,6 +73,11 @@ def run(context):
                 selected_pair = selection_operator.select(population, 2)
                 better = selected_pair[0]
                 worse = selected_pair[1]
+
+                # if solution_operator is not None:
+                #     worse = solution_operator.next()
+                # else:
+                #     worse = selected_pair[1]
 
                 # crossover and mutation
                 new_solution = cross_operator.cross(better, worse)
@@ -84,5 +95,7 @@ def run(context):
             iteration_counter.increase(best_store.best_solution)
 
     log.info("GA end")
+
+    write(best_store.best_solution, context.output_dir)
 
     return best_store.best_solution

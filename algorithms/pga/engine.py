@@ -10,6 +10,7 @@ TODO: finis this.
 
 import logging
 from common.limit import Limit
+from common.solution_writer import write
 
 log = logging.getLogger(__name__)
 
@@ -23,6 +24,7 @@ def run(context):
     cross_operator = context.cross_operator
     mutation_operator = context.mutation_operator
     init_solution_operator = context.init_solution_operator
+    solution_operator = context.solution_operator
     selection_operator = context.selection_operator
     local_search = context.local_search
     best_store = context.best_store
@@ -37,7 +39,10 @@ def run(context):
         while True:
 
             # initial iteration solution
-            solution = init_solution_operator.generate(1)[0]
+            if solution_operator is not None:
+                solution = solution_operator.next()
+            else:
+                solution = init_solution_operator.generate(1)[0]
             solution.fitness = evaluator.evaluate(solution)
             solution = local_search.search(solution)
 
@@ -76,5 +81,6 @@ def run(context):
             iteration_counter.increase(best_store.best_solution)
 
     print "Best: %s" % best_store.best_solution.fitness.value
+    write(best_store.best_solution, context.output_dir)
 
     return best_store.best_solution

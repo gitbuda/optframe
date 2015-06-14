@@ -16,8 +16,8 @@
     },
     "algorithms": [
       {
-        "algorithm": "p3",
-        "evaluations_number": 10000,
+        "algorithm": "pga",
+        "evaluations_number": 100000,
         "warehouses": [2, 4, 5]
       }
     ]

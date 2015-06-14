@@ -3,6 +3,7 @@
 
 import random
 from problems.cvrp.greedy1 import Greedy as Greedy1
+from problems.cvrp.greedy2 import Greedy as Greedy2
 
 
 class SolutionOperator(object):
@@ -13,6 +14,7 @@ class SolutionOperator(object):
     def configure(self, config):
         self.greedy_pool = []
         self.greedy_pool.append(Greedy1().configure(config))
+        self.greedy_pool.append(Greedy2().configure(config))
         return self
 
     def next(self):

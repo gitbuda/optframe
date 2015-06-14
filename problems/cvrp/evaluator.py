@@ -10,6 +10,7 @@ from hmo_loader import read_hmo_file
 from common.solution import Solution
 from common.fitness import Fitness, MIN
 from helpers.dict_wrapper import DictWrapper
+from common.evaluation_counter import EvaluationCounter
 
 
 class Evaluator(object):
@@ -18,12 +19,19 @@ class Evaluator(object):
         pass
 
     def configure(self, config):
+        '''
+        '''
+        self.evaluation_counter = EvaluationCounter()
+        self.evaluation_counter.configure(config)
+
         self.hmo_problem = read_hmo_file(config.path)
+
         return self
 
     def evaluate(self, solution):
         '''
         '''
+        self.evaluation_counter.increment()
 
         warehouses_indices = solution.container['int']
         customers_indices = solution.container['permutation']
