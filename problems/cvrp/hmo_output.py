@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from common.solution import Solution
+
 
 def read(path):
 
@@ -15,11 +17,11 @@ def read(path):
             warehouse_index = int(splitted[0])
             customer_indices = [int(x) for x in
                                 splitted[1].lstrip(' ').split(' ')]
-            warehouses += [warehouse_index] + [-1] * (len(customer_indices)-1)
+            warehouses += [warehouse_index + 1] + [0]*(len(customer_indices)-1)
             customers += customer_indices
             f.readline()
 
-        return warehouses + customers
+        return Solution({'int': warehouses, 'permutation': customers})
 
 
 def write(path, solution):
