@@ -1,0 +1,43 @@
+{
+  "multiple": {
+    "common": {
+      "run_number": 10,
+      "problem": "cvrp",
+      "time_limit": 600,
+      "evaluations_number": 10000000,
+      "evaluations_number": 10000000,
+      "iterations_number": 10000000,
+      "solution_structure": { 
+        "int": { 
+          "size": 100,
+          "min": 0,
+          "max": 5
+        },
+        "permutation": {
+          "size": 100
+        }
+      },
+      "path": "problems/cvrp/input.txt",
+      "warehouses": [2, 4, 5]
+    },
+    "runs": [
+      {
+        "identifier": "ga-cvrp",
+        "algorithm": "ga",
+        "population_size": 5,
+        "cross_factor": 0.512,
+        "mutation_factor": 0.0032
+      },
+      {
+        "identifier": "pga-cvrp",
+        "algorithm": "pga",
+        "cross_factor": 0.512,
+        "mutation_factor": 0.0008
+      },
+      {
+        "identifier": "p3-cvrp",
+        "algorithm": "p3"
+      }
+    ]
+  }
+}
