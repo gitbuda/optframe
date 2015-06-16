@@ -1,14 +1,20 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 '''
+Math helper class.
 '''
 
 import math
-import logging
 
 
 def neg_entropy(counts, total):
+    '''
+    Calculates negative entropy of counts array.
+
+    Args:
+        counts: array of frequncies
+        total:  sum of all elements in counts
+    '''
     sum_all = 0
     for value in counts:
         if value:
@@ -18,10 +24,11 @@ def neg_entropy(counts, total):
 
 
 def float_round(value, precision):
+    '''
+    Round the float value with some precision.
+
+    Args:
+        value:     float value
+        precision: round precision
+    '''
     return 1.0 * round(value * precision) / precision
-
-
-if __name__ == '__main__':
-
-    logging.basicConfig(level=logging.INFO)
-    log = logging.getLogger(__name__)

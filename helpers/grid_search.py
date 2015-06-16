@@ -2,18 +2,21 @@
 # -*- coding: utf-8 -*-
 
 '''
+The purpose of this script is to build grid search elements container.
 '''
 
-import logging
 import itertools
 
 from helpers.dict_wrapper import DictWrapper
 
-log = logging.getLogger(__name__)
-
 
 def create_item(keys, values):
     '''
+    Creates one grid element.
+
+    Args:
+        keys:   all grid element keys
+        values: all grid element values
     '''
     item = {}
     for index, key in enumerate(keys):
@@ -23,6 +26,14 @@ def create_item(keys, values):
 
 def grid_item_container(grid_config):
     '''
+    Creates grid search elements container.
+
+    Args:
+        grid_config: DictWrapper instance whare
+                     all values are arrays.
+
+    Returns:
+        list of DictWrapper objects (grid search elements)
     '''
     grid_keys = grid_config.keys()
     lists = []
@@ -34,4 +45,8 @@ def grid_item_container(grid_config):
 
 
 if __name__ == '__main__':
-    pass
+
+    grid = grid_item_container(DictWrapper({'x': [1, 2], 'y': [3, 4]}))
+    for grid_element in grid:
+        print grid_element
+        print '---------------------'

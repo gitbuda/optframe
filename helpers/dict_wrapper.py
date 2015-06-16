@@ -7,6 +7,9 @@ Standard dictionary wrapper.
 The main reason of existance of this class
 is the possibility to access to the elements
 of some dictionary via dot notation.
+
+The instance of this class could be used to hold
+some configuration.
 '''
 
 import os
@@ -67,6 +70,12 @@ class DictWrapper(object):
 
 
 def load_json(path):
+    '''
+    Crate the instace from json file.
+
+    Args:
+        path: path to a json file
+    '''
     if os.path.isfile(path):
         with open(path) as f:
             return DictWrapper(json.load(f))
@@ -75,5 +84,6 @@ def load_json(path):
 
 
 if __name__ == '__main__':
-    wrapper = DictWrapper()
+
+    wrapper = DictWrapper({'test': 'test'})
     print wrapper
