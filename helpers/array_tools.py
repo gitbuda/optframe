@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 '''
+Array elements swap helper.
 '''
 
 import random
@@ -12,8 +13,8 @@ log = logging.getLogger(__name__)
 
 def swap(a, b, ind):
     '''
-    The function swap elements of a and b
-    on indices stored in ind.
+    The function swaps elements of a and b
+    on the indices stored in ind.
 
     Args:
         a: list of elements
@@ -23,16 +24,16 @@ def swap(a, b, ind):
     for i in ind:
         a[i], b[i] = b[i], a[i]
 
+
 def permutation_swap(a, b, ind):
     '''
-    The function swap elements of a and b on
-    indiecs stored in ind,
-    but it takes care that after swap
-    a and b stay permutations.
+    The function swaps elements of a and b on
+    indiecs stored in ind, but it takes care
+    that after swap a and b stay permutations.
 
     Args:
-        a: list of elements
-        b: list of elements
+        a: list of elements (permutation)
+        b: list of elements (permutation)
         ind: list indices
     '''
     used_a = set()
@@ -47,7 +48,8 @@ def permutation_swap(a, b, ind):
     used = set()
     for i in xrange(len(a)):
         if a[i] in used_a:
-            candidates_a = used_b.difference(used_a).difference(set([a[i]])).difference(used)
+            candidates_a = used_b.difference(used_a).difference(set([a[i]])) \
+                                                    .difference(used)
             if len(candidates_a):
                 element = random.sample(candidates_a, 1)[0]
                 a[i] = element
@@ -55,12 +57,12 @@ def permutation_swap(a, b, ind):
     used = set()
     for i in xrange(len(b)):
         if b[i] in used_b:
-            candidates_b = used_a.difference(used_b).difference(set([b[i]])).difference(used)
+            candidates_b = used_a.difference(used_b).difference(set([b[i]])) \
+                                                    .difference(used)
             if len(candidates_b):
                 element = random.sample(candidates_b, 1)[0]
                 b[i] = element
                 used.add(element)
-
 
 
 if __name__ == '__main__':

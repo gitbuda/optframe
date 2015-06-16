@@ -1,12 +1,11 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 '''
+Load all modules from a package.
 '''
 
 import imp
 import logging
-
 from os import walk
 
 log = logging.getLogger(__name__)
@@ -14,6 +13,9 @@ log = logging.getLogger(__name__)
 
 def load_package(path, tag='Module'):
     '''
+    Loads all modules at the path, if it is possible. If a
+    module can't be loaded it will be skipped (only an exception
+    message will be logged).
     '''
     package = {}
     (_, module_names, _) = walk(path).next()

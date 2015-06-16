@@ -7,9 +7,7 @@ Module returns a process memory usage.
 
 import os
 import psutil
-import logging
 
-log = logging.getLogger(__name__)
 
 unit_container = {}
 unit_container['KiB'] = float(2 ** 10)
@@ -34,7 +32,6 @@ def self_memory_usage(unit='GiB'):
 
 if __name__ == '__main__':
 
-    logging.basicConfig(level=logging.INFO)
     a = [0] * (2 ** 27)
     unit = 'GiB'
-    log.info('Memory usage: %s%s' % (self_memory_usage(unit), unit))
+    print('Memory usage: %s%s' % (self_memory_usage(unit), unit))
