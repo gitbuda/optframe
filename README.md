@@ -39,7 +39,7 @@ Default config file is config.json.
 * Max Sat
 * One Max
 * Pipeline
-* Rastring
+* Rastrigin
 * Schwefel
 * TSP: Bays 29, Oliver 30
 

@@ -32,7 +32,7 @@ def draw(plot, output_path=None):
     heatmap = ax.pcolor(plot.data)
     for y in range(plot.data.shape[0]):
         for x in range(plot.data.shape[1]):
-            plt.text(x + 0.5, y + 0.5, '%.2f' % plot.data[y, x],
+            plt.text(x + 0.5, y + 0.5, '%.0fk' % (plot.data[y, x] / 10**3),
                      horizontalalignment='center',
                      verticalalignment='center')
 
