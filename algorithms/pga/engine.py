@@ -10,6 +10,7 @@ TODO: finis this.
 
 import logging
 from common.limit import Limit
+from helpers.setter import setter
 from common.solution_writer import write
 
 log = logging.getLogger(__name__)
@@ -20,6 +21,7 @@ def run(context):
     Run PGA
     '''
     # setup
+    identifier = setter(lambda: context.config.identifier, None)
     evaluator = context.evaluate_operator
     cross_operator = context.cross_operator
     mutation_operator = context.mutation_operator
@@ -80,7 +82,6 @@ def run(context):
 
             iteration_counter.increase(best_store.best_solution)
 
-    print "Best: %s" % best_store.best_solution.fitness.value
-    write(best_store.best_solution, context.output_dir)
+    write(best_store.best(evaluator), context.output_dir, identifier)
 
-    return best_store.best_solution
+    return best_store.best(evaluator)

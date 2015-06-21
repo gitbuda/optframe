@@ -9,6 +9,7 @@ https://github.com/brianwgoldman/Parameter-less_Population_Pyramid
 
 import logging
 from common.limit import Limit
+from helpers.setter import setter
 from common.lt_population import LTPopulation
 from common.solution_writer import write
 
@@ -22,6 +23,7 @@ def run(context):
     log.info("P3 start")
 
     # operators and parameters
+    identifier = setter(lambda: context.config.identifier, None)
     evaluator = context.evaluate_operator
     best_store = context.best_store
     solution_operator = context.solution_operator
@@ -94,6 +96,6 @@ def run(context):
             iteration_counter.increase()
 
     # store the best solution
-    write(best_store.best_solution, context.output_dir)
+    write(best_store.best(evaluator), context.output_dir, identifier)
 
-    return best_store.best_solution
+    return best_store.best(evaluator)

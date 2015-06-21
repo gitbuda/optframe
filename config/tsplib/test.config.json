@@ -1,0 +1,148 @@
+{
+  "multiple": {
+    "common": {
+      "problem": "tsp",
+      "run_number": 1,
+      "local_search": { "permutation": { "name": "block_full" } },
+      "block_size": 4,
+      "evaluations_number": 1000000000,
+      "solution_number": 1000000000,
+      "population_size": 12,
+      "time_limit": 1600
+    },
+    "runs": [
+      {
+        "identifier": "ga-burma14",
+        "algorithm": "ga",
+        "cross_factor": 0.45, 
+        "mutation_factor": 0.05,
+        "input_file_path": "problems/tsp/data/tsplib/burma14.tsp",
+        "solution_structure": { "permutation": { "size": 14 } }
+      },
+      {
+        "identifier": "ga-bays29",
+        "algorithm": "ga",
+        "cross_factor": 0.45, 
+        "mutation_factor": 0.05,
+        "input_file_path": "problems/tsp/data/tsplib/bays29.tsp",
+        "solution_structure": { "permutation": { "size": 29 } }
+      },
+      {
+        "identifier": "ga-brazil58",
+        "algorithm": "ga",
+        "cross_factor": 0.45, 
+        "mutation_factor": 0.05,
+        "input_file_path": "problems/tsp/data/tsplib/brazil58.tsp",
+        "solution_structure": { "permutation": { "size": 58 } }
+      },
+      {
+        "identifier": "ga-bier127",
+        "algorithm": "ga",
+        "cross_factor": 0.45, 
+        "mutation_factor": 0.05,
+        "input_file_path": "problems/tsp/data/tsplib/bier127.tsp",
+        "solution_structure": { "permutation": { "size": 127 } }
+      },
+      {
+        "identifier": "ga-pr264",
+        "algorithm": "ga",
+        "cross_factor": 0.45, 
+        "mutation_factor": 0.05,
+        "input_file_path": "problems/tsp/data/tsplib/pr264.tsp",
+        "solution_structure": { "permutation": { "size": 264 } }
+      },
+      {
+        "identifier": "ga-att532",
+        "algorithm": "ga",
+        "cross_factor": 0.45, 
+        "mutation_factor": 0.05,
+        "input_file_path": "problems/tsp/data/tsplib/att532.tsp",
+        "solution_structure": { "permutation": { "size": 532 } }
+      },
+      {
+        "identifier": "pga-burma14",
+        "algorithm": "pga",
+        "cross_factor": 0.15, 
+        "mutation_factor": 0.12,
+        "input_file_path": "problems/tsp/data/tsplib/burma14.tsp",
+        "solution_structure": { "permutation": { "size": 14 } }
+      },
+      {
+        "identifier": "pga-bays29",
+        "algorithm": "pga",
+        "cross_factor": 0.15, 
+        "mutation_factor": 0.12,
+        "input_file_path": "problems/tsp/data/tsplib/bays29.tsp",
+        "solution_structure": { "permutation": { "size": 29 } }
+      },
+      {
+        "identifier": "pga-brazil58",
+        "algorithm": "pga",
+        "cross_factor": 0.15, 
+        "mutation_factor": 0.12,
+        "input_file_path": "problems/tsp/data/tsplib/brazil58.tsp",
+        "solution_structure": { "permutation": { "size": 58 } }
+      },
+      {
+        "identifier": "pga-bier127",
+        "algorithm": "pga",
+        "cross_factor": 0.15, 
+        "mutation_factor": 0.12,
+        "input_file_path": "problems/tsp/data/tsplib/bier127.tsp",
+        "solution_structure": { "permutation": { "size": 127 } }
+      },
+      {
+        "identifier": "pga-pr264",
+        "algorithm": "pga",
+        "cross_factor": 0.15, 
+        "mutation_factor": 0.12,
+        "input_file_path": "problems/tsp/data/tsplib/pr264.tsp",
+        "solution_structure": { "permutation": { "size": 264 } }
+      },
+      {
+        "identifier": "pga-att532",
+        "algorithm": "ga",
+        "cross_factor": 0.15, 
+        "mutation_factor": 0.12,
+        "input_file_path": "problems/tsp/data/tsplib/att532.tsp",
+        "solution_structure": { "permutation": { "size": 532 } }
+      },
+      {
+        "identifier": "p3-burma14",
+        "algorithm": "p3",
+        "input_file_path": "problems/tsp/data/tsplib/burma14.tsp",
+        "solution_structure": { "permutation": { "size": 14 } }
+      },
+      {
+        "identifier": "p3-bays29",
+        "algorithm": "p3",
+        "input_file_path": "problems/tsp/data/tsplib/bays29.tsp",
+        "solution_structure": { "permutation": { "size": 29 } }
+      },
+      {
+        "identifier": "p3-brazil58",
+        "algorithm": "p3",
+        "input_file_path": "problems/tsp/data/tsplib/brazil58.tsp",
+        "solution_structure": { "permutation": { "size": 58 } }
+      },
+      {
+        "identifier": "p3-bier127",
+        "algorithm": "p3",
+        "input_file_path": "problems/tsp/data/tsplib/bier127.tsp",
+        "solution_structure": { "permutation": { "size": 127 } }
+      },
+      {
+        "identifier": "p3-pr264",
+        "algorithm": "p3",
+        "input_file_path": "problems/tsp/data/tsplib/pr264.tsp",
+        "solution_structure": { "permutation": { "size": 264 } }
+      },
+      {
+        "identifier": "p3-att532",
+        "algorithm": "p3",
+        "input_file_path": "problems/tsp/data/tsplib/att532.tsp",
+        "solution_structure": { "permutation": { "size": 532 } }
+      }
+    ]
+  }
+}

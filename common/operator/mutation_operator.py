@@ -24,13 +24,27 @@ class MutationOperator(object):
         self.operators = {}
 
         factor = float(config.mutation_factor)
-        bit_mutation = BitMutationOperator(factor)
-        perm_mutation = PermutationMutationOperator(factor)
-        int_mutation = IntMutationOperator().configure(config)
 
-        self.operators[CONST.BIT_BOX_KEY] = bit_mutation
-        self.operators[CONST.PERMUTATION_BOX_KEY] = perm_mutation
-        self.operators[CONST.INT_BOX_KEY] = int_mutation
+        try:
+            bit_mutation = BitMutationOperator(factor)
+            self.operators[CONST.BIT_BOX_KEY] = bit_mutation
+        except:
+            # TODO
+            pass
+
+        try:
+            perm_mutation = PermutationMutationOperator(factor)
+            self.operators[CONST.PERMUTATION_BOX_KEY] = perm_mutation
+        except:
+            # TODO
+            pass
+
+        try:
+            int_mutation = IntMutationOperator().configure(config)
+            self.operators[CONST.INT_BOX_KEY] = int_mutation
+        except:
+            # TODO
+            pass
 
     def mutate(self, solution):
         '''

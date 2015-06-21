@@ -9,8 +9,9 @@ Fitness is element of the solution.
 import logging
 
 from helpers.setter import setter
-from common.fitness import Fitness, MIN, MAX, MIN_NAME, MAX_NAME
+from common.solution import Solution
 from common.exception.limit_exception import LimitException
+from common.fitness import Fitness, MIN, MAX, MIN_NAME, MAX_NAME
 
 log = logging.getLogger(__name__)
 
@@ -23,6 +24,19 @@ class BestStore(object):
         self.best_solution = None
         self.best_config = None
         self.fitness_limit = None
+
+    def best(self, evaluator=None):
+        # TODO: remove evaluator from here
+        # inject an evaluator via configuration method
+        # evaluator has to be injected because only it knows
+        # to return the worst solution
+        if self.best_solution:
+            return self.best_solution
+        else:
+            if evaluator:
+                return Solution({}, evaluator.theworst_fitness())
+            else:
+                return Solution({})
 
     def configure(self, config=None):
         '''
