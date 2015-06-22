@@ -1,0 +1,47 @@
+{
+  "multiple": {
+    "common": {
+      "run_number": 1,
+      "problem": "function",
+      "function": "rastrigin",
+      "minimum": -5.12,
+      "maximum": 5.12,
+      "solution_structure": { "bit": { "size": 100 } },
+      "solution_size": 100,
+      "bits_per_float": 20,
+      "solution_number": 1000000000,
+      "evaluations_number": 100000,
+      "evaluation_history": { "type": "linear", "precision": "10" },
+      "iterations_number": 1000000000,
+      "time_limit": 600
+    },
+    "runs": [
+      {
+        "identifier": "ga-rastrigin",
+        "algorithm": "ga",
+        "population_size": 25,
+        "cross_factor": 0.55,
+        "mutation_factor": 0.05
+      },
+      {
+        "identifier": "pga-rastrigin",
+        "algorithm": "pga",
+        "cross_factor": 0.40,
+        "mutation_factor": 0.10
+      },
+      {
+        "identifier": "cga-rastrigin",
+        "algorithm": "cga",
+        "population_size": 680
+      },
+      {
+        "identifier": "pcga-rastrigin",
+        "algorithm": "pcga"
+      },
+      {
+        "identifier": "p3-rastrigin",
+        "algorithm": "p3"
+      }
+    ]
+  }
+}

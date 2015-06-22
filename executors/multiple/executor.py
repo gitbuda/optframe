@@ -48,7 +48,14 @@ def execute(algorithms, problems, config):
             container.results[identifier].fitness_container.append(fitness)
             container.results[identifier].evaluations_container.append(
                 evaluator.evaluation_counter.evaluations_number)
+            container.results[identifier].evaluation_history = \
+                algorithm_config.best_store.history
             container.problem_variants.add(solution_size)
+
+            # evaluation history
+            # evaluator = algorithm_config.evaluate_operator
+            # history = evaluator.evaluation_history.history
+            # print map(lambda x: x.fitness.value, history)
 
     # write results
     write(container)

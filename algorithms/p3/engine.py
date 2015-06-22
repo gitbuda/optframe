@@ -26,6 +26,7 @@ def run(context):
     identifier = setter(lambda: context.config.identifier, None)
     evaluator = context.evaluate_operator
     best_store = context.best_store
+    best_store.evaluator = evaluator
     solution_operator = context.solution_operator
     iteration_counter = context.iteration_counter
     collection_operator = context.collection_operator

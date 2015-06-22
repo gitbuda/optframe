@@ -58,8 +58,8 @@ class Limit():
             log.info(evalue)
         # if all((etype, evalue, etraceback)):
         #     raise etype, evalue, etraceback
-        # import traceback
-        # traceback.print_exc()
+        import traceback
+        traceback.print_exc()
         return True
 
     def raise_timeout(self, *args):

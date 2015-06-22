@@ -33,15 +33,15 @@ Default config file is config.json.
 
 * Boolean
 * Capacited Vehicle Routing Problem
+* Continuous optimization: Rastring, Schwefel, Griewank, Whitley, Rosenbrock
 * Deceptive Trap
 * Deceptive Step Trap
 * Leading Ones
 * Max Sat
 * One Max
 * Pipeline
-* Rastrigin
-* Schwefel
-* TSP: Bays 29, Oliver 30
+* TSP:
+ * TSPLib: burma14, bays29, oliver30, brazil58, bier127, pr264, att532
 
 ## Dependencies:
 

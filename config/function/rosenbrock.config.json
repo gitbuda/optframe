@@ -1,0 +1,47 @@
+{
+  "multiple": {
+    "common": {
+      "run_number": 1,
+      "problem": "function",
+      "function": "rosenbrock",
+      "minimum": -2.048,
+      "maximum": 2.048,
+      "solution_structure": { "bit": { "size": 100 } },
+      "solution_size": 100,
+      "bits_per_float": 20,
+      "solution_number": 1000000000,
+      "evaluations_number": 100000,
+      "evaluation_history": { "type": "linear", "precision": "10" },
+      "iterations_number": 1000000000,
+      "time_limit": 600
+    },
+    "runs": [
+      {
+        "identifier": "ga-rosenbrock",
+        "algorithm": "ga",
+        "population_size": 25,
+        "cross_factor": 0.55,
+        "mutation_factor": 0.05
+      },
+      {
+        "identifier": "pga-rosenbrock",
+        "algorithm": "pga",
+        "cross_factor": 0.40,
+        "mutation_factor": 0.10
+      },
+      {
+        "identifier": "cga-rosenbrock",
+        "algorithm": "cga",
+        "population_size": 680
+      },
+      {
+        "identifier": "pcga-rosenbrock",
+        "algorithm": "pcga"
+      },
+      {
+        "identifier": "p3-rosenbrock",
+        "algorithm": "p3"
+      }
+    ]
+  }
+}

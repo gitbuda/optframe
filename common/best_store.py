@@ -24,6 +24,7 @@ class BestStore(object):
         self.best_solution = None
         self.best_config = None
         self.fitness_limit = None
+        self.evaluator = None
 
     def best(self, evaluator=None):
         # TODO: remove evaluator from here
@@ -53,6 +54,8 @@ class BestStore(object):
                 self.fitness_limit = Fitness(fitness_limit_value, MIN)
             elif fitness_limit_category_name == MAX_NAME:
                 self.fitness_limit = Fitness(fitness_limit_value, MAX)
+        # best store history
+        self.history = []
 
     def try_store(self, solution, config=None):
         '''
@@ -66,6 +69,10 @@ class BestStore(object):
             log.info('Best solution is now: %s' % solution.container)
             log.info('Best solution has now fitness: %s' %
                      (solution.fitness.value))
+
+            if self.evaluator is not None:
+                eval_no = self.evaluator.evaluation_counter.evaluations_number
+                self.history.append((eval_no, solution.fitness.value))
 
             if self.fitness_limit is not None and \
                self.best_solution.fitness >= self.fitness_limit:

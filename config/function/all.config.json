@@ -1,0 +1,53 @@
+{
+  "multiple": {
+    "common": {
+      "run_number": 1,
+      "problem": "function",
+      "solution_structure": { "bit": { "size": 100 } },
+      "solution_size": 60,
+      "bits_per_float": 20,
+      "solution_number": 1000000000,
+      "evaluations_number": 1000000000,
+      "iterations_number": 1000000000,
+      "population_size": 50,
+      "time_limit": 30
+    },
+    "runs": [
+      {
+        "identifier": "ga-rastrigin",
+        "algorithm": "ga",
+        "function": "rastrigin",
+        "minimum": -5.12,
+        "maximum": 5.12
+      },
+      {
+        "identifier": "ga-schwefel",
+        "algorithm": "ga",
+        "function": "schwefel",
+        "minimum": -512,
+        "maximum": 512
+      },
+      {
+        "identifier": "ga-griewank",
+        "algorithm": "ga",
+        "function": "griewank",
+        "minimum": -512,
+        "maximum": 512
+      },
+      {
+        "identifier": "ga-whitley",
+        "algorithm": "ga",
+        "function": "whitley",
+        "minimum": -10.24,
+        "maximum": 10.24
+      },
+      {
+        "identifier": "ga-rosenbrock",
+        "algorithm": "ga",
+        "function": "rosenbrock",
+        "minimum": -2048,
+        "maximum": 2048
+      }
+    ]
+  }
+}

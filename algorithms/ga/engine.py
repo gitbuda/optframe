@@ -48,6 +48,7 @@ def run(context):
     best_to_next_number = context.best_to_next_number
     iteration_counter = context.iteration_counter
     best_store = context.best_store
+    best_store.evaluator = evaluator
 
     # the algorithm has execution limits, when any of
     # these limit is reached the Limit object will

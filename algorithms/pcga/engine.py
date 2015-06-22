@@ -52,6 +52,7 @@ def run(context):
     solution_size = context.solution_size
     evaluator = context.evaluate_operator
     best_store = context.best_store
+    best_store.evaluator = evaluator
 
     with Limit(context.config):
 

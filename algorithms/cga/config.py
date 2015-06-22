@@ -5,6 +5,7 @@ Compact Genetic Algorithm config
 '''
 
 import logging
+from common.best_store import BestStore
 
 log = logging.getLogger(__name__)
 
@@ -30,5 +31,8 @@ class Config(object):
         self.solution_size = int(self.config.solution_size)
         self.population_size = int(self.config.population_size)
         self.iterations_number = int(self.config.iterations_number)
+
+        self.best_store = BestStore()
+        self.best_store.configure(self.config)
 
         log.info('CGA Config End')

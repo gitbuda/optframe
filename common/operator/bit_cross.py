@@ -9,6 +9,7 @@ import random
 
 from common.operator.cross.ux import UXCrossOperator
 from common.operator.cross.twopoint import TwoPointCrossOperator
+from common.operator.cross.onepoint import OnePointCrossOperator
 
 
 class BitCrossOperator(object):
@@ -19,6 +20,7 @@ class BitCrossOperator(object):
         '''
         self.operators = []
         self.operators.append(UXCrossOperator(cross_factor))
+        self.operators.append(OnePointCrossOperator(cross_factor))
         self.operators.append(TwoPointCrossOperator())
         self.operators_range = len(self.operators) - 1
 

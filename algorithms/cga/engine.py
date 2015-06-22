@@ -20,9 +20,8 @@ def run(context):
     population_size = context.population_size
     iterations_number = context.iterations_number
     evaluator = context.evaluate_operator
-
-    best_store = BestStore()
-    best_store.configure(context.config)
+    best_store = context.best_store
+    best_store.evaluator = evaluator
 
     with Limit(context.config):
 

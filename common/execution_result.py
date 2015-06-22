@@ -11,3 +11,4 @@ class ExecutionResult(object):
         '''
         self.fitness_container = []
         self.evaluations_container = []
+        self.evaluation_history = {}

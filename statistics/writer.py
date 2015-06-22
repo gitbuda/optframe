@@ -105,6 +105,19 @@ def write_linelogy(container, prefix):
     output.store(file_name)
 
 
+def write_history(container, prefix):
+    '''
+    '''
+    file_name = unique_path('output', prefix)
+    output = DictWrapper({})
+    output.hard_set('xname', '')
+    output.hard_set('yname', '')
+    output.hard_set('data', {})
+    for key in container.results.keys():
+        output.data.hard_set(key, container.results[key].evaluation_history)
+    output.store(file_name)
+
+
 def write(container):
     '''
     Write all
@@ -114,6 +127,7 @@ def write(container):
     write_fitboxplot(container.results, 'fitness_boxplot',
                      container.common_identifier)
     write_linelogy(container, 'linelogy')
+    write_history(container, 'history')
 
 
 if __name__ == '__main__':

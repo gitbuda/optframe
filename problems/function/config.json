@@ -1,0 +1,9 @@
+{
+  "solution_structure": { "bit": { "size": 100 } },
+  "solution_size": 100,
+  "bits_per_float": 20,
+  "fitness_limit": { "value": 0.000001, "category": "min" },
+  "precision": 65536,
+  "minimum": -5.12,
+  "maximum": 5.12
+}

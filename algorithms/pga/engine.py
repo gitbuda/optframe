@@ -30,6 +30,7 @@ def run(context):
     selection_operator = context.selection_operator
     local_search = context.local_search
     best_store = context.best_store
+    best_store.evaluator = evaluator
     iteration_counter = context.iteration_counter
 
     with Limit(context.config):
@@ -46,7 +47,7 @@ def run(context):
             else:
                 solution = init_solution_operator.generate(1)[0]
             solution.fitness = evaluator.evaluate(solution)
-            solution = local_search.search(solution)
+            # solution = local_search.search(solution)
 
             solution_tuple = solution.create_tuple()
             if solution_tuple not in solutions:
